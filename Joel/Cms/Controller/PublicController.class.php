@@ -32,7 +32,7 @@ class PublicController extends BaseController {
             $user=M('User')->where(array('username'=>$data['username']))->find();
 
             if($user){
-                $this->error('改用户名已被注册，请重新选择');
+                $this->error('改用户名已被注册，请重新选择!');
             }else{
                 $data1['username'] = $data['username'];
                 $data1['userpass'] = md5($data['password']);
@@ -55,7 +55,7 @@ class PublicController extends BaseController {
                     $this->redirect(U('/Cms/Index/index'));
 
                 }else{
-                    $this->error("注册失败，请联系管理员");
+                    $this->error("注册失败，请联系管理员!");
                 }
 
 
@@ -114,7 +114,7 @@ class PublicController extends BaseController {
             $user=M('User')->where(array('username'=>$data['username']))->find();
 
             if($user){
-                $reg['msg'] = '该用户名已被注册，请重新选择';
+                $reg['msg'] = '该用户名已被注册，请重新选择!';
             }else{
                 $reg['msg'] = "ok";
             }
