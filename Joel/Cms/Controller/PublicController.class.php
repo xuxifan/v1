@@ -29,10 +29,11 @@ class PublicController extends BaseController {
             }
             $verify = new \Think\Verify();
 
+
             $user=M('User')->where(array('username'=>$data['username']))->find();
 
             if($user){
-                $this->error('改用户名已被注册，请重新选择!');
+                $this->error('改用户名已被注册，1请重新选择!');
             }else{
                 $data1['username'] = $data['username'];
                 $data1['userpass'] = md5($data['password']);
