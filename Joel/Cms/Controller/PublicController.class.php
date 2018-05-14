@@ -122,6 +122,23 @@ class PublicController extends BaseController {
 
         }
     }
+
+    public function checkusername2()
+    {
+        $reg = array();
+        if(IS_AJAX){
+            $data = I("post.");
+            $user=M('User')->where(array('username'=>$data['username']))->find();
+
+            if($user){
+                $reg['msg'] = '该用户名已被注册，请重新选择';
+            }else{
+                $reg['msg'] = "ok";
+            }
+            echo json_encode($reg);
+
+        }
+    }
 	
 	public function logout(){
 		//追入操作员日志
