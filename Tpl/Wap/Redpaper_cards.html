@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+<head>
+    <title>购买红包</title>
+    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+	    <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/style.css" />
+	    <link rel="stylesheet" href="__PUBLIC__/wap/css/redpaper.css"/>
+	    <link rel="stylesheet" href="__PUBLIC__/wap/css/weui.css"/>
+	    <!--组件依赖js begin-->
+	    <script src="__PUBLIC__/wap/gmu/zepto.min.js"></script>
+	    <!--组件依赖js end-->		
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+		</head> 
+		<body>
+			<div class="J-wrap">
+				<div class="tuan-tu">
+					<img src="{$cache['imgurl']}" width="100%">
+				</div>
+				<div>
+					<div class="buy_content">
+						<div class="buy_left fl">产品：</div>
+						<div class="fl">卡主红包</div>
+						<div class="clr"></div>
+					</div>
+					<div class="buy_content">
+						<div class="buy_left fl">等级：</div>
+						<div class="fl level">
+							<div class="fl buy_btn level1"><i class="iconfont hide">&#xe645;</i>一级红包</div>
+							<div class="fl buy_btn level2"><i class="iconfont hide">&#xe645;</i>二级红包</div>
+							<div class="fl buy_btn level3"><i class="iconfont hide">&#xe645;</i>三级红包</div>
+						</div>
+						<div class="clr"></div>
+					</div>
+					<div class="buy_content">
+						<div class="buy_left">规则介绍：</div>
+						<div class="buy_right">{$cache.content|htmlspecialchars_decode}</div>
+						<div class="clr"></div>
+					</div>
+				</div>
+				<div class="buy_bottom_box"></div>
+				<div class="buy_bottom bg_color1">
+					<div class="width60 padd fl">
+						<div class="fl" style="width:15%"><i class="iconfont i-size no-check agree_icon">&#xe656;</i></div>
+						<div class="fonts1 color8 underline fl" style="width:85%;height: 40px;line-height: 40px">同意《集市客协议》</div>
+						<div class="clr"></div>
+						<div class="fl buy-it">总价：<span class="red-price"></span>&nbsp;元</div>
+	                </div>
+					<a class="buy fr disabled">立即购买</a>
+				</div>
+			</div>
+		<script>
+			$(function(){
+				var level=0;
+				var agree=0;
+				// 遍历红包价格
+				var price1=["{$cache.price1}","{$cache.price2}","{$cache.price3}"];
+				var tourl="{:U('wap/redpaper/buy')}";
+				$(".level div").click(function(){
+					$(".level div").removeClass('bg_checked').find('i').addClass('hide');
+					var index=$(this).index();
+					$(".red-price").html(price1[index]);
+					level=index+1;
+					for(var i=0;i<=index;i++){
+						$(".level div").eq(i).addClass('bg_checked').find('i').removeClass('hide');
+					}
+					checkbuy();
+				})
+				$(".agree_icon").click(function(){
+					if($(this).hasClass('checked')){
+						agree=0;
+						$(this).removeClass('checked').addClass('no-check');
+					}else{
+						agree=1;
+						$(this).removeClass('no-check').addClass('checked');
+					}
+					checkbuy();
+				})
+				function checkbuy(){
+					if(level!=0 && agree==1){
+						if("{$vip['status']}"==='0'){
+							alert("请先发送您之前购买的红包！");
+							return false
+						}
+						// 身份验证
+						if("{$ischeckid}"==1){
+							$.ajax({
+								type:"post",
+								url:"{:U('Wap/redpaper/checkidentify')}",
+								success:function(info){
+									if(!info['status']){
+										Joel_gmuMsg(info['msg'],checkidfun);
+										return false;
+									}else{
+										buy();
+									}
+								},
+								error:function(xh,obj){
+									Joel_gmuMsg('通讯失败，请重试！');
+								}
+							});
+						}else{
+							buy();
+						}
+						// 身份验证
+						
+					}else{
+						if(!$('.buy').hasClass('disabled')){
+							$('.buy').addClass('disabled').removeAttr('href');
+						}
+					}
+				}
+				// 作者：郑伊凡 2016-1-20 母版本 功能：检测身份认证
+				var checkidfun = function (){
+					window.location.href="{:U('wap/vip/info')}";
+				}
+				var buy = function(){
+					if(level>"{$vip['level']}"){
+						turl=tourl+'/level/'+level+'/agree/'+agree;
+						$('.buy').removeClass('disabled').attr('href',turl);
+					}else{
+						alert("您已购买过{$vip['level']}级红包，请选择等级更高的红包");
+					}
+				}
+			})
+		</script>
+		<!--新版分享特效-->
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var share_url = "{$_SESSION['WAP']['shopset']['url']}/Wap/redpaper/index/ppid/{$_SESSION['WAP']['vipid']}";
+			var share_title="{$_SESSION['WAP']['shopset']['redtitle']}";
+			var share_content="{$_SESSION['WAP']['shopset']['redmsg']}";
+			var share_img="{$_SESSION['WAP']['shopset']['url']}{$shareimg}";
+			
+		  wx.config({
+		      debug: false,
+		      appId: "{$jsapi['appId']}",
+			  timestamp: "{$jsapi['timestamp']}",
+			  nonceStr: "{$jsapi['nonceStr']}",
+			  signature: "{$jsapi['signature']}",
+		      jsApiList: [
+		        'checkJsApi',
+		        'onMenuShareTimeline',
+		        'onMenuShareAppMessage',
+		        'onMenuShareQQ',
+		        'onMenuShareWeibo',
+		        'hideMenuItems',
+		        'showMenuItems',
+		        'hideAllNonBaseMenuItem',
+		        'showAllNonBaseMenuItem',
+		//      'translateVoice',
+		//      'startRecord',
+		//      'stopRecord',
+		//      'onRecordEnd',
+		//      'playVoice',
+		//      'pauseVoice',
+		//      'stopVoice',
+		//      'uploadVoice',
+		//      'downloadVoice',
+		//      'chooseImage',
+		//      'previewImage',
+		//      'uploadImage',
+		//      'downloadImage',
+		//      'getNetworkType',
+		//      'openLocation',
+		//      'getLocation',
+		//      'hideOptionMenu',
+		//      'showOptionMenu',
+		//      'closeWindow',
+		//      'scanQRCode',
+		//      'chooseWXPay',
+		//      'openProductSpecificView',
+		//      'addCard',
+		//      'chooseCard',
+		//      'openCard'
+		      ]
+		  });
+		  
+		  wx.ready(function () {
+			  	//开启菜单
+			  	wx.showOptionMenu();
+			  	//隐藏菜单
+			  	//wx.hideOptionMenu();
+			    //分享给朋友
+			    wx.onMenuShareAppMessage({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击发送给朋友');
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到朋友圈
+			    wx.onMenuShareTimeline({
+			      title: share_title,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到朋友圈');
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到QQ
+			    wx.onMenuShareQQ({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到QQ');
+			      },
+			      complete: function (res) {
+			        //alert(JSON.stringify(res));
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+		  });
+		</script>
+	</body>
+
+</html>

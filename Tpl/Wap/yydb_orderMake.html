@@ -1,0 +1,266 @@
+<!doctype html>
+<html>
+<head>
+    <title>一元夺宝-订单确认</title>
+    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/fxstyle.css" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/weui.min.css"/>
+	    <link rel="stylesheet" href="__PUBLIC__/wap/css/weui.css"/>
+	    <link rel="stylesheet" href="__PUBLIC__/wap/css/example.css"/>
+	    <!--组件依赖js begin-->
+	    <script src="__PUBLIC__/wap/gmu/zepto.min.js"></script>
+	    <!--组件依赖js end-->		
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+    	<style>
+    	.FL{
+    		float:left;
+    	}
+    	.FR{
+    		float:right;
+    	}
+			.ads-inp{
+			    line-height: 20px;
+			    width: 60%;
+			    text-align: right;
+			}
+			.ts{
+				display: none;
+				line-height: 10px;
+    			font-size: 10px;
+    			text-align: -webkit-right;
+			}
+			
+			.zt_cancel{
+				position: absolute;
+				top:0px;
+				right:0px;
+			}
+			.frpotions{
+				float: right;
+			    display: inline-block;
+			    font-size: 13px;
+			}
+		</style>
+</head>
+<body class="back1 color6">
+		<form action="" method="post" id="orderform">
+		<!-- 地址  -->
+		<div class="ads-hd border-b1 back2 ovflw mr-b">
+			<div class="ads-line"></div>
+			<a href="#" class="ads-chs" id="changeaddress">
+				<empty name="vip">
+					请选择收货地址<i class="iconfont fr">&#xe6a3</i>
+					<else/>
+					收货人：{$vip.name}&nbsp;&nbsp;&nbsp;{$vip.mobile}<i class="iconfont fr">&#xe6a3</i>
+					<p class="fonts9">收货地址：{$vip.provtext}-{$vip.address}</p>
+				</empty>
+			</a>
+			<input type="hidden" name="sid" value="{$sid}">
+			<input type="hidden" name="paytype" value="" id="paytype">
+			<input type="hidden" name="vipid" value="{$vip.vipid}" id="ordervip">
+			<input type="hidden" name="vipopenid" value="{$_SESSION['WAP']['vip']['openid']}">
+			<input type="hidden" name="vipname" value="{$vip.name}">
+			<input type="hidden" name="tqtype" id="tqtype">
+			<input type="hidden" name="vipaddress" value="{$vip.provtext}-{$vip.address}">
+			<input type="hidden" name="vipmobile" value="{$vip.mobile}">
+			<input type="hidden" name="totalnum" value="{$totalnum}">
+			<input type="hidden" name="totalprice" value="{$totalprice}">
+			<input type="hidden" name="goodsid" value="{$goods.id}">
+			<input type="hidden" name="heavy" value="{$heavy}">
+			<input type="hidden" name="yf" value="0">
+			<textarea name="items" style="display: none;">{$allitems}</textarea>
+			<input type="hidden" name="sid" value="{$sid}">
+		</div>
+		<!-- 商品明细  -->
+		<div class="ads-lst border-t1 border-b1 ovflw mr-b back2">
+			<p class="ads-tt border-b1">商品明细</p>
+			<foreach name="cache" item="vo">
+				<div class="ads_orinfo ads_padding3 ovflw border-b1">
+					<div class="ads_orinfol ovflw fl">
+						<div class="ads_or_img fl">
+							<!-- 图片大小为147*101 -->
+							<img src="{$vo.pic}"/>
+						</div>
+						<h3>{$vo.name}</h3>
+						<p class="color3 fonts2">{$vo.skuattr}</p>
+					</div>
+					<div class="ads_orprice ovflw ">
+						<p ><em class="fonts85">￥</em><em class="fonts18">{$vo.yprice}</em></p>
+						<p class="ads_ornum fonts85">X{$vo.num}</p>
+					</div>
+				</div>				
+			</foreach>
+			<!--<p class="border-b1 ads_ortt3 fonts85 ads"><input type="text" name="msg" class="ads_orinput" placeholder="给卖家留言"/></p>-->
+			<p class=" ads_ortt3 fonts85 ovflw">
+				<span class="fr ">共{$totalnum}件商品&nbsp;&nbsp;&nbsp;&nbsp;商品：
+					<em class="fonts18 color3">
+						￥<b class="totalprice">{$totalprice}</b>
+					</em>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<!--邮费：<em class="fonts18 color3">￥<b class="youfei">0</b>-->
+						
+					</em>
+				</span>
+			</p>
+		</div>
+		</form>
+		<!--提货方式-->
+		<!--<eq name="iszt" value="1">
+			<div class="ads-lst border-t1 border-b1 ovflw mr-b back2">
+				<p class="ads-tt border-b1">提货方式</p>
+				<div class="ads_pay2 ovflw ads_border_dashed" data-disable="{$isyue}" id="x1">
+					<span class="iconfont fl ads_pay2_lineh dtl_mar1">&#xe656</span>
+					<p class="ads_pay2_lineh">邮寄</p>
+				</div>
+				<div class="ads_pay2 ovflw" data-disable="0" id="x2">
+					<span class="iconfont fl ads_pay2_lineh dtl_mar1">&#xe656</span>
+					<p class="ads_pay2_lineh FL" style="width:60%" id="">自提</p>
+					<div class="button_sp_area" style="margin:6px 0 0 0">
+				        <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary" id="showdialog2">自提说明</a>
+				    </div>
+				</div>	
+			</div>-->
+		<!--自提说明弹窗-->
+			<!--<div class="weui_dialog_alert" id="dialog2" style="display:none;position: relative;">
+		        <div class="weui_mask" style="z-index: 10000;background: rgba(0, 0, 0, 0.94)"></div>
+		        <div class="weui_dialog" style="z-index: 10004;">
+		        	<i class="weui_icon_cancel zt_cancel" id="hidedialog2"  style="z-index: 10005;"></i>
+		            <div class="weui_dialog_hd"><strong class="weui_dialog_title">自提说明</strong>
+		            </div>
+		            <div class="weui_dialog_bd" style="height:150px;overflow:scroll;padding-bottom: 0.8em;text-align: left;">{$isztcon|htmlspecialchars_decode}</div>
+		        </div>
+	    	</div>
+		</eq>-->
+		<div class="ads-lst border-t1 border-b1 ovflw mr-b back2 payinfo">
+			<p class="ads-tt border-b1">支付方式</p>
+			<div class="ads_pay ads_pay1 ovflw ads_border_dashed" data-paytype = "money" data-disable="{$isyue}">
+				<span class="iconfont fl ads_pay_lineh dtl_mar1">&#xe6d4</span>
+				<div class="ads_orimg fl dtl_mar1">
+					<img src="__PUBLIC__/wap/img/tue.jpg" />
+				</div>
+				<p class="ads_pay_p1 ads_pay_lineh1">余额：<i>￥{$_SESSION['WAP']['vip']['money']}</i></p>
+				<p class="ads_pay_p2 ads_pay_lineh1 color10 ads_font_size2">余额不足由其他方式支付</p>
+			</div>
+			<div class="ads_pay ads_pay1 ovflw" data-paytype = "wxpay" data-disable="0">
+				<span class="iconfont fl ads_pay_lineh dtl_mar1">&#xe656</span>
+				<div class="ads_orimg fl dtl_mar1">
+					<img src="__PUBLIC__/wap/img/wxpay.jpg" />
+				</div>
+				<p class="ads_pay_lineh">微信安全支付</p>
+			</div>
+		</div>
+		<div class="insert1"></div>
+		<div class="dtl-ft ovflw">
+				<div class=" fl dtl-icon dtl-bck ovflw">
+					<a href="javascript:history.back()">
+						<i class="iconfont">&#xe679</i>
+					</a>
+				</div>
+				<a href="#" class="fr ads-btn fonts9 back3" id="orderconfirm">确认</a>
+				
+				<span class="fr ads-sum">
+					<em class="fonts9">商品：</em>
+					<em class="fonts1">￥
+						<b class="totalprice">{$totalprice}</b>
+					</em>
+					<!--&nbsp;&nbsp;&nbsp;&nbsp;邮费：
+					<em class="fonts18 color3">￥<b class="youfei">0</b>
+					</em>-->
+				</span>
+		</div>
+		<script type="text/javascript">
+		
+			$('#showdialog2').click(function(){
+				$('#dialog2').show();
+			});
+			$('#hidedialog2').click(function(){
+				$('#dialog2').hide();
+			})
+    		
+			var sid="{$sid}";
+			var paymoney ="{$totalprice}";
+			var lasturlencode="{$lasturlencode}";
+			var paytype=$('#paytype');
+			$('#changeaddress').on('click',function(){
+				var tourl="{:U('Wap/Yydb/orderAddress',array('ids'=>$ids))}";
+				window.location.href=tourl;
+			});
+			
+//			var yf="0";
+//			$("#x1").on('click',function(){
+//				var val="youji";
+//				$("#tqtype").val(val);
+//				$(".youfei").html('0');
+//			})
+//			
+//			$("#x2").on('click',function(){
+//				var val="ziti";
+//				$("#tqtype").val(val);
+//				$(".youfei").html('0');
+//			})
+//			var iszt="{$iszt}";
+
+			$('#orderconfirm').on('click',function(){
+
+				if($('#paytype').val()==''){
+					Joel_gmuMsg('请选择支付方式！');
+					return false;
+				}
+
+				var okfun=function(){
+					$('#orderform').attr("action","");
+					$('#orderform').submit();
+				}
+				if($('#djqid').val()==0){
+					okfun();
+				}else{
+					okfun();
+				}
+				
+			});
+			
+			$('.ads_pay2').click(function(){
+				$('.ads_pay2 span').css('color',' #cfcfcf');
+				$(this).find('span').css('color',' #ff3000');
+			})
+			
+			$('.ads_pay1').click(function(){
+				var isdis=$(this).data('disable');
+				var dyje=$("#djqid option").not(function(){ return !this.selected }).data('money');
+				if(paymoney < "{$_SESSION['WAP']['vip']['money']}"){
+					isdis=0;
+				}
+				if(isdis==0){
+					var sp=$('.ads_pay1 span');
+					$(sp).css('color',' #cfcfcf');
+					$(this).find('span').css('color',' #ff3000');
+					$(paytype).val($(this).data('paytype'));
+				}else{
+					Joel_gmuMsg('您的余额不足，请使用其它方式！');
+				}
+				
+			});
+			
+		</script>
+		<script src="__PUBLIC__/wap/js/example.js"></script>
+		<!--通用分享-->
+		<include file="./Tpl/Wap/shop_share.html" />
+	</body>
+</html>

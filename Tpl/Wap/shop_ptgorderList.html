@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+<head>
+    <title>拼团购订单列表</title>
+    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/style.css" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+	    <!--组件依赖js begin-->
+	    <script src="__PUBLIC__/wap/gmu/zepto.min.js"></script>
+	    <!--组件依赖js end-->		
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+		<style>
+			a,a:hover{ text-decoration:none; color:#333}
+			
+			p {
+				margin: 0;
+			    padding: 0;
+			    border: none;
+			    outline: 0;
+			    font: inherit;
+			    vertical-align: baseline;
+				}
+			.FL{
+				float:left;
+				}
+			.FR{
+				float:right;
+				}
+			.ctu-py{
+				width:90%;
+				margin:0 auto;
+				padding:4% 5%;
+				background: #F8F8FF;
+				float:none;
+			}
+			.clear{
+				clear:both;
+			}
+			.ctu-tu{
+				width:20%;
+				height:50px;
+			}
+			.ctu-lg{
+				width:75%;
+				height:50px;
+				margin-left:3%;
+			}
+			.ctu-wen{
+				width:100%;
+			}
+			.ctu-wen p{
+				font-size: 0.8em;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display:-webkit-box;
+				-webkit-line-clamp:2;
+				-webkit-box-orient:vertical;
+			}
+			.ctu-tuan{
+				width:10%;
+				background: red;
+				border-radius: 50%;
+			}
+			.ptg-info {
+				width:100%;
+				margin:8% 0;
+				font-size: 0.725em;
+				height:35px;
+				position:relative;
+			}
+			.ptg-info div {
+				float:left;
+			}
+			.ptg-icon{
+				width:38px;
+				height:38px;
+				position:absolute;
+				top:-5px;
+				left:-5px;
+			}
+			.ptg-blank {
+				width: 60%;
+    			height: 30px;
+    			margin-top: -0.5px;
+    			margin-left: 8%;
+				background:#3e3e3e;
+				text-align: center;
+				/*padding:2% 0;*/
+				/*height:35px;*/
+			}
+			.ptg-blank p{
+				font-size: 1.2em;
+				color:#FFFFFF;
+				padding:6% 0;
+			}
+
+			.ptg-right {
+				width:26%;
+				background:#df2029;
+				margin-top: -0.5px;
+				height:30px;
+				text-align: center;
+				border-top-right-radius: 17px;
+				border-bottom-right-radius: 17px;
+			}
+			.ptg-right p{
+				font-size: 1.2em;
+				color:white;
+				padding:12% 0;
+			}
+			.ctu-ing{
+				width:100%;
+				padding:3% 0;
+				font-size:0.725em;
+				background: #F8F8FF;
+				border-top:1px solid #cccccc;
+				border-bottom:1px solid #cccccc;
+			}
+			.ctu-ing p{
+				width:24%;
+				padding:2%;
+			}
+			.ctu-ptging{
+				width:60%;
+			}
+			.ctu-txq{
+				text-align: center;
+				padding:2% 5%;
+				margin-right: 4px;
+				border:1px solid;
+				border-radius: 3px;
+			}
+			.ctu-pay{
+				text-align: center;
+				padding:2% 5%;
+				border:1px solid red;
+				border-radius: 3px;
+				color: red;
+			}
+			.ctu-pay a{
+				color: red;
+			}
+		</style>
+		
+		</head> 
+		<body>
+			
+			<volist name="cache" id="vo">
+				<div class="ctu-py">
+						<div class="ctu-tu FL"><img src="{$vo.listsrc}" width="100%"></div>
+						<div class="ctu-lg FL">
+							<div class="ctu-wen FL"><p>{$vo.name}</p></div>
+							<div class="ptg-info">
+								<div class="ptg-icon">
+									<img src="__PUBLIC__/wap/img/ptg.png" width="100%">
+								</div>
+								<div class="ptg-blank FL">
+									<p>{$vo.groupmax}人团￥{$vo.groupprice}</p>
+								</div>
+								<div class="ptg-right">
+									<p href="{:U('Wap/Ptg/index',array('sid'=>$vo['sid'],'ptgid'=>$vo['ptgid'],'isptg'=>'ptg'))}">去开团 ></p>
+								</div> 
+							</div>
+						</div>
+						<div class="clear"></div> 
+				</div>
+				<div class="ctu-ing">
+					<switch name="vo.status">
+						<case value="1">
+						<!--活动进行中-->
+						<p class="FL">团购进行中</p>
+						<div class="ctu-ptging FR">
+							<div class="ctu-txq FR">
+								<a href="{:U('Wap/shop/orderDetail',array('sid'=>$vo['sid'],'orderid'=>$vo['oid'],'isptg'=>'ptg'))}">查看订单详情</a>
+							</div>
+							<div class="ctu-txq FR">
+								<a href="{:U('Wap/Ptg/index',array('sid'=>$vo['sid'],'ptgid'=>$vo['ptgid'],'isptg'=>'ptg'))}">查看团详情</a>
+							</div>
+						</div>
+						<div class="clear"></div> 
+						</case>
+						<case value="2">
+					<!--活动结束-->
+						<p class="FL">团购已结束</p>
+						<div class="ctu-ptging FR">
+							<div class="ctu-txq FR">
+								<a href="{:U('Wap/shop/orderDetail',array('sid'=>$vo['sid'],'orderid'=>$vo['oid'],'isptg'=>'ptg'))}">查看订单详情</a>
+							</div>
+							<div class="ctu-txq FR">
+								<a href="{:U('Wap/Ptg/index',array('sid'=>$vo['sid'],'ptgid'=>$vo['ptgid'],'isptg'=>'ptg'))}">查看团详情</a>
+							</div>
+						</div>
+						<div class="clear"></div>
+						</case>
+						<case value="0">
+						<!-- 未支付 -->
+						<p class="FL">团购未支付</p>
+						<div class="ctu-ptging FR">
+							<div class="ctu-txq FR">
+								<a href="{:U('Wap/shop/orderDetail',array('sid'=>$vo['sid'],'orderid'=>$vo['oid'],'isptg'=>'ptg'))}">查看订单详情</a>
+							</div>
+							<div class="ctu-pay FR">
+								<a href="{:U('Wap/Ptg/pay',array('sid'=>$vo['sid'],'orderid'=>$vo['id']))}">支付</a>
+							</div>
+						</div>
+						<div class="clear"></div>
+						</case>
+					</switch>
+				</div>
+			</volist>
+		<!-- 底部导航 -->
+		<include file="./Tpl/Wap/shop_footer.html" />
+		<!--通用分享-->
+		<include file="./Tpl/Wap/shop_share.html" />
+	</body>
+</html>

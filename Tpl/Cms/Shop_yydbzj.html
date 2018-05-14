@@ -1,0 +1,198 @@
+ <!--百度编辑器-->
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">一元夺宝中奖人信息</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                  <input type="hidden" name="id" value="{$cache.id}">
+                  <div class="form-title">
+                        <a href="{:U('Cms/Shop/yydblist/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+
+                   <input type="hidden" name="id" id="id" value="{$cache.id}">
+					
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品名称</label>
+                        <div class="col-lg-4">
+                        	<input type="text" class="form-control" name="gname" id="gname" placeholder="必填" value="{$cache.gname}"  data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">商品总售价</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="price" id="price" placeholder="必填" value="{$cache.price}"  data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+                        </div>
+                   </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">单次价格[元]</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="yprice" placeholder="此商品参与一元夺宝的价格，比如1.00" value="{$cache.yprice}" placeholder="必填" data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">总需次数</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="num" placeholder="此商品参与一元夺宝的价格，比如1.00" value="{$cache.num}" placeholder="必填" data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">剩余次数</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="sycs" placeholder="此商品参与一元夺宝的价格，比如1.00" value="{$sycs}" placeholder="必填" data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" style="color:#FF0000">中奖人</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="num" placeholder="此商品参与一元夺宝的价格，比如1.00" value="{$yvip.nickname}" placeholder="必填" data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" style="color:#FF0000">中奖人购码</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="sells" placeholder="此商品参与一元夺宝的价格，比如1.00" value="{$yvip.code}" placeholder="必填" data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label" style="color:#FF0000">获得云购码</label>
+                        <div class="col-lg-4">
+	                        <div class="yun_ma">
+								<div style="width:250px;height:151px">
+									<!--<b class="api_b">获得云购码：</b>-->
+									<volist name="ylog" id="vo">
+										
+										<if condition="$vo['code'] eq $vcode">
+											<span style="color:red">{$vo.code}</span>
+										<else />
+											{$vo.code}
+										</if>&nbsp;&nbsp;
+									</volist>
+								</div>
+							</div>
+						</div> 
+                    </div> 
+                    
+                    <!--<div class="yun_ma">
+						<div style="width:250px;height:151px">
+							<b class="api_b">获得云购码：</b>
+							<volist name="ylog" id="vo">
+								
+								<if condition="$vo['code'] eq $vcode">
+									<span style="color:red">{$vo.code}</span>
+								<else />
+									{$vo.code}
+								</if>&nbsp;&nbsp;
+							</volist>
+						</div>
+					</div>-->
+
+                    <div class="form-title"></div>
+                    
+                    <!--<div class="form-group">
+                        <label class="col-lg-2 control-label">购买人ID</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="sells" placeholder="此商品参与一元夺宝的价格，比如1.00" value="{$order.code}" placeholder="必填" data-bv-notempty="true"                           data-bv-notempty-message="不能为空" readonly>
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">购买人昵称</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="nickname" value="{$yvip.nickname}" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">购买人联系方式</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="vipmobile"  value="{$order.vipmobile}"  readonly>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="col-lg-2 control-label">购买人收货地址</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="vipaddress" value="{$order.vipaddress}"  readonly>
+                        </div>
+                    </div>
+                 
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">购买时间</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="ctime"  value="{$yvip.ctime|date="Y-m-d H:i",###}"  readonly>
+                        </div>
+                    </div>
+                    <div class="form-title"></div>
+                   
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">支付方式</label>
+                        <div class="col-lg-4">
+                        	<select name="order.paytype" disabled>
+                        		<option value="wxpay" <eq name="order.paytype" value="wxpay">selected</eq> >微信支付</option>
+                        		<option value="money" <eq name="order.paytype" value="money">selected</eq>>余额支付</option>
+                        	</select>
+                        </div>
+                    </div>
+                   
+               </form>
+            </div>
+        </div>
+	</div>
+	<style>
+		.yun_ma {
+	    border: 5px solid #09f;
+	    height: 100px;
+	    overflow: auto;
+	    padding: 5px;
+	    width: 300px;
+	    word-break: break-all;
+	    right: 200px;
+	    top: 150px;
+	}
+	</style>
+     
+</div>
+
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+  $('#JoelForm').bootstrapValidator({
+    submitHandler: function (validator, form, submitButton) {
+        var tourl="{:U('Cms/Shop/yydblisttset')}";
+        var data=$('#JoelForm').serialize();
+        $.Joel.ajax('post',tourl,data,null);
+            return false;
+        },
+  });
+</script>
+<!--/表单验证与提交封装-->

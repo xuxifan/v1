@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <title>订单列表</title>
+    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/style.css" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/yydbcss.css" />
+	    <!--组件依赖js begin-->
+	    <script src="__PUBLIC__/wap/js/zepto.min.js"></script>
+	    <!--组件依赖js end-->		
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+    	<!--复写css-->
+		<!--<link rel="stylesheet" href="__PUBLIC__/wap/css/cxstyle.css" />-->
+		<!--复写css-->
+		<style>
+			.ads-tabs a{width: 33%;}
+		</style>
+</head>
+<body class="back1">
+		<div class="ads-tabs ovflw">
+			<a href="{:U('Wap/Yydb/yydblog',array('type'=>'zj','goodsid'=>$goodsid))}" class="fl text-c"><span <eq name='type' value='zj'>class='active'</eq>>中奖人</span></a>
+			<a href="{:U('Wap/Yydb/yydblog',array('type'=>'gr','goodsid'=>$goodsid))}" class="fl text-c "><span <eq name='type' value='gr'>class='active'</eq>>个人夺宝记录</span></a>
+			<a href="{:U('Wap/Yydb/yydblog',array('type'=>'all','goodsid'=>$goodsid))}" class="fl text-c"><span <eq name='type' value='all'>class='active'</eq>>夺宝记录</span></a>
+		</div>
+		<div class="ads-cc">
+		<volist name="cache" id="vo">
+			<div class="ads-lst border-b1 ovflw mr-b back2 color6">
+				</span></p>
+					<div class="ads_orinfo ads_padding3 ovflw border-b1">
+						<div class="ads_orinfol ovflw fl">
+							<div class="ads_or_img fl" style="padding-top: 6px;">
+								<!-- 图片大小为147*101 -->
+								<eq name="type" value="zj">
+									<s><img src="__PUBLIC__/wap/img/win.png" ></s>
+									<img src="{$vo.headimgurl}" class="headiwin"  />
+								<else />
+									<img src="{$vo.headimgurl}" style="padding: 0;" />
+								</eq>
+							</div>
+							<div class="ads_db_img fr">
+								<span style="color: #2af;">{$vo.nickname}</span>
+								
+								<if condition="$type eq 'gr'">
+									<span style="color: #999;">夺宝码： <b style="color:#f60"><empty name="vo['code']">未支付</empty>{$vo['code']}</b></span>
+									<span style="color: #999;">总共一元夺宝了<b style="color:#f60">1</b>次 </span>
+									<span style="color: #999;">{$vo.paytime|date="Y-m-d H:i:s",###}</span>
+								<elseif condition="$type eq 'zj'"  />
+									<span style="color: #999;">夺宝码： <b style="color:#f60">{$vo['code']}</b></span>
+									<span style="color: #999;">总共一元夺宝了<b style="color:#f60">1</b>次    </span>
+									<span style="color: #999;">揭晓时间： {$vo.jxsj|date="Y-m-d H:i:s",###}</span>
+									<span style="color: #999;">夺宝时间： {$vo.paytime|date="Y-m-d H:i:s",###}</span>
+								<else />
+									<span style="color: #999;">总共一元夺宝了 <b style="color:#f60">{$vo['countvip']}</b>次</span>
+									<span style="color: #999;">{$vo.paytime|date="Y-m-d H:i:s",###}</span>
+								</if>
+								
+							</div>
+						</div>
+					</div>
+			</div>
+		</volist>
+		</div>
+		<empty name="cache">
+		<div class="list_none text-c">
+			<i class="iconfont">&#xe699</i>
+			<p class="color6">暂无记录</p>
+		</div>
+		</empty>
+		<!-- 底部导航 -->
+		<include file="./Tpl/Wap/shop_footer.html" />
+		<!--通用分享-->
+		<include file="./Tpl/Wap/shop_share.html" />
+	</body>
+</html>

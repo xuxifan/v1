@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>购物车</title>
+		<include file="./Tpl/home/index_head.html" />
+	</head>
+
+	<body style="background: #f5f5f5;">
+		<!--顶部导航-->
+		<include file="./Tpl/home/index_header.html" />
+		<div class="bg_corb">
+			<!--logo和购物车title-->
+			<div class="wapper">
+				<div class="fr mygwc">
+					<a href="javascript:void(0)">
+						<img src="__PUBLIC__/home/img/gwcpic_03.png" width="34" height="26">
+						<span>我的购物车</span>
+					</a>
+				</div>
+			</div>
+			<!--主内容-->
+			<div class="wapper">
+				<div class="contenttop f_sont">
+					<ul class="GoodList" style="height: 34px;">
+						<li></li>
+						<li style="width:381px;">
+							<h1 class="f14 fl"> &nbsp;商品清单</h1>
+							<if condition="$_SESSION['SHOPSET']['isyf'] eq 1">
+								<span class="fl" style="margin-left: 10px;">发货要求：满
+									<span class="cor03">{$_SESSION['SHOPSET']['yftop']}元</span>包邮
+								</span>
+							</if>
+						</li>
+						<li style="width:151px;text-align: center;">平台价（元）</li>
+						<li style="width:205px;text-align: center;">数量</li>
+						<li style="width:118px;text-align: center;">小计（元）</li>
+						<li style="width:139px;text-align: center;">操作</li>
+					</ul>
+					<div class="gwclist">
+						<if condition='$cache eq null'>
+							<div class="empty_basket">
+								<img src="__PUBLIC__/wap/img/cart03.png" />
+								<span>您的购物车空空如也</span>
+								<a href="{:u('index/index')}">马上行动</a>
+							</div>
+							<else/>
+							<volist name='cache' id='vo'>
+								<ul class="gwcgood" style="height: 84px;">
+									<li style="width:385px;">
+										<a href="{:u('home/index/goods',array('id'=>$vo['goodsid']))}">
+											<img src="{$vo.pic}" width="63" height="63" class="fl">
+											<p class="f14">{$vo.name}</p>
+											<p class="cor01">{$vo.skuattr}&nbsp;×<em>{$vo.num}</em></p>
+										</a>
+									</li>
+									<li class="f14" style="width:151px;text-align: center;">
+										<p>{$vo.price}元</p>
+									</li>
+									<li style="width:205px;text-align: center;">
+										<p class="bsk-item" data-id="{$vo.id}" data-goodsid='{$vo.goodsid}' data-sku='{$vo.sku}' data-num='{$vo.num}' data-total='{$vo.total}' data-price='{$vo.price}' style="display: none;"></p>
+										<button class="num minus" style="background: url(__PUBLIC__/home/img/reduce_03.png);"></button>
+										<input type="text" value="{$vo.num}" class="txtnum" />
+										<button class="num plus" style="background: url(__PUBLIC__/home/img/Add_03.png);"></button>
+									</li>
+									<li class="f14" style="width:118px;text-align: center;">
+										<p class="totelmoney">{$vo.totelmoney}元</p>
+									</li>
+									<li style="width:139px;text-align: center;">
+										<button class="dele" data-id='{$vo.id}'></button>
+									</li>
+								</ul>
+							</volist>
+						</if>
+					</div>
+				</div>
+				<if condition='$cache neq null'>
+					<div style="width: 100%;height: 50px;">
+						<div class="contentmid fl">
+							<a href="{:u('index/index')}" class="f_sont">继续购物</a>
+							<span class="f_sont">&nbsp;|&nbsp;</span>
+							<a href="javascript:void(0)" class="f_sont btn-clearbasket">清空购物车</a>
+							<span class="f20 cor03 fr">&nbsp;¥<em class="summoney">{$totalprice}</em>&nbsp;</span>
+							<span class="fr f_sont f14">商品合计：</span>
+							<span class="fr f_sont f14">件商品&nbsp;&nbsp;</span>
+							<span class="fr f20 cor03">&nbsp;<em class="sumnum">{$totalnum}</em>&nbsp;</span>
+							<span class="fr f_sont f14">共</span>
+						</div>
+						<button class="sure fl" id="makeorder">确认下单</button>
+					</div>
+				</if>
+				<div class="contentbottom">
+					<!--<div class="guess">
+						<h4 class="fl">猜你喜欢</h4>
+						<a href="#" class="fr">更多</a>
+					</div>-->
+					<!--<div class="adore">
+						<ul>
+							<li>
+								<a href="#" style="margin-right: 10px;">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+							<li>
+								<a href="#" style="margin-right: 10px;">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+							<li>
+								<a href="#" style="margin-right: 10px;">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+							<li>
+								<a href="#" style="margin-right: 10px;">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+							<li>
+								<a href="#" style="margin-right: 10px;">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+							<li>
+								<a href="#" style="margin-right: 10px;">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<img src="__PUBLIC__/home/img/eg01.jpg" width="242" height="242">
+									<p>美国西北车厘子樱桃500g美国西北车厘子樱桃500g车厘子樱桃车厘子樱桃5</p>
+									<em class="f14 f_arial cor03 f_strong">￥35</em>
+								</a>
+							</li>
+						</ul>
+					</div>	-->
+				</div>
+			</div>
+		</div>
+		<include file="./Tpl/home/index_footer.html" />
+		<include file="./Tpl/home/index_rightnav.html" />
+		<script>
+			 //修改商品数量
+			$('.minus').click(function() {
+				var num = parseFloat($(this).parent('li').find('.txtnum').val());
+				if (num > 1) {
+					num--;
+					$(this).parent('li').find('.txtnum').val(num);
+					$(this).parent('li').find('.bsk-item').attr('data-num', num);
+					$(this).parent('li').parent('ul').find('.totelmoney').html((num * $(this).parent('li').find('.bsk-item').data('price')).toFixed(2));
+				}
+				summoney();
+			});
+			$('.plus').click(function() {
+				var num = parseFloat($(this).parent('li').find('.txtnum').val());
+				num++;
+				$(this).parent('li').find('.txtnum').val(num);
+				$(this).parent('li').find('.bsk-item').attr('data-num', num);
+				$(this).parent('li').parent('ul').find('.totelmoney').html((num * $(this).parent('li').find('.bsk-item').data('price')).toFixed(2));
+				summoney();
+			});
+			$('.txtnum').keyup(function() {
+				var n = $('.txtnum').val();
+				if (parseFloat(n) != n) {
+					$(this).val(1);
+				}
+				$(this).parent('li').parent('ul').find('.totelmoney').html(parseFloat($(this).val()) * $(this).parent('li').find('.bsk-item').data('price'));
+				summoney();
+			});
+			var summoney = function() {
+					$('.totelmoney');
+					$('.txtnum');
+					var sumnum = 0;
+					var summoney = 0;
+					for (var i = 0; i < $('.totelmoney').length; i++) {
+						sumnum = sumnum + parseFloat($('.txtnum:eq(' + i + ')').val());
+						summoney = summoney + parseFloat($('.totelmoney:eq(' + i + ')').html());
+					}
+					$('.sumnum').html(sumnum);
+					$('.summoney').html(summoney);
+				}
+				//清空购物车
+			$('.btn-clearbasket').click(function() {
+				$.ajax({
+					type: "post",
+					url: "{:u('index/clearbasket')}",
+					async: true,
+					success: function(e) {
+						if (e.status == 1) {
+							location.href = location.href;
+						} else {
+							alert_msg(e.msg);
+						}
+					}
+				});
+			});
+			 //删除购物车商品
+			$('.dele').click(function() {
+				var id = $(this).data('id');
+				$.ajax({
+					type: "post",
+					url: "{:u('index/delbasket')}",
+					async: true,
+					data: {
+						id: id
+					},
+					success: function(e) {
+						if (e.status == 1) {
+							location.href = location.href;
+						} else {
+							alert_msg(e.msg);
+						}
+					}
+				});
+			});
+			 //生成订单
+			$('#makeorder').on('click', function() {
+				var items = $('.bsk-item');
+				//var dt=new Array();
+				//var dt='';
+				var dt = new Object();
+				var tourl = "{:U('home/index/checkbasket',array('sid'=>0))}";
+				//保证订单生成页的返回
+				var orderurl = "{:U('home/index/orderMake',array('sid'=>0,'lasturl'=>$lasturlencode))}";
+				if (!$(items).length) {
+					alert_msg('您的购物车是空的，请先挑选商品!');
+					return false;
+				}
+				$(items).each(function() {
+					var id = $(this).data('id');
+					var num = $(this).data('num');
+					dt[id] = num;
+				});
+				$.ajax({
+					type: "post",
+					url: tourl,
+					dataType: 'json',
+					data: dt,
+					success: function(info) {
+						if (info['status'] == 3) {
+							window.location.href = basketloginurl;
+							return false;
+						} else if (info['status'] == 2) {
+							window.location.href = basketurl;
+							return false;
+						} else
+						if (info['status'] == 1) {
+							window.location.href = orderurl;
+							return false;
+						} else {
+							alert_msg(info['msg']);
+							return false;
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

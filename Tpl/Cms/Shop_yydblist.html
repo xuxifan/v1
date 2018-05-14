@@ -1,0 +1,171 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">一元夺宝列表</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="table-toolbar">
+					
+					<a href="{:U('Cms/Shop/yydblisttset/')}" class="btn btn-primary" data-loader="Joel-loader"  data-loadername="新增一元夺宝产品" <eq name="isyydb" value="0">disabled</eq> >
+						<i class="fa fa-plus"></i>新增一元夺宝产品
+					</a>
+					<span class="text darkorange" <eq name="isyydb" value="1">style="display: none;"</eq>>*请先开启一元夺宝设置</span>
+					<!--<a href="#" class="btn btn-danger" id="Joel-delall">
+						<i class="fa fa-delicious"></i>选中删除
+					</a>-->
+					<div class="pull-right" <eq name="isyydb" value="0">style="display: none;"</eq>>
+						<form id="Joel-search">
+							<label style="margin-bottom: 0px;">
+								<input name="name" type="search" class="form-control input-sm" value="{$name}" placeholder="搜索新增产品名称">
+							</label>
+							<a href="{:U('Cms/Shop/yydblist/')}" class="btn btn-success" data-loader="Joel-loader" data-loadername="一元夺宝列表" data-search="Joel-search">
+								<i class="fa fa-search"></i>搜索
+							</a>
+						</form>
+					</div>
+				</div>
+
+				<table id="Joel-table" class="table table-bordered table-hover">
+					<thead class="bordered-darkorange">
+						<tr role="row">
+							<th width="30px"><div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+									<label style="padding-left: 4px;"> <input type="checkbox" class="Joel-checkall colored-blue">
+                                     <span class="text"></span>
+									</label>                                    
+                                </div></th>
+							<th>ID</th>
+							<!--1.25 zxg 新闻添加标签-->
+							<th>商品名称</th>
+							<th>已参与/总参与</th>
+							<th>单价/元</th>
+							<th>商品总售价</th>
+							<th>状态</th>
+							<th>创建时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="cache" id="vo">
+							<tr id="item{$vo.id}">
+								<td>
+									<div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+										<label style="padding-left: 4px;"> <input name="checkvalue" type="checkbox" class="colored-blue Joel-check" value="{$vo.id}">
+	                                     <span class="text"></span>
+										</label>                                    
+	                                </div>
+								</td>
+								<td class=" sorting_1">{$vo.id}</td>
+								<td class=" ">{$vo.gname}</td>
+								<td class=" ">
+									<empty name="vo.sells">0<else />{$vo.sells}</empty>
+									/
+									<empty name="vo.num">0<else />{$vo.num}</empty>
+								</td>
+								<td class=" ">{$vo.yprice}</td>
+								<td class=" ">{$vo.price}</td>
+								<td class=" ">
+									<if condition="$vo['sells'] eq $vo['num']">
+										活动已结束
+									<else />
+										正在进行中。。
+									</if>
+									
+								</td>
+								<td class=" ">{$vo.ctime|date="Y-m-d H:i",###}</td>
+								<td class="center ">
+
+									<notempty name="vo.iswin">
+										<a href="{:U('Cms/Shop/yydbzj/',array('yid'=>$vo['id']))}" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="查看中奖人信息" <eq name="isyydb" value="0">disabled</eq>><i class="fa fa-list-alt"></i> 查看中奖人信息</a>&nbsp;&nbsp;
+									</notempty>
+									
+									<a href="{:U('Cms/Shop/yydblog/',array('yid'=>$vo['id']))}" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="查看参与夺宝记录" <eq name="isyydb" value="0">disabled</eq>><i class="fa fa-list-alt"></i> 查看参与夺宝记录</a>&nbsp;&nbsp;
+									
+									<empty name="vo.iswin">
+										<a href="{:U('Cms/Shop/yydblisttset/',array('id'=>$vo['id'],'type'=>'search'))}" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="编辑"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;
+									<else />
+										<!--<a href="{:U('Cms/Shop/yydblisttset/',array('id'=>$vo['id'],'type'=>'search'))}" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="查看详情" <eq name="isyydb" value="0">disabled</eq>><i class="fa fa-edit"></i> 查看详情</a>&nbsp;&nbsp;-->
+									</empty>
+
+									<!--<a href="{:U('Cms/Shop/delyydbs/')}" class="btn btn-danger btn-xs" data-type = "del" data-ajax="{:U('Cms/Shop/delyydbs/',array('id'=>$vo['id'],'goodsid'=>$vo['goodsid']))}" <eq name="isyydb" value="0">disabled</eq> ><i class="fa fa-trash-o"></i> 删除</a>-->
+
+								</td>
+							</tr>
+						</volist>
+												
+					</tbody>
+				</table>
+				<div class="row DTTTFooter">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--全选特效封装/全部删除-->
+<script type="text/javascript">
+	//全选
+	var checkall=$('#Joel-table .Joel-checkall');
+	var checks=$('#Joel-table .Joel-check');
+	var trs=$('#Joel-table tbody tr');
+	$(checkall).on('click',function(){
+		if($(this).is(":checked")){			
+			$(checks).prop("checked","checked");
+		}else{
+			$(checks).removeAttr("checked");
+		}		
+	});
+	$(trs).on('click',function(){
+		var c=$(this).find("input[type=checkbox]");
+		if($(c).is(":checked")){
+			$(c).removeAttr("checked");
+		}else{
+			$(c).prop("checked","checked");
+		}		
+	});
+	//全删
+	$('#Joel-delall').on('click',function(){
+		var checks=$(".Joel-check:checked");
+		var chk='';
+		$(checks).each(function(){
+			chk+=$(this).val()+',';
+		});
+		if(!chk){
+			$.Joel.alert('danger','请选择要删除的项目！');
+			return false;
+		}
+		var toajax="{:U('Cms/Shop/delyydbs')}"+"/id/"+chk;
+		var funok=function(){
+			var callok=function(){
+				//成功删除后刷新
+				$('#refresh-toggler').trigger('click');
+				return false;
+			};
+			var callerr=function(){
+				//拦截错误
+				return false;
+			};
+			$.Joel.ajax('post',toajax,'nodata',callok,callerr);
+		}						
+		$.Joel.confirm("确认要删除吗？",funok);
+	});
+</script>
+<!--/全选特效封装-->

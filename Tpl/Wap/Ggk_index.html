@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{$cjdata['title']}</title>
+		<meta charset="utf-8" />
+		<meta name="MobileOptimized" content="320">
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<meta content="telephone=no" name="format-detection" />
+		<meta content="email=no" name="format-detection" />
+		<script type="text/javascript" src="__PUBLIC__/Wap/js/zepto.min.js"></script>
+		<include file="Wgw/joelgmu" />
+		<style>
+			/******rest$通用*******/
+			html, body {
+				font-family: Microsoft YaHei, Helvitica, Verdana, Tohoma, Arial, san-serif;
+				font-size: 16px;
+				margin: 0;
+				padding: 0;
+				text-decoration: none;
+				max-width: 720px;
+				width: 100%;
+				margin: 0 auto;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			img {
+				border: none;
+				vertical-align: bottom;
+			}
+			ol, ul, li {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			b, em, i {
+				font-style: normal;
+			}
+			a {
+				color: #000000;
+				text-decoration: none;
+			}
+			.fl {
+				float: left;
+				display: inline;
+			}
+			.fr {
+				float: right;
+				display: inline;
+			}
+			.clr {
+				clear: both;
+			}
+			/*****字体图标样式******/
+			@font-face {
+				font-family: 'iconfont';
+				src: url('__PUBLIC__/wap/ggkfont/iconfont.eot'); /* IE9*/
+				src: url('__PUBLIC__/wap/ggkfont/iconfont.eot?#iefix')format('embedded-opentype'), /* IE6-IE8 */url('__PUBLIC__/wap/ggkfont/iconfont.woff') format('woff'),
+				/* chrome、firefox */url('ggkfont/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+				url('__PUBLIC__/wap/ggkfont/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+			}
+			.iconfont {
+				font-family: "iconfont" !important;
+				font-style: normal;
+				-webkit-font-smoothing: antialiased;
+				-webkit-text-stroke-width: 0.2px;
+			}
+			/*****刮刮卡样式******/
+			body {
+				background: #eae9e7;
+			}
+			.banner {
+				width: 100%;
+				position: relative;
+				margin-bottom: 10px;
+			}
+			.banner img {
+				width: 100%;
+			}
+			.gjq {
+				width: 50%;
+				height: 18%;
+				position: absolute;
+				right: 10%;
+				bottom: 6%;
+				background: #fff;
+				border-radius: 5px;
+				z-index: 99;
+				text-align: center;
+				line-height: 30px;
+				font-weight:bold;
+				font-size:large;
+				color: grey;
+			}
+			canvas {
+				width: 50%;
+				height: 18%;
+				position: absolute;
+				right: 10%;
+				bottom: 6%;
+				border-radius: 5px;
+				z-index: 100;
+			}
+			#wgw_ggk .jxsz {
+				background: #fff;
+				width: 90%;
+				margin: 0 auto;
+				border-radius: 5px;
+				box-shadow: 0 0 1px 0px rgba(0,0,0,0.1);
+				padding: 3px;
+				margin-bottom: 10px;
+			}
+			#wgw_ggk .jc_box {
+				border-radius: 5px;
+				border: 1px dashed #f1a209;
+			}
+			#wgw_ggk .tit {
+				height: 30px;
+				width: 130px;
+				display: block;
+				background: url(__PUBLIC__/wap/ggk/tit_bg1.png) right repeat-y;
+				line-height: 30px;
+				background-size: 4px 8px;
+				padding-right: 4px;
+				overflow: hidden;
+			}
+			#wgw_ggk .tit p {
+				background: #f1a209;
+				padding-left: 10px;
+				color: #fff;
+				font-size: 1.1em;
+			}
+			#wgw_ggk .tit p i {
+				padding-right: 5px;
+			}
+			#wgw_ggk .txt {
+				padding: 5px;
+				line-height: 25px;
+				font-size: 0.9em;
+				color: #37383c;
+			}
+			#wgw_ggk .txt p em {
+				color: #F00;
+			}
+			#wgw_ggk .txt p span {
+				margin-left: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wgw_ggk">
+			<div class="banner">
+				<empty name="cjdata['cjimg']['imgurl']">
+				<img src="__PUBLIC__/wap/ggk/ggk.jpg">
+				<else />
+				<img src="{$cjdata['cjimg']['imgurl']}">
+				</empty>
+				<div class="gjq">
+
+				</div>
+				<canvas />
+			</div>
+			<div class="jxsz" id="result" style="display:none">
+				<div class="jc_box">
+					<div class="txt">
+					</div>
+				</div>
+			</div>
+		
+			<notempty name="zj_res">
+			<div class="jxsz">
+				<div class="jc_box">
+					<div class="tit">
+						<p><i class="iconfont">&#xf01f6</i>已中奖品</p>
+					</div>
+					<div class="txt">
+						<!--每次抽奖消耗 <em>{$re.userscore}</em> 积分-->
+						<volist name="zj_res" id="vo">
+							<p>
+								<span>奖品：{$vo.prizename}</span><br/><span>兑换SN码：{$vo.sn}</span>
+							</p>
+						</volist>
+					</div>
+				</div>
+			</div>
+			</notempty>
+
+
+			<div class="jxsz">
+				<div class="jc_box">
+					<div class="tit">
+						<p><i class="iconfont">&#xf01f6</i>奖项说明</p>
+					</div>
+					<div class="txt">
+						<!--每次抽奖消耗 <em>{$re.userscore}</em> 积分-->
+						<volist name="prize" id="vo">
+							<p>
+								{$vo.lname}：{$vo.pname}<span>总共：{$vo.store}</span><!--<span>剩余：{$opt.lef}</span>-->
+							</p>
+						</volist>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="jxsz">
+				<div class="jc_box">
+					<div class="tit">
+						<p>
+							<i class="iconfont">&#xf00bd</i>活动说明
+						</p>
+					</div>
+					<div class="txt">
+						<p>
+							{$dzp['content']}
+						</p>
+						<p>
+							活动时间:<php>
+								$stime=date("Y-m-d H:i:s",$dzp['stime']);
+								$etime=date("Y-m-d H:i:s",$dzp['etime']);
+								if($stime!='0000-00-00 00:00:00'){
+									echo $stime;
+									echo ' 至 ';
+								}
+								if($etime!='0000-00-00'){
+									echo $etime;
+									echo ' 前截止 ';
+								}
+								if($stime=='0000-00-00 00:00:00' &&$etime=='0000-00-00 00:00:00'){
+									echo '不限';
+								}
+							</php>
+						</p>
+						<p>
+							{$re.memo}
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<notempty name="cjdata['isform']">
+			<div class="jxsz">
+				<div class="jc_box">
+					<div class="tit">
+						<p>
+							<i class="iconfont">&#xf00bd</i>填写信息
+						</p>
+					</div>
+					<div class="txt">
+						<!-- <p>
+							{$dzp['content']}
+						</p>
+						<p>
+
+						</p> -->
+						<p>
+							<form id="form-data">
+								<input type="hidden" id="id" name="vid" value="{$ac.0.v.id}">
+									
+								<if condition="$redata['dzpid'] eq ''">
+									<input type="hidden" id="lid" name="id" value="{$cjdata.id}">
+								<else />
+									<input type="hidden" id="lid" name="id" value="{$redata.dzpid}">
+								</if>
+								<volist name="ac" id="vo">
+									<p><em>{$vo.name}：</em><input class="formdata" type="{$vo.type}"  value="{$vo.v.name}" name="{$vo.fields}"></p>
+								</volist>
+								<a style="border:1px solid black;padding:0 5px;border-radius: 3px;" id="submit" href="#">提交</a>
+							</form>
+						</p>
+					</div>
+				</div>
+			</div>
+			</notempty>
+
+		</div>
+		
+		<!-- 1-13 zyf 广告 -->
+		<eq name="dzp['ifaddr']" value="1">
+		<style>
+			.act_addr{width:100%;position:fixed;bottom:0px;background-color:black;overflow: hidden;}
+			.act_addr .close{padding:0 5px;position:absolute;right:0;top:0;border:1px solid black;background-color:white;}
+		</style>
+
+		<div class="act_addr">
+			<a href="{$dzp['addrurl']}" style="display: block;height:50px;margin:0 auto;"><img src="{$dzp['addrpic']['imgurl']}"></a>
+			<div class="close"><span>X</span></div>
+			<script>
+				$(".act_addr .close").click(function(){
+					$(this).parent().remove();
+				})
+			</script>
+		</div>
+		</eq>
+		<!-- 1-13 zyf 广告 -->
+	</body>
+	<script>
+		(function(bodyStyle) {
+			var prize;
+			var isprize=0;
+			var pin;
+			var ggk_status=0;
+			var paytype=0;
+			// var res = JSON.parse('{$restaraunts}');
+			var res = JSON.parse('{$resjson}');
+			console.dir(res)
+			bodyStyle.webkitUserSelect = 'none';
+			var img = new Image();
+			var canvas = document.querySelector('canvas');
+			img.src = '__PUBLIC__/wap/ggk/webwxgeticon.jpg';
+			img.addEventListener('load', function(e) {
+				var ctx;
+				var w = $('canvas').width(), h = $('canvas').height();
+				var offsetX = canvas.offsetLeft, offsetY = canvas.offsetTop;
+				var mousedown = false;
+
+				function layer(ctx) {
+					ctx.fillStyle = 'grey';
+					ctx.fillRect(0, 0, w, h);
+				}
+
+				/**
+				 * 鼠标点下
+				 */
+				function eventDown(e) {
+					e.preventDefault();
+					mousedown = true;
+//					if(parseInt($('#score').text())<parseInt('{$re.userscore}')){
+//						return;
+//					}
+					// 是否需要填写信息
+					if("{$cjdata['isform']}"==1){
+						// 判断是否需要先填写信息
+						if("{$cjdata['isgz']}"==0){
+							// 还没填写过
+							if("{$cjdata['hastx']}"==0){
+								alert("先填写详细信息把~");
+								return false;
+							}
+						}
+					}
+
+					if(ggk_status==0){
+						// 判断抽奖次数是否足够
+						if("{$cjdata['num']}" ==0){
+							if("{$pay['type']}"!=false){
+								// 开启了继续支付抽奖
+								if(confirm("您的免费次数已经用完，是否消费{$pay['num']}{$pay['name']}，来增加一次抽奖机会？")){
+									paytype="{$pay['type']}";
+								}else{
+									return false;
+								}
+							}
+						}
+						getJg();
+					}
+				}
+
+				/**
+				 * 鼠标松开
+				 */
+				function eventUp(e) {
+					e.preventDefault();
+					mousedown = false;
+//					if(parseInt($('#score').text())<parseInt('{$re.userscore}')){
+//						Joel_gmuAlert('提示', '您的积分不足!');
+//						return;
+//					}
+					if (moveStep > 10) {
+						
+							if (isprize==1) {
+								$('#result').find('.txt').html("恭喜您中奖！兑奖码："+pin);
+								$('#result').show();
+							} 
+						
+					}
+				}
+
+				var moveStep = 0;
+				/**
+				 * 鼠标移动
+				 */
+				function eventMove(e) {
+					e.preventDefault();
+					if (mousedown) {
+						if (e.changedTouches) {
+							e = e.changedTouches[e.changedTouches.length - 1];
+						}
+						var x = (e.clientX + document.body.scrollLeft || e.pageX) - offsetX || 0, y = (e.clientY + document.body.scrollTop || e.pageY) - offsetY || 0;
+						with (ctx) {
+							beginPath()
+							arc(x, y, 15, 0, Math.PI * 2);
+							fill();
+						}
+						moveStep++;
+					}
+				}
+				canvas.width = $('canvas').width();
+				canvas.height = $('canvas').height();
+				ctx = canvas.getContext('2d');
+				ctx.fillStyle = 'transparent';
+				ctx.fillRect(0, 0, w, h);
+				layer(ctx);
+				ctx.globalCompositeOperation = 'destination-out';
+				canvas.addEventListener('touchstart', eventDown);
+				canvas.addEventListener('touchend', eventUp);
+				canvas.addEventListener('touchmove', eventMove);
+				canvas.addEventListener('mousedown', eventDown);
+				canvas.addEventListener('mouseup', eventUp);
+				canvas.addEventListener('mousemove', eventMove);
+			});
+			var token="{$dzpToken}";
+			function getJg() {
+				//获取抽奖结果
+				if (!(prize||prize==0)) {
+					$.ajax({
+						type : "post",
+						url : "{:U('Wap/Ggk/saveCjResult')}",
+						data : {
+							id : '{$cjdata.id}',
+							//uid : '{$cjdata.uid}',
+							paytype : paytype,
+							token:token,
+						},
+						dataType : 'json',
+						success : function(o) {
+							ggk_status=1;
+							if (o.status == '1') {
+								$('#result').find('.txt').html(o.info);
+								$('#result').show();
+								$('.gjq').html("Sorry~");
+							}else{
+								// o.id
+								if(o.id!=0){
+									msg=res[o.id].pname;
+									// msg=res[7].pname;
+									$('.gjq').html(msg);
+									isprize=1;
+									pin=o.sn;
+								}else{
+									//没中奖
+									$('.gjq').html("再接再厉！");
+								}
+							}
+						}
+					});
+				}
+			}
+			// if ("{$ggkdata}"!="") {
+			// 	prize=1;
+			// 	$('.gjq').html("{$ggkdata.prizename}");
+			// 	$('canvas').hide();
+			// 	if ("{$ggkdata.prizeopt}"!="") {
+			// 		$('#result').find('.txt').html("恭喜您中奖！兑奖码：{$ggkdata.pin}");
+			// 	} else {
+			// 		$('#result').find('.txt').html("很遗憾，您没有中奖！");
+			// 	}
+			// 	$('#result').show();
+			// } 
+
+			//提交用户信息
+			$('#submit').click(function(){
+				var k='0';
+				var form_input = $('.formdata');
+				form_input.each(function(a){
+					if(!form_input.eq(a).val()){
+						var v = form_input.eq(a).prev().text();
+						v = v.substring(0,-1);
+						k='1';
+					}
+				})
+				
+				if(k == '1'){
+					alert('请填写信息');
+					return false;
+				}
+				var data =$('#form-data').serialize();
+				$.ajax({
+					type:"post",
+					url:"{:U('Wap/Ggk/zjuser')}",
+					data:data,
+					async:true,
+					success : function(o) {
+						if(o.status==1){
+							alert(o.msg);
+							window.location.reload();
+						}
+					}
+				});
+			});
+
+		})(document.body.style);
+		
+		
+		function shareInfo(){
+			 	
+			 	//var uid="{$uid}";
+			 	var dzpid="{$dzpid}";
+			 	var vipid="{$vipid}";				
+				$.ajax({
+			 		type:"get",
+			 		url:"{:U('wap/Ggk/shareInfo')}",
+			 		data:{'dzpid':dzpid,'vipid':vipid},
+//			 		data:{'uid':uid,'dzpid':dzpid,'vipid':vipid},
+			 		async:true,
+			 		success:function(data){
+						//alert(data);
+						//alert(data.msg);
+//						if(data.status=='1'){
+//							alert(data.msg);
+//						}else{
+//							alert(data.msg);
+//						}
+			 		}
+			 	});
+			 	
+			}
+		
+		
+	</script>
+	
+	
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+	<script>
+		var share_url = "{$_SESSION['SET']['wxurl']}/wap/Ggk/index/id/{$dzpid}";//"{$share['url']}";
+		var share_title="{$dzp.sharetitle}";//"{$share['title']}";
+		var share_content="{$dzp.sharecontent}";//"{$share['content']}";
+		var share_img="{$_SESSION['SET']['wxurl']}{$picurl}";
+	var fxstatic=0;
+	
+  wx.config({
+      debug: false,
+      appId: "{$jsapi['appId']}",
+	  timestamp: "{$jsapi['timestamp']}",
+	  nonceStr: "{$jsapi['nonceStr']}",
+	  signature: "{$jsapi['signature']}",
+      jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+//      'translateVoice',
+//      'startRecord',
+//      'stopRecord',
+//      'onRecordEnd',
+//      'playVoice',
+//      'pauseVoice',
+//      'stopVoice',
+//      'uploadVoice',
+//      'downloadVoice',
+//      'chooseImage',
+//      'previewImage',
+//      'uploadImage',
+//      'downloadImage',
+//      'getNetworkType',
+//      'openLocation',
+//      'getLocation',
+//      'hideOptionMenu',
+//      'showOptionMenu',
+//      'closeWindow',
+//      'scanQRCode',
+//      'chooseWXPay',
+//      'openProductSpecificView',
+//      'addCard',
+//      'chooseCard',
+//      'openCard'
+      ]
+  });
+  
+  wx.ready(function () {
+	  	//开启菜单
+	  	wx.showOptionMenu();
+	  	//隐藏菜单
+	  	//wx.hideOptionMenu();
+	    //分享给朋友
+	    wx.onMenuShareAppMessage({
+	      title: share_title,
+	      desc: share_content,
+	      link: share_url,
+	      imgUrl: share_img,
+	      trigger: function (res) {
+	        //alert('用户点击发送给朋友');
+	      },
+	      success: function (res) {
+	       fxstatic==1;
+	       shareInfo();
+	      },
+	      cancel: function (res) {
+	        //alert('已取消');
+	      },
+	      fail: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+	    //分享到朋友圈
+	    wx.onMenuShareTimeline({
+	      title: share_title,
+	      link: share_url,
+	      imgUrl: share_img,
+	      trigger: function (res) {
+	        //alert('用户点击分享到朋友圈');
+	      },
+	      success: function (res) {
+	        fxstatic==1;
+	        shareInfo();
+	      },
+	      cancel: function (res) {
+	        //alert('已取消');
+	      },
+	      fail: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+	    //分享到QQ
+	    wx.onMenuShareQQ({
+	      title: share_title,
+	      desc: share_content,
+	      link: share_url,
+	      imgUrl: share_img,
+	      trigger: function (res) {
+	        //alert('用户点击分享到QQ');
+	      },
+	      complete: function (res) {
+	        //alert(JSON.stringify(res));
+	      },
+	      success: function (res) {
+	        fxstatic==1;
+	        shareInfo();
+	      },
+	      cancel: function (res) {
+	        //alert('已取消');
+	      },
+	      fail: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+  });
+</script>
+	</body>
+</html>

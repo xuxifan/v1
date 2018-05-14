@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>订单详情</title>
+		<include file="./Tpl/home/index_head.html" />
+	</head>
+
+	<body>
+		<include file="./Tpl/home/index_header.html" />
+		<!--logo和订单确认title-->
+		<div class="wapper">
+			<div class="fl logo">
+				<a href="javascript:void(0)"><!--<img src="__PUBLIC__/home/img/logo01.jpg" width="233" height="27">--></a>
+			</div>
+			<div class="fr mygwc">
+				<a>
+					<img src="__PUBLIC__/home/img/sureorder_03.png" width="24" height="26">
+					<span>订单号:{$cache.oid}</span>
+				</a>
+				<p  style="text-align: right;"><span>
+						<switch name="cache.status">
+							<case value="0">已取消</case>
+							<case value="1">待付款</case>
+							<case value="2">待发货</case>
+							<case value="3">待收货</case>
+							<case value="4">退货中</case>
+							<case value="5">已完成</case>
+							<case value="6">已关闭</case>
+							<case value="7">退货完成</case>
+						</switch>
+					</span>
+				</p>
+			</div>
+		</div>
+		<!--主内容-->
+		<div class="f_sont wapper">
+			<h4 class="f14">1.地址</h4>
+			<div class="address">
+				<ul>
+					<li id="address1">
+						<p>{$cache.vipname}</p>
+						<p>{$cache.vipmobile}</p>
+						<p>{$cache.vipaddress}</p>
+					</li>
+				</ul>
+				<br class="clear" />
+			</div>
+			<h4 class="f14">2.产品清单</h4>
+			<div class="productlist f14 fl">
+				<ul style="width: 265px;">
+					<li>产品名称</li>
+					<volist name='cache["items"]' id='vo'>
+						<li style="height: 68px;">
+							<img src="{$vo.pic}" width="58" height="58" />
+							<p>{$vo.name}</p>
+						</li>
+					</volist>
+				</ul>
+				<ul style="width: 154px;text-align: center;">
+					<li>价格</li>
+					<volist name='cache["items"]' id='vo'>
+						<li style="height: 68px;">
+							<p>平台价：{$vo.price}元</p>
+							<p class="f12 cor01" style="">{$vo.skuattr}&nbsp;</p>
+						</li>
+					</volist>
+				</ul>
+				<ul style="width: 179px;text-align: center;">
+					<li>数量</li>
+					<volist name='cache["items"]' id='vo'>
+						<li style="height: 68px;border-right: 1px solid #dcdcdc;">
+							<p>×{$vo.num}份</p>
+						</li>
+					</volist>
+				</ul>
+				<ul style="width: 122px;text-align: center;">
+					<li>合计（元）</li>
+					<li style="border-right: 1px solid #dcdcdc;" class="sum-box">
+						<p class="cor03">{$cache.totalprice}</p>
+					</li>
+				</ul>
+				<ul style="width: 245px;text-align: center;">
+					<li>备注</li>
+					<li style="" class="sum-box">
+						<textarea placeholder="请输入你的备注内容..." name="msg">{$cache.msg}</textarea>
+					</li>
+				</ul>
+			</div>
+			<h4 class="f14">3.详细信息</h4>
+			<div class="productlist f14 fl" style="line-height: 1.6em;">
+				<p style=""><span>邮费：{$cache.yf}元</span></p>
+				<p style=""><span>下单时间：{$cache.ctime|date='Y-m-d H:i:s',###}</span></p>
+				<if condition="$djq neq null">
+					<p style=""><span>使用抵用券：满￥<em>{$djq.usemoney}</em>抵￥<em>{$djq.money}</em>的抵用券一张</span></p>
+				</if>
+				<if condition="$cache['status'] gt 2">
+					<p style=""><span>快递公司：{$cache.fahuokd}</span></p>
+					<p style=""><span>快递单号：<a href="http://www.kuaidi100.com/chaxun?com={$cache.fahuokd}&nu={$cache.fahuokdnum}" style="font-weight: 800;" target="_blank">{$cache.fahuokdnum}(点击查看快递进度)</a></span></p>
+				</if>
+				<p></p>
+				<p style=""><span>备注：{$cache.msg}</span></p>
+			</div>
+			<h4 class="f14 fl">4.支付方式</h4>
+			<span class="fr f14" style="margin-right: 32px;">共 <span class="f20 f_wei cor03">{$cache.totalnum}</span> 件商品 邮费:<span class="f20 f_wei cor03"> ¥{$cache.yf} </span> 商品合计：<span class="f20 f_wei cor03">¥{$cache.payprice}</span></span>
+			<div class="payway fl">
+					<form id="paywayform" method="post">
+						<input value="{$cache['id']}" name="orderid" type="hidden" />
+						<ul class="fl" style="width: 100%;">
+							<if condition="$cache.ispay eq 1">
+								<switch name="cache['paytype']">
+								<case value="money">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_03.png" class="way" />
+									</li>
+								</case>
+								<case value="alipay">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_05.png" class="way" />
+									</li>
+								</case>
+								<case value="wxpay">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_06.png" class="way" />
+									</li>
+								</case>
+								<!--<case value="paypalpay">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_07.png" class="way" />
+									</li>
+								</case>-->
+								<default />
+								</switch>
+								<else/>
+								<li>
+									<input type="radio" name="paytype" value='money' <if condition="$cache['paytype'] eq 'money'">checked</if>/><img src="__PUBLIC__/home/img/payway_03.png" class="way" />
+								</li>
+								<!--<li>
+									<input type="radio" name="paytype" value='alipay' <if condition="$cache['paytype'] eq 'alipay'">checked</if>/><img src="__PUBLIC__/home/img/payway_05.png" class="way" />
+								</li>-->
+								<li>
+									<input type="radio" name="paytype" value='wxpay' <if condition="$cache['paytype'] eq 'wxpay'">checked</if>/><img src="__PUBLIC__/home/img/payway_06.png" />
+								</li>
+								<!--<li>
+									<input type="radio" name="paytype" value='paypalpay' <if condition="$cache['paytype'] eq 'paypalpay'">checked</if> /><img src="__PUBLIC__/home/img/payway_07.png" />
+								</li>-->
+							</if>
+						</ul>
+					</form>
+				<button class="fl backgwc f14" onclick='history.back()'>返回订单列表</button>
+				<if condition="$cache.ispay neq 1">
+					<button class="fr submitorder f18 f_wei" id="paybtn" data-paytype="{$cache.paytype}">确认订单</button>
+				</if>
+			</div>
+		</div>
+		<include file="./Tpl/home/index_footer.html" />
+		<include file="./Tpl/home/index_rightnav.html" />
+		<script>
+			$('.sum-box').height(79 * parseInt('{:count($cache["items"])}') - 11);
+			var nowtype = "{$cache.paytype}";
+			var paybtn = $('#paybtn');
+			var oid = "{$cache.oid}";
+			$('#cc' + nowtype).css('color', ' #ff3000');
+			$('.ads_pay').click(function() {
+				var isdis = $(this).data('disable');
+				if (isdis == 0) {
+					$(paybtn).data('paytype', $(this).data('paytype'));
+				} else {
+					alert_msg('您的余额不足，请使用其它方式！');
+				}
+			});
+			$(paybtn).on('click', function() {
+				var form = $('#paywayform').serializeObject();
+				if ($("input[name='paytype']:checked").val() == undefined) {
+					alert_msg('请选择支付方式');
+					return false;
+				} else {
+					$('#paywayform').submit();
+				}
+			});
+			$('.cancel-btn').click(function() {
+				var url = $(this).attr('href');
+				alert_msg('提示', '是否取消订单?', function() {
+					location.href = url;
+				})
+				return false;
+			})
+		</script>
+
+	</body>
+
+</html>

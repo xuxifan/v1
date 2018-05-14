@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+		<script type="text/javascript">
+		</script>
+	</head>
+
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+		<div class="s_page">
+			<div class="s_MTcontent">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_moright fr font13">
+					<div class="moright-top font12">
+						<p class="fontweight">我的订单
+							<div class="fr">
+                                <span style="line-height: 25px; ">售后:</span>
+                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq4')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq4')}:41" alt="售后一号" title="鹤乡农都网站"/></a>
+                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq5')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq5')}:41" alt="售后二号" title="鹤乡农都网站"/></a>
+                                <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq6')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq6')}:41" alt="售后三号" title="鹤乡农都网站"/></a>
+                            </div>
+						</p>
+						<p>便利提醒:
+							<a href="javascript:void(0)" class="tabstatus" data-status=''>全部({$all})</a>
+							<a href="javascript:void(0)" class="tabstatus" data-status='1'>待付款({$s1})</a>
+							<a href="javascript:void(0)" class="tabstatus" data-status='2'>待发货({$s2})</a>
+							<a href="javascript:void(0)" class="tabstatus" data-status='3'>待收货({$s3})</a>
+							<a href="javascript:void(0)" class="tabstatus" data-status='5'>完成交易({$s5})</a>
+						</p>
+					</div>
+					<div class="moright-mid fl font12">
+						<div class="allordertitl">
+							<!--<a href="#" class="allorderspan">全部订单<img src="__PUBLIC__/home/img/godown_03.png" class="marginleft7"/></a>-->
+							<button class="search fr" id="btnordersearch">查&nbsp;询</button>
+							<input type="text" placeholder="输入订单编号查找" class="searchtxt fr" id="txtoid" value="{$search}" />
+						</div>
+						<div class="firstth" style="width:290px;"><span>订单信息</span></div>
+						<div class="firstth" style="width:90px;"><span>收货人</span></div>
+						<div class="firstth" style="width:98px;"><span>订单金额</span></div>
+						<div class="firstth fourthth" style="width:107px">
+							<!--<select>
+								<option>最近三个月</option>
+								<option>今年内</option>
+								<option>2014年</option>
+								<option>2013年</option>
+								<option>2012年</option>
+								<option>2012年以前</option>
+							</select>-->
+							下单日期
+						</div>
+
+						<div class="firstth fifthth" style="width:100px">
+							<!--<select>
+								<option>全部状态</option>
+								<option>等待付款</option>
+								<option>等待自提</option>
+								<option>等待收货</option>
+								<option>已完成</option>
+								<option>已取消</option>
+							</select>-->
+							订单状态
+						</div>
+						<div class="firstth fl margintop10" style="width:119px;"><span>操作</span></div>
+						<volist name='list' id='vo'>
+							<div class="orderidnum fl">
+								<span>订单编号：
+									<span style="color: #005ea7;"><a href="{:u('home/index/orderDetail',array('orderid'=>$vo['id']))}">{$vo.oid}</a></span>
+								</span>
+							</div>
+							<div class="firstproj fl">
+								<span>
+								<volist name='vo["items"]' id='vt' offset="0" length='5'>
+									<img src="{$vt.pic}" width="52px" height="52px"/>
+								</volist>
+							</span>
+							</div>
+							<div class="secondproj fl" style="width:90px;">
+								<span>{$vo.vipname}</span>
+							</div>
+							<div class="secondproj fl fontfamily" style="width:98px;">
+								<p style="margin-bottom: 4px;">¥{$vo.payprice}</p>
+								<p>
+									<switch name="vo.paytype">
+										<case value="wxpay">微信支付</case>
+										<case value="money">余额支付</case>
+										<case value="alipay">支付宝支付</case>
+										<case value="paypalpay">贝包支付</case>
+										<default />未选择
+									</switch>
+								</p>
+							</div>
+							<div class="fourthproj fl color1" style="width:107px;">
+								<p style="margin-bottom: 5px;">{$vo.ctime|date='Y-m-d',###}</p>
+								<p>{$vo.ctime|date='H:i:s',###}</p>
+							</div>
+							<div class="fourthproj fl color1" style="width:98px;">
+								<span>
+									<switch name="vo.status">
+										<case value="0">已取消</case>
+										<case value="1">待付款</case>
+										<case value="2">待发货</case>
+										<case value="3">待收货</case>
+										<case value="4">退货中</case>
+										<case value="5">已完成</case>
+										<case value="6">已关闭</case>
+										<case value="7">退货完成</case>
+									</switch>
+								</span>
+							</div>
+							<div class="fourthproj sixthproj fl" style="width:120px;">
+								<p><a href="{:u('home/index/orderDetail',array('orderid'=>$vo['id']))}">查看订单</a></p>
+								<if condition="$vo['status'] eq 3">
+									<p>
+										<button class="sureachieve" data-id='{$vo.id}'>确认收货</button>
+
+									</p>
+								</if>
+								<if condition="($vo['status'] lt 2 ) and ($vo['status'] neq 0 )">
+									<p style="margin-top: .5em;"><a href="javascript:void(0)" class="btnordercancel" data-id='{$vo.id}'>取消订单</a></p>
+									<else/>
+									<if condition="$vo[status] eq 3">
+										<span style="margin-top: .5em;"><a class="btntuihuo" href="{:u('home/vip/ordertuihuo',array('orderid'=>$vo['id']))}">退货</a></span>
+									</if>
+								</if>
+							</div>
+						</volist>
+						<br class="clear" />
+						<div class="tppage">
+							{$page}
+						</div>
+					</div>
+				</div>
+				<br class="clear" />
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+		<script>
+			$('.tabstatus').click(function() {
+				if ($(this).data('status')) {
+					location.href = "{:u('vip/order')}/s/" + $(this).data('status');
+				} else {
+					location.href = "{:u('vip/order')}";
+				}
+			});
+			$('.tabstatus[data-status="{$s}"]').css('color', '#005ea7');
+			$('#btnordersearch').click(function() {
+					var search = $('#txtoid').val()
+					var url = "{:u('vip/order')}";
+					if (search) {
+						url += '/search/' + search;
+					}
+					if ('{$s}' != '') {
+						url += '/s/{$s}';
+					}
+					url += '/p/' + ('{$p}' != '' ? '{$p}' : 1);
+					location.href = url;
+				})
+				//取消订单
+			 $('.btnordercancel').click(function() {
+				var id = $(this).data('id');
+				alert_msg("确认要取消订单?", function() {
+					$.ajax({
+						type: "post",
+						url: "{:u('home/index/orderCancel')}",
+						async: true,
+						data: {
+							orderid: id
+						},
+						success: function(e) {
+							if (e.status == 1) {
+								alert_msg(e.msg, function() {
+									location.href = location.href
+								});
+							} else {
+								alert_msg(e.msg);
+							}
+						}
+					});
+				});
+			});
+			$('.sureachieve').click(function() {
+				var id = $(this).data('id');
+				alert_dialog('确认收货?',300,50,function(){
+					$.ajax({
+						type: "post",
+						url: "{:u('home/vip/orderOK')}",
+						async: true,
+						data: {
+							orderid: id
+						},
+						success: function(e) {
+							if (e.status == 1) {
+								alert_msg(e.msg, function() {
+									location.href = location.href
+								});
+							} else {
+								alert_msg(e.msg);
+							}
+						}
+					});
+				},'是',function(){},'否');
+//				alert_msg("确认收货?", function() {
+//					$.ajax({
+//						type: "post",
+//						url: "{:u('home/vip/orderOK')}",
+//						async: true,
+//						data: {
+//							orderid: id
+//						},
+//						success: function(e) {
+//							if (e.status == 1) {
+//								alert_msg(e.msg, function() {
+//									location.href = location.href
+//								});
+//							} else {
+//								alert_msg(e.msg);
+//							}
+//						}
+//					});
+//				});
+			});
+			$('.btntuihuo').click(function() {})
+		</script>
+	</body>
+
+</html>

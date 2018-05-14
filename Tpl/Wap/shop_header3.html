@@ -1,0 +1,53 @@
+<style>
+	a.fl{
+		margin-left: 10px;
+	}
+	#J-wrap-header .iconfont {
+        color: white;
+    }
+	.seach{
+		display:inline-block;
+		line-height: 30px;
+		width: 80%;
+		text-align: -webkit-center;
+		font-size: 20px;
+	}
+</style>
+<div id="J-wrap-header">
+	<div class="J-topnav">
+		<div class="wp100" style="background: black;">
+			<a class="fl" href="#" id="J-leftnav-switch"><i class="iconfont">&#xe700; </i></a>
+			<div class="seach">
+				<span>{$indexset['name']}</span>		
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<div style="height: 3.1em;">
+	
+</div>
+<script>
+	$(function(){
+		$(window).scroll(function(){ 
+	        var srollPos = $(window).scrollTop();    //滚动条距顶部距离(页面超出窗口的高度)  
+	        if(srollPos>=300){
+	        	$('#J-wrap-header').hide();
+	        }else{
+	        	$('#J-wrap-header').show();
+	        } 
+	    });
+	});
+	  
+	$('#btn-search').click(function(){
+		var s=$('#searchword').val();
+		if(s==''){
+			Joel_gmuMsg('请填写搜索内容','请填写搜索内容!',false,function(){
+				$('.ui-btn-1').click();
+			})
+		}else{
+			location.href="{:u('shop/search')}/search/"+s;
+		}
+	});
+</script>
+	

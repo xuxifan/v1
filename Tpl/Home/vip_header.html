@@ -1,0 +1,82 @@
+<!--客服-->
+<div class="kefu">
+	<div class="kefuleft fl">
+		<p>在</p>
+		<p>线</p>
+		<p>客</p>
+		<p>服</p>
+		<p style="margin-top: 5px;"><img src="__PUBLIC__/home/img/kefu_03.png" /></p>
+	</div>
+	<div class="kefuright fr">
+		<ul>
+			<li>客服1：
+				<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq4')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq4')}:41" alt="售后一号" title="鹤乡农都网站"/></a>
+			</li>
+			<li>客服2：
+				<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq5')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq5')}:41" alt="售后二号" title="鹤乡农都网站"/></a>
+			</li>
+			<li style="margin-bottom: 0;">客服3：
+				<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq6')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq6')}:41" alt="售后三号" title="鹤乡农都网站"/></a>
+			</li>
+		</ul>
+		<span>工作时间：{:sysconfig('worktime')}</span>
+	</div>
+</div>
+<!--顶部导航-->
+<div class="top_nav_box f_sont">
+	<div class="wapper">
+		<div class="fl nav_l">
+			<if condition="$_SESSION['HOME']['vipid'] neq null">
+				<span class="title">Hi,{$_SESSION['HOME']['vip']['nickname']},欢迎来{$_SESSION['SHOPSET']['name']}！</span><a href="{:u('home/vip/logout')}">退出</a>
+				<else/>
+				<a href="{:u('home/vip/login')}" style="margin-right: 0;">登录</a><span class="xiegan">/</span>
+				<a href="{:u('home/vip/login')}">免费注册</a>
+			</if>
+		</div>
+		<div class="fr nav_r">
+			<a href="{:u('home/vip/index')}"><img src="__PUBLIC__/home/img/top_nav02.png">会员中心</a>
+			<a href="{:u('home/index/basket')}"><img src="__PUBLIC__/home/img/top_nav04.png">购物车<span class="f_arial cor07">（{$basketnum}）</span></a>
+			<a href="javascript:void(0)"><img src="__PUBLIC__/home/img/top_nav06.png">全国订购统一热线：{:sysconfig('tel')}</a>
+		</div>
+	</div>
+</div>
+<!--logo和搜索框-->
+<div class="bg_corb" style="padding-bottom: 16px;">
+	<div class="wapper">
+		<div class="fl logo">
+			<a href="{:u('home/index/index')}"><img src="__PUBLIC__/home/img/logo2.jpg" width="379" height="89"></a>
+		</div>
+		<div class="fr search_box">
+			<div class="search2">
+				<input class="f_sont fl" type="text" placeholder="请输入搜索商品关键字..." id="search-head-txt"/>
+				<button class=" cor02 font16 textc fl f_wei" id="btn-head-search">搜&nbsp;索</button>
+			</div>
+			<div class="hot_key f_sont font12">
+				 <volist name='searchwords' id='vo'>
+                    <a href="{:u('home/index/catelist',array('s'=>$vo['text']))}">{$vo.text}</a><span>|</span>
+                </volist>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('#search-head-txt').keyup(function(event) {
+		if (event.keyCode == 13) {
+			$('#btn-head-search').click();
+		}
+	});
+	$('#btn-head-search').click(function(){
+		var search=$('#search-head-txt').val();
+		if(search.length>0){
+			location.href="{:u('index/catelist')}/s/"+search;
+		}
+	})
+	//客服
+	$('.kefu').click(function() {
+		if ($(this).find('.kefuright').css('display') == 'none') {
+			$(this).find('.kefuright').show();
+		} else {
+			$(this).find('.kefuright').hide();
+		}
+	});
+</script>

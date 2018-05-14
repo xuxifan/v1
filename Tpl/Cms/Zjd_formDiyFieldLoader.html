@@ -1,0 +1,123 @@
+
+		 <div class="row">
+	        <div class="col-md-12">
+	        	<form id="JoelDiy" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+	        		<!--<div class="form-group">
+	                        <label class="col-lg-3 control-label">字段类型<sup>*</sup></label>
+	                        <div class="col-lg-5">
+	                        	<input id="JoelDiyFtype" type="text" class="form-control" value="diy" readonly="readonly">
+	                        </div>
+	                   </div>-->
+	        			<!--<div class="form-group">
+	                        <label class="col-lg-3 control-label">字段ID<sup>*</sup></label>
+	                        <div class="col-lg-5">
+	                        	<input id="JoelDiyId" type="text" class="form-control" value="{$diy}" readonly="readonly">
+	                        </div>
+	                   </div>-->
+	                   <div class="form-group">
+	                        <label class="col-lg-3 control-label">字段名称<sup>*</sup></label>
+	                        <div class="col-lg-5">
+	                        	<input id="JoelDiyName" type="text" class="form-control" value="">
+	                        </div>
+	                   </div>
+	                   <div class="form-group">
+	                        <label class="col-lg-3 control-label">字段键值<sup>*</sup></label>
+	                        <div class="col-lg-5">
+	                        	<input id="JoelDiyField" type="text" class="form-control" value="">
+	                        </div>
+	                   </div>
+	                   
+	                   <div class="form-group">
+	                        <label class="col-lg-3 control-label">内容类型<sup>*</sup></label>
+	                        <div class="col-lg-5"> 
+	                       		<select name="JoelDiyType" id="JoelDiyType">
+	                       			<option value="text">单行文本</option>
+	                       			<!--<option value="textarea">多行文本</option>
+	                       			<option value="radio">单选</option>
+	                       			<option value="checkbox">多选</option>
+	                       			<option value="select">下拉框</option>
+	                       			<option value="date">时间</option>-->
+	                       		</select>
+	                        </div>
+	                   </div>
+	                   <!--<div class="form-group">
+	                        <label class="col-lg-3 control-label">内容描述</label>
+	                        <div class="col-lg-5">
+	                        		<input id="JoelDiyPlace" type="text" class="form-control" value="" placeholder="仅单行多行文本有效" >
+	                        </div>
+	                   </div>
+	                   <div class="form-group">
+	                        <label class="col-lg-3 control-label">内容值</label>
+	                        <div class="col-lg-5">
+	                        		<input id="JoelDiyValue" type="text" class="form-control" value="" placeholder="多个值请用英文逗号‘,’分割，仅单选，多选，下拉框有效" >
+	                        </div>
+	                   </div>-->
+	                   
+	                   <div class="form-group">
+	                        <label class="col-lg-3 control-label">显示顺序</label>
+	                        <div class="col-lg-5">
+	                        		<input id="JoelDiyStatus" type="text" class="form-control" value="" placeholder="显示顺序从小到大，数字越小显示在前面" >
+	                        </div>
+	                   </div>
+	                   
+	                   <div class="form-group">
+	                        <label class="col-lg-3 control-label">提交</label>
+	                        <div class="col-lg-7">
+	                        		<button type="button" class="btn btn-primary" id="JoelDiySubmid">确认提交</button>
+	                        </div>
+	                   </div>
+	               </form>
+	        </div>
+	</div>
+<script>
+    var fbname="{$findback}";
+    var findback=$('#'+fbname);
+	var bts=$('#JoelDiySubmid');
+	$(bts).on('click',function(){
+		var id=$('#JoelDiyId').val();
+		var ftype=$('#JoelDiyFtype').val();
+		var field=$('#JoelDiyField').val();
+		var name=$('#JoelDiyName').val();
+		var type=$('#JoelDiyType').val();
+		var place=$('#JoelDiyPlace').val();
+		var value=$('#JoelDiyValue').val();
+		var status=$('#JoelDiyStatus').val();
+		if(type=='单选' || type=='多选' || type=='下拉框'){
+			if(!value){
+				alert('单选，多选下拉框必须有内容值！');
+				return false;
+			}
+		}
+		if(!name){
+			alert('请填写字段名称！');
+			return false;
+		}
+		var bt=$(this).parents('.bootbox');
+		$.ajax({
+			type:"post",
+			url:"{:U('Cms/Zjd/formFieldGethtml')}",
+			data:{'name':name,'field':field,'type':type,'place':place,'value':value,'status':status},
+			dataType: "json",
+			success:function(mb){
+				if(mb.status == '0'){
+					$.Joel.alert('danger','通讯失败！请重试！');
+				}else{
+					$(findback).append(mb);
+					$.Joel.alert('success','添加字段成功！');						
+					$(bt).remove();
+					$('.modal-backdrop').remove();
+					initFormFindback();
+				}
+				
+			},
+			error:function(xhr){
+				$.Joel.alert('danger','通讯失败！请重试！');
+			}
+		});
+		return false;
+	});
+</script>

@@ -1,0 +1,601 @@
+<style>
+	.left15{float:left !important;padding-left: 15px!important;}
+</style>
+<!--Bootstrap Date Picker-->
+<script src="__PUBLIC__/Cms/js/datetime/bootstrap-datepicker.js"></script>
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">活动设置</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                   
+                   <div class="form-title">
+                        <a href="{:U('Cms/Active/dzp/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="活动设置">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+
+                   <input type="hidden" name="id" value="{$cache.id}">  
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">活动名称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="name" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.name}">
+                        </div>
+                   </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">背景图片1</label>
+                        <div class="col-lg-4">
+                          <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" name="dzpimg1" value="{$cache.dzpimg1}" id="Joel-pic" placeholder="尺寸：720*345px">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-pic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-pic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                            </span>
+                          </div>
+                            <span class="text darkorange">&nbsp;&nbsp;&larr;重要：背景图片请切割成两份</span><br/>
+                            <span class="text darkorange">&nbsp;&nbsp;&larr;重要：尺寸：宽为：720px，高度可以更大</span>
+                        </div>
+                   </div>
+
+
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">背景图片2</label>
+                        <div class="col-lg-4">
+                          <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" name="dzpimg2" value="{$cache.dzpimg2}" id="Joel-pic2" placeholder="尺寸：720*736px">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-pic2')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-pic2',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                            </span>
+                          </div>
+                            <span class="text darkorange">&nbsp;&nbsp;&larr;重要：尺寸：宽为：720px，高度可以更大</span>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">抽奖次数<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="cjtimes" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.cjtimes}"><span class="text darkorange">&nbsp;&nbsp;&larr;重要：0为无限次</span>
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">每日抽奖次数<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="daytimes" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.daytimes}">
+                        </div>
+                   </div>
+                   
+                   <script>
+                   $(function(){
+                   	var paytype="{$cache.paytype}";
+                   	if(paytype=='sj'){
+                   		$("#shuij").css({'display':''});
+                   		$("#score").css({'display':'none'});
+                   	}else if(paytype=='jf'){
+                   		$("#shuij").css({'display':'none'});
+                   		$("#score").css({'display':''});
+                   	}else{
+                   		$("#jfhtml").val('0');
+                   		$("#sjhtml").val('0');
+                   		$("#shuij").css({'display':'none'});
+                   		$("#score").css({'display':'none'});
+                   	}
+                   })
+                   	$("#paytype").change(function(){
+                   		var paytype=$("#paytype").val();
+                   		if(paytype=='sj'){
+                   			$("#shuij").css({'display':''});
+                   			$("#score").css({'display':'none'});
+                   		}else if(paytype == 'jf'){
+                   			$("#shuij").css({'display':'none'});
+                   			$("#score").css({'display':''});
+                   		}else{
+                   			$("#jfhtml").val('0');
+                   			$("#sjhtml").val('0');
+                   			$("#shuij").css({'display':'none'});
+                   			$("#score").css({'display':'none'});
+                   		}
+                   	})
+                   </script>
+                   <!--、抽奖方式-->
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">抽奖方式</label>
+                        <div class="col-lg-4">
+                            <select class="form-control" name="paytype" id="paytype" >
+                                <option value="" >请选择</option>
+                                <option value="sj" <if condition="$cache['paytype'] eq 'sj'">selected="selected"</if>>水晶抽奖</option>
+                                <option value="jf" <if condition="$cache['paytype'] eq 'jf'">selected="selected"</if>>积分抽奖</option>
+                                </volist>
+                            </select>
+
+                        </div>
+                   
+                   </div>
+                   <div class="form-group" id="score">
+                        <label class="col-lg-2 control-label">积分抽奖消耗</label>
+                        <div class="input-group input-group-sm col-lg-1 left15">
+		                    <span class="input-group-addon">积分</span>
+		                    <input type="text" class="form-control" id="jfhtml" name="jf" value="{$cache.jf}" style="min-width: 45px;">
+		                </div>
+		                <span class="text darkorange">&nbsp;&nbsp;&larr;会员积分抽奖至少消耗1个积分。</span>
+                   </div>
+                   
+                   <div class="form-group" id="shuij" style="display: none;">
+                        <label class="col-lg-2 control-label">水晶抽奖消耗</label>
+                        <div class="input-group input-group-sm col-lg-1 left15">
+		                    <span class="input-group-addon">水晶</span>
+		                    <input type="text" class="form-control" id="sjhtml" name="sj" value="{$cache.sj}" style="min-width: 45px;">
+		                </div>
+		                <span class="text darkorange">&nbsp;&nbsp;&larr;会员水晶抽奖至少消耗1个水晶。</span>
+                   </div>
+                   
+                   
+                  <div class="form-group">
+                        <label class="col-lg-2 control-label">活动描述</label>
+                        <div class="col-lg-4">
+                        	<textarea class="form-control" name="content" rows="5">{$cache.content}</textarea>
+                        </div>
+                        <span class="text darkorange">&nbsp;&nbsp;&larr;如需换行请用;;来表示</span>
+                   </div>
+                   
+                  	<div class="form-group">
+						<label class="col-lg-2 control-label">开始时间<sup>*</sup></label>
+						<div class="col-lg-4">
+							<div class="input-group">
+								<input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" class="stime" name="stime" value="{$cache.stime|date='Y-m-d H:i:s',###}">
+								<span class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">结束时间<sup>*</sup></label>
+						<div class="col-lg-4">
+							<div class="input-group">
+								<input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" class="etime" name="etime" value="{$cache.etime|date='Y-m-d H:i:s',###}">
+								<span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+							</div>
+						</div>
+					</div>
+					
+          <div class="form-group">
+              <label class="col-lg-2 control-label">联系地址<sup>*</sup></label>
+              <div class="col-lg-4">
+              <input type="text" class="form-control" name="address" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="{$cache.address}">
+              </div>
+          </div>
+         
+          <div class="form-group">
+              <label class="col-lg-2 control-label">联系电话<sup>*</sup></label>
+              <div class="col-lg-4">
+              <input type="text" class="form-control" name="tel" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="{$cache.tel}">
+              </div>
+          </div>
+          <div class="form-group">
+			  <label class="col-lg-2 control-label">兑奖开始时间</label>
+				<div class="col-lg-4">
+					<div class="input-group">
+						<input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" class="kstime" name="kstime" value="{$cache.kstime|date='Y-m-d H:i:s',###}" >
+						<span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                        </span>
+					</div>
+				</div>
+		  </div>
+		  <div class="form-group">
+			  <label class="col-lg-2 control-label">兑奖结束时间</label>
+				<div class="col-lg-4">
+					<div class="input-group">
+						<input class="form-control date-picker" id="id-date-picker-1" type="text" data-date-format="yyyy-mm-dd hh:ii:ss" class="jstime" name="jstime" value="{$cache.jstime|date='Y-m-d H:i:s',###}">
+					<span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                     </span>
+				    </div>
+				</div>
+		  </div>          
+          <div class="form-group">
+              <label class="col-lg-2 control-label">预计第一天抽奖次数<sup>*</sup></label>
+              <div class="col-lg-4">
+              <empty name="cache['yjrs']">
+              <input type="text" class="form-control" name="yjrs" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="{$vip_num}">
+              <else />
+              <input type="text" class="form-control" name="yjrs" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="{$cache['yjrs']}">
+              </empty>
+              <span class="text darkorange">&nbsp;&nbsp;&larr;重要：关闭可控时生效：默认为网站的用户人数。</span>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-2 control-label">最低抽奖人次<sup>*</sup></label>
+              <div class="col-lg-4">
+              <empty name="cache['low']">
+              <input type="text" class="form-control" name="low" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="10">
+              <else />
+              <input type="text" class="form-control" name="low" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="{$cache.low}">
+              </empty>
+              <span class="text darkorange">&nbsp;&nbsp;&larr;重要：关闭可控时生效：如果没人抽奖的话，模拟的最低抽奖人次。默认为10。</span>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-2 control-label">人数涨幅比例<sup>*</sup></label>
+              <div class="col-lg-4">
+              <empty name="cache['updown']">
+              <input type="text" class="form-control" name="updown" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="0.8">
+              <else />
+              <input type="text" class="form-control" name="updown" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" value="{$cache.updown}">
+              </empty>
+              <span class="text darkorange">&nbsp;&nbsp;&larr;重要：关闭可控时生效：请填写1~0之间的小数，推荐0.8。</span>
+              </div>
+          </div>
+          
+          <div class="form-group">
+              <label class="col-lg-2 control-label">是否重复中奖</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="zjrepeat" value="{$cache.zjrepeat}" id="zjrepeat">
+                        <input class="checkbox-slider slider-icon colored-darkorange" id="zjrepeatbtn" type="checkbox" <eq name="cache.zjrepeat" value="1">checked="checked"</eq>>
+                        <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后中奖的用户可以继续中奖。</span>
+                  </label>
+              </div>
+          </div>
+          
+          <div class="form-group">
+              <label class="col-lg-2 control-label">是否需要关注</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="needsubscribe" value="{$cache.needsubscribe}" id="needsubscribe">
+                        <input class="checkbox-slider slider-icon colored-darkorange" id="needsubscribebtn" type="checkbox" <eq name="cache.needsubscribe" value="1">checked="checked"</eq>>
+                        <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后用户需要关注公众号后才能参与抽奖。</span>
+                  </label>
+              </div>
+          </div>
+          
+          <div class="form-group">
+              <label class="col-lg-2 control-label">是否填写信息</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="isform" value="{$cache.isform}" id="isform">
+                        <input class="checkbox-slider slider-icon colored-darkorange" id="isformbtn" type="checkbox" <eq name="cache.isform" value="1">checked="checked"</eq>>
+                        <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启填写表单后，在表单列表里面设置相应的信息。</span>
+                  </label>
+              </div>
+          </div>
+          <div id="disform">
+	          <div class="form-group" id="disform">
+	              <label class="col-lg-2 control-label">填写信息规则</label>
+	              <div class="col-lg-4">
+	                <select class="form-control" name="isgz" id="isgz" placeholder="必填"
+                                                     data-bv-notempty="true"
+                                                     data-bv-notempty-message="不能为空" >
+	                    <option value="" >请选择</option>
+	                    <option value="0" <if condition="$cache['isgz'] eq '0'">selected="selected"</if>>参加活动前</option>
+	                    <option value="1" <if condition="$cache['isgz'] eq '1'">selected="selected"</if>>参加活动后</option>
+	                    </volist>
+	                </select> <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启填写表单后，请设置填写规则。</span>
+	              </div>
+	          </div>
+          </div>
+          
+          
+          <div class="form-group">
+              <label class="col-lg-2 control-label">是否开启可控</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="ifcontrol" value="{$cache.ifcontrol}" id="ifcontrol">
+                        <input class="checkbox-slider slider-icon colored-darkorange" id="ifcontrolbtn" type="checkbox" <eq name="cache.ifcontrol" value="1">checked="checked"</eq>>
+                        <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启可控后，中奖概率将定死，商家可以根据中奖情况随时调整中奖率；关闭后，中奖概率将根据你的预算抽奖人次和每日实际抽奖人数浮动。</span>
+                  </label>
+              </div>
+          </div>
+          
+          
+          <div class="form-group">
+              <label class="col-lg-2 control-label">开启前台广告</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="ifaddr" id="ifaddr" value="{$cache.ifaddr}">
+                    <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="ifaddrbtn" <eq name="cache.ifaddr" value="1">checked="checked"</eq>>
+                    <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后将在前台显示广告。</span>
+                  </label>
+              </div>
+          </div>
+          	<div id="addrform">
+	            <div class="form-group">
+	            	<label class="col-lg-2 control-label">广告图片</label>
+		            <div class="col-lg-4">
+		              	<div class="input-group input-group-sm">
+			                <input type="text" class="form-control" name="addrpic" value="{$cache.addrpic}" id="addr-pic" placeholder="尺寸：高度50px">
+			                <span class="input-group-btn">
+			                    <button class="btn btn-default shiny" type="button" onclick="joelImgviewer('addr-pic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('addr-pic','false')"><i class="glyphicon glyphicon-picture"></i>上传</button>
+			                </span>
+		              	</div>
+		            </div>
+		        </div>
+	            <div class="form-group">
+	                <label class="col-lg-2 control-label">广告链接</label>
+	                <div class="col-lg-4">
+	                	<empty name="cache['addrurl']">
+	                		<input type="text" class="form-control" name="addrurl" placeholder="填写广告跳转页面" value="http://">
+	                	<else />
+	               			<input type="text" class="form-control" name="addrurl" placeholder="填写广告跳转页面" value="{$cache.addrurl}">
+	                	</empty>
+	                	<span class="text darkorange">&nbsp;&nbsp;&larr;重要：请以：http://www.baidu.com的格式填写。</span>
+	                </div>
+	            </div>
+          </div>
+          
+          
+           <div class="form-group">
+              <label class="col-lg-2 control-label">开启分享设置</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="isfx" id="isfx" value="{$cache.isfx}">
+                    <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="isfxbtn" <eq name="cache.isfx" value="1">checked="checked"</eq>>
+                    <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后用户可以通过分享来增加自己的抽奖机会。</span>
+                  </label>
+              </div>
+          </div>
+          <div id="fxform">
+          	<div class="form-group">
+                <label class="col-lg-2 control-label">分享次数</label>
+                <div class="col-lg-4">
+                <input type="text" class="form-control" name="prefx" placeholder="每分享多少次，可获得抽奖次数" value="{$cache.prefx}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">获得抽奖次数</label>
+                <div class="col-lg-4">
+                <input type="text" class="form-control" name="getfxtimes" placeholder="可获得多少次抽奖机会" value="{$cache.getfxtimes}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">每日最大获得抽奖的次数</label>
+                <div class="col-lg-4">
+                <input type="text" class="form-control" name="maxfxtimes" placeholder="每日最大获得抽奖的次数" value="{$cache.maxfxtimes}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">每日分享重新计数时间</label>
+                <div class="col-lg-4">
+                <input type="text" class="form-control" name="refreshtime" placeholder="每日分享重新计数时间" value="{$cache.refreshtime}">
+                <span class="text darkorange">&nbsp;&nbsp;&larr;重要：格式为xx:xx:xx；例如：08:08:08;注：请用英文的‘冒号’</span>
+                </div>
+            </div>
+          	
+         </div>
+		<div class="form-group">
+            <label class="col-lg-2 control-label">分享标题<sup>*</sup></label>
+            <div class="col-lg-4">
+            <input type="text" class="form-control" name="sharetitle" placeholder="必填"
+                                                   data-bv-notempty="true"
+                                                   data-bv-notempty-message="不能为空" value="{$cache.sharetitle}">
+            </div>
+       </div>
+       
+       <div class="form-group">
+            <label class="col-lg-2 control-label">分享内容</label>
+            <div class="col-lg-4">
+            	<textarea class="form-control" name="sharecontent" rows="5">{$cache.sharecontent}</textarea>
+            </div>
+       </div>
+       
+        <div class="form-group">
+            <label class="col-lg-2 control-label">分享图片</label>
+            <div class="col-lg-4">
+            	<div class="input-group input-group-sm">
+            		<input type="text" class="form-control" name="sharesrc" value="{$cache.sharesrc}" id="Joel-pic1" placeholder="尺寸：720*400px">
+            		<span class="input-group-btn">
+                		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-pic1')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-pic1',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+            		</span>
+            	</div>
+            </div>
+       </div>
+                   
+                   
+                   
+                   
+      <div class="form-group">
+          <label class="col-lg-2 control-label">活动状态</label>
+          <div class="col-lg-4">
+          	<label>
+          		  <input type="hidden" name="status" value="{$cache.status}" id="status">
+                    <input class="checkbox-slider slider-icon colored-darkorange" id="isstatusbtn" type="checkbox" <eq name="cache.status" value="1">checked="checked"</eq>>
+                    <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启激活本次活动。</span>
+              </label>
+          </div>
+      </div>
+			<div class="form-group">
+                <div class="col-lg-offset-2 col-lg-4">
+                     <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                </div>
+            </div>
+           </form>
+        </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--编辑器封装-->
+<script type="text/javascript">
+	var ue = UE.getEditor('J-ueditor', {
+		textarea:'content'//提交字段名，必须填写，数据库必须有此字段		
+	});	
+</script>
+<!--/编辑器封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	//是否填写信息
+	if($('#isformbtn').prop('checked')){
+		$('#disform').slideDown();
+	}else{
+		$('#disform').slideUp();
+	}
+	
+	if($('#isfxbtn').prop('checked')){
+		$('#fxform').slideDown();
+	}else{
+		$('#fxform').slideUp();
+	}
+	//是否重复中奖
+	$('#zjrepeatbtn').on('click',function(){
+      var value;
+      if($(this).prop('checked')){
+        value=1;
+      }else{
+        value=0;
+      }
+      $('#zjrepeat').val(value);
+    });
+    
+    //是否开启广告
+    if($('#ifaddrbtn').prop('checked')){
+		$('#addrform').slideDown();
+	}else{
+		$('#addrform').slideUp();
+	}
+	
+     //分享设置    
+    $('#isfxbtn').on('click',function(){
+      var control;
+      if($(this).prop('checked')){
+        	control=1;
+			$('#fxform').slideDown();
+		}else{
+			control=0;
+			$('#fxform').slideUp();
+      }
+      $('#isfx').val(control);
+    });
+    
+    
+    
+    //是否需要关注
+    $('#needsubscribebtn').on('click',function(){
+      var value;
+      if($(this).prop('checked')){
+        value=1;
+      }else{
+        value=0;
+      }
+      $('#needsubscribe').val(value);
+    });
+    
+	
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+           	var tourl="{:U('Cms/Active/dzpset')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+	//--Bootstrap Date Picker--
+    $('.date-picker').datetimepicker();
+    
+    $('#isstatusbtn').on('click',function(){
+      var value;
+      if($(this).prop('checked')){
+        value=1;
+      }else{
+        value=0;
+      }
+      $('#status').val(value);
+    });
+	
+	//是否开启可控
+    $('#ifcontrolbtn').on('click',function(){
+      var control;
+      if($(this).prop('checked')){
+        control=1;
+      }else{
+        control=0;
+      }
+      $('#ifcontrol').val(control);
+    });
+    
+   
+    //是否开启表单
+    $('#isformbtn').on('click',function(){
+      var control;
+      if($(this).prop('checked')){
+        	control=1;
+			$('#disform').slideDown();
+		}else{
+			control=0;
+			$('#disform').slideUp();
+      }
+      $('#isform').val(control);
+    });
+    
+    
+    
+    
+    $('#ifaddrbtn').on('click',function(){
+      var control;
+      if($(this).prop('checked')){
+        	control=1;
+			$('#addrform').slideDown();
+		}else{
+			control=0;
+			$('#addrform').slideUp();
+      }
+      $('#ifaddr').val(control);
+    });
+    
+  
+</script>
+<!--/表单验证与提交封装-->
+<script type="text/javascript">
+$('#isyfbtn').on('click',function(){
+		var value=$(this).prop('checked')?1:0;
+		$('#isyf').val(value);
+	});
+</script>

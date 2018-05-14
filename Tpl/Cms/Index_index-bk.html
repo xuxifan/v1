@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>..::{$_SESSION.CMS.set.name}::..</title>
+
+    <meta name="description" content="blank page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="__PUBLIC__/Cms/img/favicon.png" type="image/x-icon">
+
+    <!--Basic Styles-->
+    <link href="__PUBLIC__/Cms/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="__PUBLIC__/Cms/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="__PUBLIC__/Cms/css/weather-icons.min.css" rel="stylesheet" />
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__PUBLIC__/Cms/css/beyond.min.css" rel="stylesheet" />
+    <link href="__PUBLIC__/Cms/css/demo.min.css" rel="stylesheet" />
+    <link href="__PUBLIC__/Cms/css/typicons.min.css" rel="stylesheet" />
+    <link href="__PUBLIC__/Cms/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+    <link href="__PUBLIC__/Cms/css/joelcms.css" rel="stylesheet" />
+
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="__PUBLIC__/Cms/js/skins.min.js"></script>
+    <style>
+    	.upimgwell{margin-bottom: 0px;}
+    	.clear{ clear: both;}
+    	.FL{ float: left;}
+    	.FR{ float: right;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Loading Container -->
+    <div class="loading-container" id="Joel-loading-wrap">
+        <div class="loading-progress" id="Joel-loading">
+            <div class="rotator">
+                <div class="rotator">
+                    <div class="rotator colored">
+                        <div class="rotator">
+                            <div class="rotator colored">
+                                <div class="rotator colored"></div>
+                                <div class="rotator"></div>
+                            </div>
+                            <div class="rotator colored"></div>
+                        </div>
+                        <div class="rotator"></div>
+                    </div>
+                    <div class="rotator"></div>
+                </div>
+                <div class="rotator"></div>
+            </div>
+            <div class="rotator"></div>
+        </div>
+    </div>
+    <!--  /Loading Container -->
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-container">
+                <!-- Navbar Barnd -->
+                <div class="navbar-header pull-left">
+                    <a href="#" class="navbar-brand">
+                        <small>
+                            <img src="__PUBLIC__/Cms/img/logo.png" alt="" />
+                        </small>
+                    </a>
+                </div>
+                <!-- /Navbar Barnd -->
+                <!-- Sidebar Collapse -->
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="collapse-icon fa fa-bars"></i>
+                </div>
+                <!-- /Sidebar Collapse -->
+                <!-- Account Area and Settings --->
+                <div class="navbar-header pull-right">
+                    <div class="navbar-account">
+                        <ul class="account-area">
+                            
+                            <li>
+                                <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                    <div class="avatar" title="View your public profile">
+                                        <img src="__PUBLIC__/Cms/img/avatars/adam-jansen.jpg">
+                                    </div>
+                                    <section>
+                                        <h2><span class="profile"><span>Joel</span></span></h2>
+                                    </section>
+                                </a>
+                                <!--Login Area Dropdown-->
+                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                                    <li class="username"><a>David Stevenson</a></li>
+                                    <li class="email"><a>David.Stevenson@live.com</a></li>
+                                    <!--Avatar Area-->
+                                    <li>
+                                        <div class="avatar-area">
+                                            <img src="__PUBLIC__/Cms/img/avatars/adam-jansen.jpg" class="avatar">
+                                            <span class="caption">Change Photo</span>
+                                        </div>
+                                    </li>
+                                    <!--Avatar Area-->
+                                    <li class="edit">
+                                        <a href="profile.html" class="pull-left">Profile</a>
+                                        <a href="#" class="pull-right">Setting</a>
+                                    </li>
+                                    <!--Theme Selector Area-->
+                                    <li class="theme-area">
+                                        <ul class="colorpicker" id="skin-changer">
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="__PUBLIC__/Cms/css/skins/blue.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="__PUBLIC__/Cms/css/skins/azure.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#03B3B2;" rel="__PUBLIC__/Cms/css/skins/teal.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#53a93f;" rel="__PUBLIC__/Cms/css/skins/green.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#FF8F32;" rel="__PUBLIC__/Cms/css/skins/orange.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#cc324b;" rel="__PUBLIC__/Cms/css/skins/pink.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#AC193D;" rel="__PUBLIC__/Cms/css/skins/darkred.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#8C0095;" rel="__PUBLIC__/Cms/css/skins/purple.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#0072C6;" rel="__PUBLIC__/Cms/css/skins/darkblue.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#585858;" rel="__PUBLIC__/Cms/css/skins/gray.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="__PUBLIC__/Cms/css/skins/black.min.css"></a></li>
+                                            <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="__PUBLIC__/Cms/css/skins/deepblue.min.css"></a></li>
+                                        </ul>
+                                    </li>
+                                    <!--/Theme Selector Area-->
+                                    <li class="dropdown-footer">
+                                        <a href="{:U('Cms/Public/logout')}">
+                                            注销登录
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--/Login Area Dropdown-->
+                            </li>
+                            <!-- /Account Area -->
+                            <!--Note: notice that setting div must start right after account area list.
+                            no space must be between these elements-->
+                            <!-- Settings -->
+                        </ul><div class="setting">
+                            <a id="btn-setting" title="Setting" href="#">
+                                <i class="icon glyphicon glyphicon-cog"></i>
+                            </a>
+                        </div><div class="setting-container">
+                            <label>
+                                <input type="checkbox" id="checkbox_fixednavbar">
+                                <span class="text">固定头部</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" id="checkbox_fixedsidebar">
+                                <span class="text">固定左导航</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" id="checkbox_fixedbreadcrumbs">
+                                <span class="text">固定面包屑导航</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" id="checkbox_fixedheader">
+                                <span class="text">固定全部</span>
+                            </label>
+                        </div>
+                        <!-- Settings -->
+                    </div>
+                </div>
+                <!-- /Account Area and Settings -->
+            </div>
+        </div>
+    </div>
+    <!-- /Navbar -->
+    <!-- Main Container -->
+    <div class="main-container container-fluid">
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Page Sidebar -->
+            <div class="page-sidebar" id="sidebar">
+                <!-- Page Sidebar Header-->
+                <div class="sidebar-header-wrapper">
+                    <input type="text" class="searchinput" />
+                    <i class="searchicon fa fa-search"></i>
+                    <div class="searchhelper">Search Reports, Charts, Emails or Notifications</div>
+                </div>
+                <!-- /Page Sidebar Header -->
+                <!-- Sidebar Menu -->
+                <ul class="nav sidebar-menu">
+                    <!--系统首页-->
+                    <li>
+                        <a id="JoelHome" href="{:U('Cms/Index/main')}" data-loader="Joel-loader" data-loadername="主控面板">
+                            <i class="menu-icon glyphicon glyphicon-home"></i>
+                            <span class="menu-text"> 系统首页 </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('Cms/Index/set')}" data-loader="Joel-loader" data-loadername="系统设置">
+                            <i class="menu-icon fa fa-th"></i>
+                            <span class="menu-text"> 系统配置 </span>
+                        </a>
+                    </li>
+                    <!--系统设置-->
+                    <li>
+                        <a href="#" class="menu-dropdown">
+                            <i class="menu-icon fa fa-th"></i>
+                            <span class="menu-text"> 系统设置 </span>
+                            <i class="menu-expand"></i>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{:U('Cms/Index/set')}" data-loader="Joel-loader" data-loadername="全局配置">
+                                    <span class="menu-text">全局配置</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:U('Cms/Index/setWx')}" data-loader="Joel-loader" data-loadername="微信配置">
+                                    <span class="menu-text">微信配置</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:U('Cms/Index/setMail')}" data-loader="Joel-loader" data-loadername="邮件配置">
+                                    <span class="menu-text">邮件配置</span>
+                                </a>
+                            </li>
+                           <li>
+                                <a href="{:U('Cms/Index/setPay')}" data-loader="Joel-loader" data-loadername="支付配置">
+                                    <span class="menu-text">支付配置</span>
+                                </a>
+                            </li> 
+                            <li>
+                                <a href="{:U('Cms/Index/setSms')}" data-loader="Joel-loader" data-loadername="短信配置">
+                                    <span class="menu-text">短信配置</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--系统设置-->
+                    <li>
+                        <a href="#" class="menu-dropdown">
+                            <i class="menu-icon fa fa-sitemap"></i>
+                            <span class="menu-text"> 门店管理 </span>
+                            <i class="menu-expand"></i>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="{:U('Cms/Md/group')}" data-loader="Joel-loader" data-loadername="门店分组">
+                                    <span class="menu-text">门店分组</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:U('Cms/Md/md')}" data-loader="Joel-loader" data-loadername="门店列表">
+                                    <span class="menu-text">门店列表</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                   
+                </ul>
+                <!-- /Sidebar Menu -->
+            </div>
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb" id="Joel-bread">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:U('Cms/Index/main')}" data-loader = "Joel-loader" data-loadername="主控面板">首页</a>
+                        </li>
+                        <li class="active">主控面板</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1 id="Joel-loader-title">
+                            	主控面板
+                        </h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="{:U('Cms/Index/mian')}" data-loader = "Joel-loader" data-name = "主控面板">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                <div id="Joel-loader" class="page-body">
+                    <!-- 主加载器 -->
+                </div>
+                <!--图片库-->
+               
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+        <!-- /Page Container -->
+        <!-- Main Container -->
+		
+    </div>
+    <!--全局隐藏控件-->
+    <div class="hide">
+    	 <!--JoelReloader-->
+    	 <a id="Joel-reloader" href="#">
+    	 <!--单图片上传控件-->
+    	 <iframe style="display:none" name='doupimg_frame' id="doupimg_frame"></iframe> 
+   		 <form enctype="multipart/form-data" action="{:U('Cms/Upload/doupimg')}" method="post" id="Joel-form-upimg" target="doupimg_frame" >
+		 	<input type="file" id="jupimg" name="jupimg" accept="image/*">
+	 	 </form>
+    </div>
+   
+
+    <!--基础脚本-->
+    <script src="__PUBLIC__/Cms/js/jquery-2.0.3.min.js"></script>
+    <script src="__PUBLIC__/Cms/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/Cms/js/beyond.min.js"></script>
+    <script src="__PUBLIC__/Cms/js/toastr/toastr.js"></script>
+    <script src="__PUBLIC__/Cms/js/validation/bootstrapValidator.js"></script>
+    <script src="__PUBLIC__/Cms/js/bootbox/bootbox.js"></script>
+    <!--百度编辑器-->
+    <script src="__PUBLIC__/js/ueditor/ueditor.config.js"></script>
+	<script src="__PUBLIC__/js/ueditor/ueditor.all.min.js"></script>
+    <!--百度地图类库-->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=oOC9YM1VwjGkdsn7oLElg8vF"></script>
+	<!--Joel全局API-->
+    <script src="__PUBLIC__/Cms/js/joelapi.js"></script>
+
+	<script type="text/javascript">
+		var JoelLoaderTitle=$('#Joel-loader-title');
+		var JoelLoaderRefresh=$('#refresh-toggler');
+		var JoelLoaderReloader=$('#Joel-reloader');
+		//公共设置HTML内容方法
+		function setHtml(id,html){
+			$(id).html(html);
+		}
+		//公共设置reLoader方法
+		function setReloader(loader,href,name){
+			$(JoelLoaderReloader).attr('href',tourl).data('loader',loader).data('loadername',name);
+		}
+		//公共调用reLoader方法
+		function goReloader(loader,href,name){
+			$(JoelLoaderReloader).trigger('click');
+		}
+		//初始化主框架加载后的操作
+		function initFrame(){
+			var JoelLoaderTitle=$('#Joel-loader-title');
+			var JoelLoaderRefresh=$('#refresh-toggler');
+			var JoelLoaderReloader=$('#Joel-reloader');
+			//处理Frame加载后的所有链接
+			var links=$('a');
+			$(links).on('click',function(){
+				var loader=$(this).data('loader');
+				var tourl=$(this).attr('href');
+				if(loader){
+					name=$(this).data('loadername');
+					//如果是主Loader
+					if(loader=='Joel-loader'){
+						setHtml(JoelLoaderTitle,name);
+						$(JoelLoaderRefresh).attr('href',tourl).data('loader','Joel-loader').data('loadername',name);
+						
+					}
+					$('#'+loader).empty().load(tourl,function(){
+						initLoader(loader);
+					});					
+					return false;
+				}
+			});
+		}
+		//初始化Loader加载后的操作
+		function initLoader(loader){
+			var JoelLoaderTitle=$('#Joel-loader-title');
+			var JoelLoaderRefresh=$('#refresh-toggler');
+			var JoelLoaderReloader=$('#Joel-reloader');
+			//加载Widget特效
+			InitiateWidgets();
+			//处理Loader加载后的所有链接
+			var loaderlinks=$('#'+loader+' a');
+			$(loaderlinks).on('click',function(){
+				var loader=$(this).data('loader');
+				var tourl=$(this).attr('href');
+				var search=$(this).data('search');
+				//特殊按钮特效--全部阻止
+				var type=$(this).data('type');
+				if(type){
+					switch(type){
+						case 'del':
+						var toajax=$(this).data('ajax');
+						var funok=function(){
+							var callok=function(){
+								//拦截错误
+								return false;
+							};
+							var callerr=function(){
+							//拦截错误
+							return false;
+							};
+							$.Joel.ajax('post',toajax,'nodata',false,callerr());
+						}						
+						$.Joel.confirm("确认要删除吗？",funok);
+						return false;
+						//
+						break;
+						default:
+						$.Joel.alert('danger','此Type属性系统未定义！');
+						break;
+					}
+				}
+				if(loader){
+					name=$(this).data('loadername');
+					//如果是主Loader
+					if(loader=='Joel-loader'){
+						setHtml(JoelLoaderTitle,name);
+						$(JoelLoaderRefresh).attr('href',tourl).data('loader','Joel-loader').data('loadername',name);
+					}
+					//如果有搜索条件绑定
+					if(search){
+						var sv=$('#'+search).serialize();
+						if(sv){
+							tourl=tourl+'?'+sv;
+						}
+					}
+					$('#'+loader).empty().load(tourl,function(){
+						initLoader(loader);
+					});					
+					return false;
+				}
+			});
+			
+		}
+		//公共设置面包屑导航
+		function setBread(html){
+			//var JoelLoaderTitle=$('#Joel-loader-title');
+			//var JoelLoaderRefresh=$('#refresh-toggler');
+			alert('bread');
+			$('#Joel-bread').empty().html(html);
+			$('#Joel-bread a').on('click',function(){
+				var loader=$(this).data('loader');
+				var name=$(this).data('loadername');
+				var tourl=$(this).attr('href');
+				alert(loader);
+				setHtml(JoelLoaderTitle,name);
+				$(JoelLoaderRefresh).attr('href',tourl).data('loader','Joel-loader').data('loadername',$name);
+				$('#'+loader).empty().load(tourl,function(){
+						initLoader(loader);
+				});					
+				return false;
+			});
+		}
+		
+		//Joel默认图片上传管理器
+		function joelImguploader(fbid,isall){
+			//fbid 查找带回的文本框ID,全局唯一
+			//isall 多图,单图模式
+			$.ajax({
+					type:"post",
+					url:"{:U('Cms/Upload/indeximg')}",
+					data:{'fbid':fbid,'isall':isall},
+					dataType: "json",
+					//beforeSend:$.Joel.loading(),
+					success:function(mb){
+						//$.Joel.loading();
+						bootbox.dialog({
+	                	message: mb,
+	                	title: "图片上传管理器",
+	                	className: "modal-darkorange",
+	                	buttons: {
+			                    success: {
+			                        label: "保存",
+			                        className: "btn-blue",
+			                        callback: function () {$('#'+fbid).val($('#Joel-uploader-findback').val());}
+			                    },
+			                    "取消": {
+			                        className: "btn-danger",
+			                        callback: function () { }
+			                    }
+		                	}
+		            	});
+					},
+					error:function(xhr){
+						$.Joel.alert('danger','通讯失败！请重试！');
+					}
+			});
+			return false;
+		}
+		//Joel默认图片预览器
+		function joelImgviewer(fbid){
+			//fbid 查找带回的文本框ID,全局唯一
+			//isall 多图,单图模式
+			var ids=$('#'+fbid).val();
+			if(!ids){
+				$.Joel.alert('danger','您还没有图片可以预览！');
+				return false;
+			}
+			$.ajax({
+					type:"post",
+					url:"{:U('Cms/Index/joelImgviewer')}",
+					data:{'ids':ids},
+					dataType: "json",
+					success:function(mb){
+						bootbox.dialog({
+	                	message: mb,
+	                	title: "图片预览器",
+	                	className: "modal-darkorange",
+	                	buttons: {
+			                    success: {
+			                        label: "确定",
+			                        className: "btn-blue",
+			                        callback: function () { }
+			                    },
+			                    "取消": {
+			                        className: "btn-danger",
+			                        callback: function () { }
+			                    }
+		                	}
+		            	});
+					},
+					error:function(xhr){
+						$.Joel.alert('danger','通讯失败！请重试！');
+					}
+			});
+			return false;
+		}
+		//Joel默认百度地图控件
+		function baiduDitu(fbaddid,fblngid,fblatid){
+			var fbadd=$('#'+fbaddid);
+			var fblng=$('#'+fblngid);
+			var fblat=$('#'+fblatid);
+			if(!fbadd || !fblng || !fblat){
+				$.Joel.alert('danger','回调控件不完整!');
+			}
+			//fbid 查找带回的文本框ID,全局唯一		
+			$.ajax({
+					type:"post",
+					url:"{:U('Cms/Public/baiduDitu')}",
+					data:{'address':$(fbadd).val(),'lng':$(fblng).val(),'lat':$(fblat).val()},
+					dataType: "json",
+					success:function(mb){
+						bootbox.dialog({
+	                	message: mb,
+	                	title: "百度地图控件",
+	                	className: "modal-darkorange",
+	                	buttons: {
+			                    success: {
+			                        label: "确定",
+			                        className: "btn-blue",
+			                        callback: function () { 
+			                        	$(fbadd).val($('#baiduDituaddress').val());
+			                        	$(fblng).val($('#baiduDitulng').val());
+			                        	$(fblat).val($('#baiduDitulat').val());
+			                        }
+			                    },
+			                    "取消": {
+			                        className: "btn-danger",
+			                        callback: function () { }
+			                    }
+		                	}
+		            	});
+					},
+					error:function(xhr){
+						$.Joel.alert('danger','通讯失败！请重试！');
+					}
+			});
+			return false;
+		}
+		$(document).ready(function(){
+			initFrame();
+			//$('#JoelHome').trigger('click');
+		
+		});
+	</script>
+</body>
+<!--  /Body -->
+</html>

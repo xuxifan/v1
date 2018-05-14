@@ -1,0 +1,51 @@
+<div class="bg_corg">
+	<div class="wapper f_wei f16 nav_main">
+		<a href="javascript:void(0)" class="show-cate-btn"><span class="fl textc cor02"><img src="__PUBLIC__/home/img/fenlei_03.png" class="fenleiimg"/>商品分类</span></a>
+		<div class="cate-nav">
+			<ul class="cate-nav-ul" style="margin-top: 0;">
+				<volist name='menu' id='vo'>
+				<li style="margin-bottom: 0;">
+					<div class="cateA-title"><em class="A-em1"></em>
+						<a target="_blank" href="{:u('home/index/catelist',array('id'=>$vo['id']))}">{$vo.name}</a>
+					</div>
+					<div class="cateA-sub" style="display: none;">
+						<if condition="$cate[$key]['goods'] neq null">
+							<div class="leaf-items cor02">
+								<volist name="vo['items']" id='vt'>
+									<a href="{:u('home/index/catelist',array('id'=>$vt['id']))}" class="cate-item" target="_blank">{$vt.name}、</a>
+								</volist>
+							</div>
+						</if>
+						<img src="{:getPicUrl($vo['icon'])}" width="350px" height="350px"/>
+					</div>
+				</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	$(".cate-nav-ul li").hover(function() {
+			$(this).find(".cateA-title").attr("class", "cateA-title cateB-thisnav");
+			$(this).find(".cateA-title").find("em").animate({
+				margin: '-55px 10px 0 20px'
+			}, 200);
+			$(this).find(".cateA-sub").show();
+			$(this).find(".cateA-subB").show();
+		},
+		function() {
+			$(this).find(".cateA-title").attr("class", "cateA-title");
+			$(this).find(".cateA-title").find("em").animate({
+				margin: '0 10px 0 20px'
+			}, 200);
+			$(this).find(".cateA-sub").hide();
+			$(this).find(".cateA-subB").hide();
+		}
+	);
+	$('.show-cate-btn').click(function(){
+		$('.cate-nav').slideToggle(50);
+	});
+	if('__ACTION__'.split('/')[3]!='index'){
+		$('.cate-nav').hide();	
+	}
+</script>

@@ -1,0 +1,184 @@
+ <!--百度编辑器-->
+<link href="__PUBLIC__/Cms/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Cms/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Cms/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Cms/umeditor/lang/zh-cn/zh-cn.js"></script>
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">新闻设置</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                  <input type="hidden" name="id" value="{$cache.id}">
+                  <div class="form-title">
+                        <a href="{:U('Cms/News/news/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="新闻分组">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">新闻名称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="name" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.name}">
+                        </div>
+                   </div>
+                   <!--1.25 zxg 新闻添加标签-->
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">新闻标签</label>
+                        <div class="col-lg-4">
+                        	<select class="form-control" name="type" id="type" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空">
+                                  <option value="" >请选择</option>
+                                  <option value="pc"<eq name="cache.type" value="pc">selected="selected"</eq>>PC端</option>
+                                  <option value="wap"<eq name="cache.type" value="wap">selected="selected"</eq>>微信端</option>
+                             </select>
+                        </div>
+                   </div>
+                   
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">新闻类型</label>
+                        <div class="col-lg-4">
+                        	<select class="form-control" name="istg" id="istg" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空">
+                                  <option value="" >请选择</option>
+                                  <option value="0"<eq name="cache.istg" value="0">selected="selected"</eq>>新闻列表</option>
+                                  <option value="1"<eq name="cache.istg" value="1">selected="selected"</eq>>宣传列表</option>
+                             </select>
+                        </div>
+                   </div>
+                   <script>
+                   		$(function(){
+                   			var val="{$cache.type}";
+                   			if(val == 'wap'){
+                   				$('#show').slideDown();
+							}else if(val=='pc'){
+								$('#show').hide();
+                   			}
+                   		})
+                   		$("#type").change(function(){
+                   			var type=$("#type").val();
+                   			if(type == 'wap'){
+                   				
+                   				$('#show').slideDown();
+							}else if(type=='pc'){
+								
+								$('#show').slideUp();
+                   			}
+                   		})
+                   </script>
+                   <!--1.25 zxg 新闻添加标签-->
+                   <div class="form-group" id="show">
+                        <label class="col-lg-2 control-label">新闻列表图片</label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" class="form-control" name="pic" value="{$cache.pic}" id="Joel-pic">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-pic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-pic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                   </div>
+
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">新闻备注</label>
+                        <div class="col-lg-4">
+                        <textarea class="form-control" name="summary" rows="5">{$cache.summary}</textarea>
+                        </div>
+                   </div>
+                   
+                   <neq name="cache.name" value="">
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">阅读量</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="read" value="{$cache.read}" readonly>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">赞</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="like" value="{$cache.like}" readonly>
+                        </div>
+                   </div>
+                   </neq>
+                   <div class="form-group">
+                      <label class="col-lg-2 control-label">开启申请表单</label>
+                      <div class="col-lg-4">
+                        <label>
+                            <input type="hidden" name="isform" value="{$cache.isform}" id="isform">
+                                <input class="checkbox-slider slider-icon colored-primary" type="checkbox" id="isformbtn" <eq name="cache.isform" value="1">checked="checked"</eq>>
+                                <span class="text darkorange">&nbsp;&nbsp;&larr;重要：打开新闻页面显示表单。</span>
+                          </label>
+                      </div>
+                  </div>
+                   
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">新闻详情</label>
+                        <div class="col-lg-4">
+                        	<!--必须插入空input避免验证冲突-->
+                        	<input type="hidden">
+                        	<script type="text/plain" id="J-ueditor" name="content" style="width:800px;height:400px;">{$cache.content|htmlspecialchars_decode}</script>
+                        </div>
+                   </div>
+						<div class="form-group">
+                             <div class="col-lg-offset-2 col-lg-4">
+                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                        </div>
+                    </div>
+                   </form>
+                </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--编辑器封装-->
+<script type="text/javascript">
+	var um = UM.getEditor('J-ueditor');
+</script>
+<!--/编辑器封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+           var tourl="{:U('Cms/News/newsSet')}";
+			var data=$('#JoelForm').serialize();
+//			alert(data);
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+  $('#isformbtn').on('click',function(){
+    var value=$(this).prop('checked')?1:0;
+    $('#isform').val(value);
+  });
+</script>
+<!--/表单验证与提交封装-->

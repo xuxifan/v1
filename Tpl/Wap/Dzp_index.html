@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{$cjdata['title']}</title>
+		<meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/Wap/css/dzp.css" />
+		<script type="text/javascript" src="__PUBLIC__/Wap/js/zepto.min.js"></script>
+	</head> 
+	<body style="background: #5e0000;">
+		<!-- 背景1 宽720px -->
+		<empty name="cjdata['cjimg1']['imgurl']">
+		<div><img src="__PUBLIC__/Wap/img/dzp03.jpg"></div>
+		<else />
+		<div><img src="{$cjdata['cjimg1']['imgurl']}"></div>
+		</empty>
+		<!-- 背景2 宽720px -->
+		<empty name="cjdata['cjimg2']['imgurl']">
+		<div class="dzp_top" style="background: url(__PUBLIC__/Wap/img/dzp04.jpg) no-repeat top; background-size: 100% auto; background-color: #ce271f;  padding-bottom: 20px;">
+		<else />
+		<div class="dzp_top" style="background: url('{$cjdata['cjimg2']['imgurl']}') no-repeat top; background-size: 100% auto; background-color: #ce271f;  padding-bottom: 20px;">
+		</empty>
+			<div class="dzp_top_box">
+				<span style="overflow:hidden"><img id="outer" src="__PUBLIC__/Wap/img/dzp01.png"></span>
+				<em><a id="inner"><img src="__PUBLIC__/Wap/img/dzp02.png"/></a></em>
+			</div>
+			<i><a id="look_re" href="#">我的中奖纪录</a></i>
+
+			<eq name="dzp['isfx']" value="1">
+			<i><a id="share">分享活动</a></i>
+			<p style="text-align: center;font-size: 0.625em;">分享活动即可获得额外抽奖机会哦！</p>
+			</eq>
+
+
+		</div>
+		<div class="dap_t_box" id="dap_t_box">
+			<h1>中奖用户:</h1>
+			<empty name='zj'><p style='text-align:center; margin:30px 0;'>暂无数据</p></empty>
+			<ul class="on_re">
+				<!-- <volist name='zj' id='vo'>	
+					<li><span>{$vo.nickname}</span><em>{$vo.ctime}</em><i>{$vo.prizename}</i></li>
+				</volist> -->
+			</ul>
+		</div>
+		<div class="dap_t_box">
+			<h1>奖项设置：</h1>
+			<ul class="dzp_txt">
+				<volist name="prize" id='vo'>
+					<li><em>{$vo['lname']}：</em><p>{$vo['pname']}</p></li>
+				</volist>
+			</ul>			
+		</div>
+		<div class="dap_t_box">
+			<h1>兑奖时间：</h1>
+			<ul class="dzp_txt">
+				<li>{$dzp['kstime']} -- {$dzp['jstime']}</li>
+			</ul>			
+		</div>
+		<div class="dap_t_box">
+			<h1>活动详情：</h1>
+			<ul class="dzp_txt_x">
+				<li>{$dzp['content']}</li>
+				<!-- <volist name="cjdata['hdsummary']" id='vo' key='k'>
+					<li><em>{$k}.</em><p>{$vo}</p></li>
+				</volist> -->
+			</ul>
+		</div>
+		<!--中奖弹出框-->
+		<div class="egg_out_box" id="winbox" style="display: none;">
+			<div class="win">
+				<img src="__PUBLIC__/Wap/img/dzpon.png">
+				<a class="winon" href="#"><img src="__PUBLIC__/Wap/img/dzpon-1.png"></a>
+			</div>
+		</div>
+		<!--未中奖弹出框-->
+		<div class="egg_out_box" id="sorry" style="display: none;">
+			<div class="lose">
+				<img src="__PUBLIC__/Wap/img/dzpoff.png">
+				<div class="lose_txt">
+					<p>亲！很遗憾没有中奖</p>
+					<p>继续努力哦！还有<em>{$cjdata['num']}</em>次机会！</p>
+				</div>
+				<a id="off" href="#"><img src="__PUBLIC__/Wap/img/dzpoff-1.png"></a>
+			</div>
+		</div>
+		
+		<!--中奖后填写信息框-->
+		<div class="egg_out_box" id="win" style="display: none;">
+
+			<div class="win_info">
+				<div class="sj_inf">
+					<eq name="cjdata['isform']" value="1">
+					<p id="re" style="font-size:1.5em;text-align:center">中奖啦！请填写信息！</p>
+					<else />
+					<p id="re" style="font-size:1.5em;text-align:center">中奖啦！等待发奖吧！</p>
+					</eq>
+					<!-- <p id="sn">您已经中奖了，赶紧完善信息吧</p> -->
+					<!-- <p>联系电话：<a href="tel:{$dzp_prize['tel']}">{$cjdata['tel']}</a></p>
+					<p>线下兑换：{$cjdata['address']}</p> -->
+				</div>
+				<eq name="cjdata['isform']" value="1">
+
+				<div class="yh_info">
+					<form id="form-data">
+						<input type="hidden" id="id" name="vid" value="{$ac.0.v.id}">
+							
+						<if condition="$redata['dzpid'] eq ''">
+							<input type="hidden" id="lid" name="id" value="{$cjdata.id}">
+						<else />
+							<input type="hidden" id="lid" name="id" value="{$redata.dzpid}">
+						</if>
+						<volist name="ac" id="vo">
+								<p><em>{$vo.name}：</em><input class="formdata" type="{$vo.type}"  value="{$vo.v.name}" name="{$vo.fields}"></p>
+							
+						</volist>
+						<a id="submit" href="#">提交</a>
+					</form>
+				</div>
+				</eq>
+			</div>
+		</div>
+		<div class="egg_out_box" id="winout" style="display: none;">
+			<div class="win_info">
+				<div class="sj_inf">
+					<!-- 1-13 zyf 此处要遍历用户中的奖品 -->
+					<div style="max-height:100px;overflow-y:scroll;">
+					<foreach name="zj_res" item="vo">
+						<p id="sn">恭喜你中了:{$vo.prizename}</p>
+						<p id="sn">兑换SN码：{$vo.sn}</p>
+					</foreach>
+					</div>
+					<!-- 1-13 zyf 此处要遍历用户中的奖品 -->
+					<p>联系电话：<a href="tel:{$cjdata['tel']}">{$cjdata['tel']}</a></p>
+					<p>线下兑换：{$cjdata['address']}</p>
+					<a class="winon" href="#"><img src="__PUBLIC__/Wap/img/dzpon-1.png"></a>
+				</div>				
+			</div>
+		</div>
+
+		<!-- 1-13 zyf 广告 -->
+		<eq name="dzp['ifaddr']" value="1">
+		<style>
+			.act_addr{width:100%;position:fixed;bottom:0px;background-color:black;overflow: hidden;}
+			.act_addr .close{padding:0 5px;position:absolute;right:0;top:0;border:1px solid black;background-color:white;}
+		</style>
+
+		<div class="act_addr">
+			<a href="{$dzp['addrurl']}" style="display: block;height:50px;margin:0 auto;"><img src="{$dzp['addrpic']['imgurl']}"></a>
+			<div class="close"><span>X</span></div>
+			<script>
+				$(".act_addr .close").click(function(){
+					$(this).parent().remove();
+				})
+			</script>
+		</div>
+		</eq>
+		<!-- 1-13 zyf 广告 -->
+<!--分享弹窗-->	
+	<div class="fx" style="display: none;" >
+		<img src="__PUBLIC__/Wap/img/share.png";/>
+	</div>		
+<!--分享弹窗-->	
+		 <script type="text/javascript">
+			var star="1",openprize="{$user.openprize}";	
+            $(function() {
+                window.requestAnimFrame = (function() {
+                    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                            function(callback) {
+                                window.setTimeout(callback, 1000 / 60)
+                                alert(callback);
+                            }
+                })();
+                var totalDeg = 360 * 3 + 0;
+                var steps = [];
+                var token="{$dzpToken}";
+                var lostDeg = [92, 332, 212];
+                var prizeDeg = [32, 272 , 152];
+                var prize, sncode;                
+                var count = 0;
+                var now = 0;
+                var a = 0.01;
+                var outter, inner, timer, running = false;
+                $('#sorry').click(function(){
+                	$(this).hide();
+                })
+                // $('#winbox').click(function(){
+                // 	window.location.reload();
+                // })
+                function countSteps() {
+                	// DZP
+                	// 对中奖角度进行微调
+                	var aaa = Math.pow((-1),parseInt(Math.random()*4));
+                	totalDeg+=parseInt(Math.random() * 20) * aaa;
+                	// alert(totalDeg);
+                	// DZP
+                    var t = Math.sqrt(2 * totalDeg / a);
+                    var v = a * t;
+                    for (var i = 0; i < t; i++) {
+                        steps.push((2 * v * i - a * i * i) / 2)
+                    }
+                    steps.push(totalDeg)
+                }
+                function step() {
+                    outter.style.webkitTransform = 'rotate(' + steps[now++] + 'deg)';
+                    outter.style.MozTransform = 'rotate(' + steps[now++] + 'deg)';
+                    if (now < steps.length) {                    	
+                        running = true;
+                        requestAnimFrame(step)
+                    } else {
+                    	if(prize =="{$prizecount}" || prize==-1){
+                    		$('#sorry').show();
+                    	}else{
+                    		$('#winbox').show();
+                    	}
+                        running = false;
+                    }
+                }
+                function start(deg) {
+                    deg = deg || lostDeg[parseInt(lostDeg.length * Math.random())];
+                    running = true;
+                    clearInterval(timer);
+                    totalDeg = 360 * 5 + deg;
+                    steps = [];
+                    now = 0;
+                    countSteps();
+                    requestAnimFrame(step);                  
+                }
+                window.start = start;
+                outter = document.getElementById('outer');
+                inner = document.getElementById('inner');
+                i = 10;
+                $("#inner").click(function() {
+					if(star==0) {
+							$('#sorry').show();
+							$('#sorry').find('.lose_txt').html('活动未开始！');
+							return false;
+					}
+					if(star==2){
+							$('#sorry').show();
+							$('#sorry').find('.lose_txt').html('活动已结束！');
+							return false;
+					}
+					
+					/* 1-13 zyf 这里要判断是否允许重复中奖 */
+					<eq name="dzp['zjrepeat']" value="0">
+					if (openprize==1){
+						if("{$user.is_info}"==1){
+							$('#sorry .lose_txt').html('您已中过了,下次再玩！');
+							$('#sorry').show();
+							return false;
+						}else{
+							// 是否需要填写信息
+							if("{$cjdata['isform']}"==1){
+								$('#win #re').html('中奖啦！请填写信息！');	
+							}else{
+								$('#win #re').html('中奖啦！等待发奖把！');	
+							}
+							$('#win').show();
+							return false;
+						}
+					}
+					</eq>
+					/* 1-13 zyf 这里要判断是否允许重复中奖 */
+					if("{$cjdata['isform']}"==1){
+					/* 1-14 zyf 这里判断抽奖前还是抽奖后填写信息 */
+					// isgz 0是抽奖前填写
+						if("{$cjdata['isgz']}"==0){
+							// 还没填写过
+							if("{$cjdata['hastx']}"==0){
+								$("#win #re").html("先填写详细信息把~");
+								$("#win").show();
+								return false;
+							}
+						}
+					// isgz 1是抽奖后填写
+					/* 1-14 zyf 这里判断抽奖前还是抽奖后填写信息 */
+					}
+					var paytype=0;
+					if(("{$cjdata['num']}"+"{$cjdata.fx}") ==0){
+						if("{$pay['type']}"!=false){
+							// 开启了继续支付抽奖
+							if(confirm("您的免费次数已经用完，是否消费{$pay['num']}{$pay['name']}，来增加一次抽奖机会？")){
+								paytype="{$pay['type']}";
+							}else{
+								return false;
+							}
+						}else{
+							if("{$cjdata['ist']}" ==1){
+								$('#sorry .lose_txt').html('您已超过'+"{$cjdata['lnum']}"+'次,明天再玩！');
+							}else{
+								$('#sorry .lose_txt').html('您已超过'+"{$cjdata['lnum']}"+'次,下次再玩！');
+							}
+							$('#sorry').show();
+							return false;
+						}
+					}
+                    
+                    if (running)
+                        return;
+                    $.ajax({
+                    	type:"post",
+                    	url:"{:u('Dzp/saveCjResult')}",
+                    	data:{
+                    		//uid : "{$cjdata['uid']}",
+							id : "{$cjdata['id']}",
+							paytype : paytype,
+							token:token,
+                    	},
+                    	dataType : 'json',
+                    	success :function(e){
+	                       // if (e.id == 4 || e.id==-1){
+	                       token=e.token;
+	                       if(e.status){
+	                       		$('#sorry').show().find('.lose_txt').html(e.info);
+	                       		return;
+	                       }
+	                       if (!e.id){
+	                            start();
+							}else{
+								// 判断中什么奖 0 是一等金 1 是二等奖 2 是三等奖
+	                            start(prizeDeg[e.id - 1]);
+	                            // console.log(e.id);
+	                        }
+	                        if(e.num == -1){
+	                        	e.num="无限";
+	                        }
+							$('#sorry em').html(e.num);
+							prize = e.id;
+	                    } 
+                	});
+           		 });
+           	})
+            
+            $('#off').click(function(){
+            	window.location.reload();
+            })
+            
+            $('.winon').click(function(){
+            	$.ajax({
+					type : "post",
+					url : "{:U('Wap/Dzp/win')}",
+					data : {
+						//uid : "{$cjdata.uid}",
+						id : "{$cjdata.id}"
+						},
+					dataType : 'json',
+					success : function(res) {
+						$('#id').val(res.id);
+						$('#sn').html('兑换SN码：'+res.sn);
+					}
+				});
+				$('#winbox').show();
+            	$('#win').show();
+            })
+            
+            //提交用户信息
+			$('#submit').click(function(){
+				var k='0';
+				var form_input = $('.formdata');
+				form_input.each(function(a){
+					if(!form_input.eq(a).val()){
+						var v = form_input.eq(a).prev().text();
+						v = v.substring(0,-1);
+						k='1';
+					}
+				})
+				
+				if(k == '1'){
+					alert('请填写信息');
+					return false;
+				}
+				var data =$('#form-data').serialize();
+				$.ajax({
+					type:"post",
+					url:"{:U('Wap/Dzp/zjuser')}",
+					data:data,
+					async:true,
+					success : function(o) {
+						if(o.status==1){
+							alert(o.msg);
+							window.location.reload();
+						}
+					}
+				});
+			});
+			
+				$('#look_re').click(function(){
+					if(openprize ==1){
+						$('#winout').show();
+					}else{
+						alert('您还没有中奖!');
+					}		
+				})
+				$('#winout').click(function(){
+					$('#winout').hide();
+				});
+			// count应该是总刷新次数
+			var count = "{$cjdata['count']}",num =1;
+				var t =setInterval(function(){
+					$.ajax({
+						type : "post",
+						url : "{:U('Wap/Dzp/getdata')}",
+						data : {
+							//uid : "{$cjdata.uid}",
+							id : "{$cjdata.id}",
+							num:num,
+							},
+						dataType : 'json',
+						success : function(res) {
+							if(res.status==1){
+								$("#dap_t_box p").remove();							
+								$("#dap_t_box li").remove();
+								$.each(res.msg,function(index,item){  
+			                  		$("#dap_t_box ul").append("<li><span>"+item.nickname+"</span><em>"+item.ctime+"</em><i>"+item.prize+"</i></li>");  
+			              		}); 
+							}								
+						}
+					});
+					if(num <count){
+						num++;
+					}else{
+						//clearTimeout(t);
+						num =1;
+					}		
+				},2000);
+        </script>
+		<script>	
+			//shareInfo();
+			$('#share').click(function(){
+			 	$('.fx').css({'width':'100%','display':'block','position': 'fixed','z-index':10000,'top':'0px','left':'0px','background':'#000','opacity':0.7,'width':$(window).width(),'height':$(window).height()});
+			});
+			$('.fx').click(function(){
+			 	$(this).hide();
+			})
+			 
+			function shareInfo(){
+			 	
+			 	//var uid="{$uid}";
+			 	var dzpid="{$dzpid}";
+			 	var vipid="{$vipid}";				
+				$.ajax({
+			 		type:"get",
+			 		url:"{:U('wap/Dzp/shareInfo')}",
+			 		//data:{'uid':uid,'dzpid':dzpid,'vipid':vipid},
+			 		data:{'dzpid':dzpid,'vipid':vipid},
+			 		async:true,
+			 		success:function(data){
+						//alert(data);
+			 		}
+			 	});
+			}
+		</script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var share_url = "{$_SESSION['SET']['wxurl']}/wap/dzp/index/id/{$dzpid}";//"{$share['url']}";
+			var share_title="{$dzp.sharetitle}";//"{$share['title']}";
+			var share_content="{$dzp.sharecontent}";//"{$share['content']}";
+			var share_img="{$_SESSION['SET']['wxurl']}{$picurl}";
+			  wx.config({
+				  debug: false,
+				  appId: "{$jsapi['appId']}",
+				  timestamp: "{$jsapi['timestamp']}",
+				  nonceStr: "{$jsapi['nonceStr']}",
+				  signature: "{$jsapi['signature']}",
+				  jsApiList: [
+					'checkJsApi',
+					'onMenuShareTimeline',
+					'onMenuShareAppMessage',
+					'onMenuShareQQ',
+					'onMenuShareWeibo',
+					'hideMenuItems',
+					'showMenuItems',
+					'hideAllNonBaseMenuItem',
+					'showAllNonBaseMenuItem',
+					// 'translateVoice',
+					// 'startRecord',
+					// 'stopRecord',
+					// 'onRecordEnd',
+					// 'playVoice',
+					// 'pauseVoice',
+					// 'stopVoice',
+					// 'uploadVoice',
+					// 'downloadVoice',
+					// 'chooseImage',
+					// 'previewImage',
+					// 'uploadImage',
+					// 'downloadImage',
+					// 'getNetworkType',
+					// 'openLocation',
+					// 'getLocation',
+					// 'hideOptionMenu',
+					// 'showOptionMenu',
+					// 'closeWindow',
+					// 'scanQRCode',
+					// 'chooseWXPay',
+					// 'openProductSpecificView',
+					// 'addCard',
+					// 'chooseCard',
+					// 'openCard'
+				  ]
+			  });
+			  
+			  wx.ready(function () {
+					//开启菜单
+					wx.showOptionMenu();
+					//隐藏菜单
+					//wx.hideOptionMenu();
+					//分享给朋友
+					wx.onMenuShareAppMessage({
+					  title: share_title,
+					  desc: share_content,
+					  link: share_url,
+					  imgUrl: share_img,
+					  trigger: function (res) {
+						//alert('用户点击发送给朋友');
+					  },
+					  success: function (res) {
+					   shareInfo();
+					  },
+					  cancel: function (res) {
+						//alert('已取消');
+					  },
+					  fail: function (res) {
+						//alert(JSON.stringify(res));
+					  }
+					});
+					//分享到朋友圈
+					wx.onMenuShareTimeline({
+					  title: share_title,
+					  link: share_url,
+					  imgUrl: share_img,
+					  trigger: function (res) {
+						//alert('用户点击分享到朋友圈');
+					  },
+					  success: function (res) {
+						shareInfo();
+					  },
+					  cancel: function (res) {
+						//alert('已取消');
+					  },
+					  fail: function (res) {
+						//alert(JSON.stringify(res));
+					  }
+					});
+					//分享到QQ
+					wx.onMenuShareQQ({
+					  title: share_title,
+					  desc: share_content,
+					  link: share_url,
+					  imgUrl: share_img,
+					  trigger: function (res) {
+						//alert('用户点击分享到QQ');
+					  },
+					  complete: function (res) {
+						//alert(JSON.stringify(res));
+					  },
+					  success: function (res) {
+						shareInfo();
+					  },
+					  cancel: function (res) {
+						//alert('已取消');
+					  },
+					  fail: function (res) {
+						//alert(JSON.stringify(res));
+					  }
+					});
+			  });
+		</script>
+	</body>
+</html>

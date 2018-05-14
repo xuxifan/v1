@@ -1,0 +1,466 @@
+<!doctype html>
+<html>
+<head>
+    <title>{$cache.gname}</title>
+    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/style.css" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/joelslider.css" />
+	    <!--组件依赖js begin-->
+	    <script src="__PUBLIC__/wap/gmu/zepto.min.js"></script>
+	    <!--组件依赖js end-->		
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/js/joelslider.min.js"></script>
+		
+		<!--进度条-->
+		<link href="__PUBLIC__/wap/prog/css/ProgressBarWars.css" rel="stylesheet" />
+		<script src="__PUBLIC__/wap/prog/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+		<script src="__PUBLIC__/wap/prog/js/ProgressBarWars.js"></script>
+		<!--进度条-->
+		<style>
+		.dtl-shp{position: relative;}
+		.dtl-shp b{position: absolute; padding: 4px; font-size: 0.5em; line-height: 0.5em; background: #FF0000; color: #FFFFFF; right: 0px; border-radius: 30px;}
+		.btn-fav{
+			background-color: #E74B43;
+			color: #fff;
+			line-height: 2em;
+			height: 2em;
+			width: 6em;
+			text-align: center;
+			display: block;
+			float: right;
+			border-radius: 5px;
+		}
+		/*.goods-content *{
+			width: auto;
+			max-width: 100%;
+		}*/
+		.dtl-tty{
+			line-height: 20px;
+    		padding-bottom: 5px;
+    		color: #666;
+    		font-size: 1.2em;
+    		font-weight: normal;
+		}
+		.Pro-bar-li li{
+		float: left;
+		color: #AEADAD;
+		font-size: 10px;
+		font-family: 宋体;
+		border: none;
+		margin: 0;
+		padding: 0;
+		box-shadow: none;
+		border-radius: none;
+	}
+    .Pro-bar-li li em {
+	    display: block;
+	    font-size: 10px;
+	    font-family: arial;
+	    height: 14px;
+	    padding: 3px 0 0 0;
+	    font-style: normal;
+	}
+	.Pro-bar-li li.P-bar01 {
+	    width: 30%;
+	    text-align: left;
+	}
+	.Pro-bar-li li.P-bar01 em {
+	    color: #F60;
+	}
+	 .Pro-bar-li li.P-bar02 {
+	    width: 40%;
+	    text-align: center;
+	}
+	.Pro-bar-li li.P-bar03 {
+	    width: 30%;
+	    float: right;
+	    text-align: right;
+	}
+	.Pro-bar-li li.P-bar03 em {
+	    color: #2AF;
+	}
+				
+	.pBtn a.buyBtn {
+	    background: #f60;
+	    border: 1px solid #EF6000;
+	    margin-bottom: 6px;
+	}
+	.buyOver{
+		background: #C3C0BE;
+	    border: 1px solid #C3C0BE;
+	    margin-bottom: 6px;
+	    font-weight: 500;
+	}
+	.pBtn a.addBtn {
+	    background: #ffb320;
+    border: 1px solid #FDA700;
+	}
+	.pBtn a {
+	    display: inline-block;
+	    color: #fff;
+	    width: 49%;
+	    height: 33px;
+	    line-height: 33px;
+	    text-align: center;
+	    font-size: 16px;
+	    border-radius: 3px;
+	    margin-top: 10px;;
+	}
+	
+		</style>
+</head>
+<body class="back1">
+
+		<div class="mr-b back2">
+			<img src="{$cache.imgurl}" width="100%">
+			<div class="dtl-c border-b1 ovflw fonts9">
+				<div class="dtl-tty ">{$cache.gname}</div>
+				<div class="dtl-prc border-b1" style="border: none;">
+					<em class="dtl-prc1 color3" style="color: #bbb;font-size: 12px;color: #a1a1a1;">
+						价值：￥{$cache.price}
+					</em>
+				</div>
+
+				<div class="dtl-lbl ovflw" style="padding-bottom: 15px; border-bottom: 1px solid #e5e5e5;">
+					<div class="progress" id="vaderTime{$key}"></div>
+					<ul class="Pro-bar-li" style="margin: -6px 10px 0;">
+						<li class="P-bar01"><em>{$cache.sells}</em>已参与</li>
+						<li class="P-bar02"><em>{$cache.num}</em>总需人次</li>
+						<li class="P-bar03"><em>{$yhave}</em>剩余</li>
+					</ul>
+					<script>
+				        var selnum="{$selnum}";
+				        var num="{$cache.num}";
+				        //ProgressBarWars 
+$("#vaderTime{$key}").ProgressBarWars({porcentaje:selnum,estilo:"vader",tiempo:1000,tamanio:"60%"});
+					</script>
+				</div>
+				
+				
+				<p class="dtl-pty">数量：</p>
+				<div class="ovflw dtl_num fl">
+					<a href="#" class="dtl_mar1" id="goods-dec">-</a>
+					<input type="text" value="1" class="fl dtl_input dtl_mar1" id="goods-total" disabled="disabled"/>
+					<a href="#" class="" id="goods-add">+</a>
+				</div>
+				<span class="fr dtl-sy">剩余：<em id="goods-num">{$yhave}</em>件</span>
+				<span id="finalsku" data-sku = "" data-skuattr="" style="display: none;"></span>
+				<div class="clr"></div>
+					
+				<div class="pBtn">
+					<eq name="yhave" value="0">
+						<a href="javascript:;" class="fl buyOver">活动已结束!!</a>
+						<a href="javascript:;" class="fr addBtn" id="winmsg">中奖人信息</a>
+					<else />
+						<a href="javascript:;" class="fl buyBtn" id="fastbuy">立即全民夺宝</a>
+						<a href="javascript:;" class="fr addBtn" id="winlog">夺宝记录</a>
+					</eq>
+					
+				</div>
+				
+			</div>
+		</div>
+		<div class="dtl-prt back2 mr-b fonts9 border-t1 border-b1">
+			<div class="dtl-prc border-b1">
+				<em class="dtl-prc color6"><i class="iconfont">&#xe676;&nbsp;</i><i id=" goods-price">{$_SESSION['WAP']['shopset']['name']}</i></em>
+				<a href="{$_SESSION['WAP']['shopset']['url']}/wap/shop/index" class="fr dtl-sel">进入店铺></a>
+			</div>
+		</div>
+		<div class="dtl-prt back2 fonts9 border-t1 goods-content">
+			{$content|htmlspecialchars_decode}
+		</div>
+		<div class="insert"></div>
+
+		<!--全局封装-->
+		<script type="text/javascri pt">
+			
+		</script>
+		<!--封装图集-->
+		</script>
+
+		<!--封装SKU-->
+		<script type="text/javascript">
+			var loginback="{$loginback}";
+			var vipid="{$_SESSION.WAP.vipid}";
+//			alert(vipid);
+			var goodsid="{$cache.id}";
+			var skujson=$.parseJSON('{$skujson}');
+			var skuwrap=$('#sku-wrap');
+			var allsku=$('.sku');
+			var allskuattr=$('.sku span');
+			var finalsku=$('#finalsku');
+			var goodsprice=$('#goods-price');
+			var goodsnum=$('#goods-num');
+			$(allskuattr).on('click',function(){
+				var fasku=$(this).parent().parent('.sku');
+				var fa=$(this).parent();
+				var son=$(fa).find('span');
+				$(fasku).data('attr',$(this).data('attr'));
+				$(son).css({'background':'#FFFFFF','color':'#636363','border':'1px solid #e5e5e5'});
+				$(this).css({'background':'#f7194d','color':'#FFFFFF','border':'1px solid #f7194d'});
+				var str='';
+				var totalsku=0;
+				var totalattr=0;
+				$(allsku).each(function(){
+					var dt=$(this).data('attr');
+					if(dt){
+						str=str+dt+'-';
+						totalattr=totalattr+1;
+					}
+					totalsku=totalsku+1;
+				});
+				str=str.substring(0,str.length-1);
+				if(totalsku==totalattr){
+					str=goodsid+'-'+str;
+					$tmpsku=skujson[str];
+					$(finalsku).data('sku',$tmpsku['sku']);
+					$(finalsku).data('skuattr',$tmpsku['skuattr']);
+					$(goodsnum).html($tmpsku['num']);
+					$(goodsprice).html($tmpsku['price']);
+				}
+				
+			});
+		</script>
+		<!--封装购物车-->
+		<script type="text/javascript">
+			var goodsnum=$('#goods-num');
+			var goodsdec=$('#goods-dec');
+			var goodsadd=$('#goods-add');
+			var goodstotal=$('#goods-total');
+			var goodsprice=$('#goods-price');
+			var addtocart=$('#addtocart');
+			var fastbuy=$('#fastbuy');
+			var basketnum=$('#basketnum');
+			var bk =$('.dtl-bck');
+			$(bk).on('click',function(){
+				history.go(-1);
+			})
+			$(goodsadd).on('click',function(){
+				var num=Number($(goodstotal).val());
+				var left=Number($(goodsnum).html());
+				var total=(num+1)<=left?(num+1):left;
+				$(goodstotal).val(total);
+				return false;
+			});
+			$(goodsdec).on('click',function(){
+				var num=Number($(goodstotal).val());
+				var total=(num-1)>=0?(num-1):0;
+				$(goodstotal).val(total);
+				return false;
+			});
+			//立刻购买特效
+			$(fastbuy).on('click',function(){
+				var goodsnum=Number($('#goods-num').html());
+				var num=Number($(goodstotal).val());
+				var finalsku=$('#finalsku');
+				
+				if(goodsnum-num<0){
+					Joel_gmuMsg('该产品库存不足！请调整购买量或选择其他属性！');
+					return false;
+				}
+
+				if(!vipid){
+					var fun=function(){
+						window.location.href=loginback;
+					}
+					Joel_gmuMsg('您还未登录，2秒后自动跳转登陆界面！',fun);
+					return false;
+				}
+
+				// 作者：郑伊凡 2016-1-20 母版本 功能：检测身份认证
+				var checkidfun = function (){
+					window.location.href="{:U('wap/vip/info')}";
+				}
+				if("{$ischeckid}"==1){
+					$.ajax({
+						type:"post",
+						url:"{:U('Wap/Yydb/checkidentify')}",
+						success:function(info){
+							if(!info['status']){
+								Joel_gmuMsg(info['msg'],checkidfun);
+								return false;
+							}else{
+								buy();
+							}
+						},
+						error:function(xh,obj){
+							Joel_gmuMsg('通讯失败，请重试！');
+						}
+					});
+				}else{
+					buy();
+				}
+				function buy(){
+					var sku=$(finalsku).data('sku');
+					var skuattr=$(finalsku).data('skuattr');
+					var price=$(goodsprice).html();
+					var num=$(goodstotal).val();
+					var dt={'sid':0,'goodsid':goodsid,'vipid':vipid,'sku':sku,'num':num};
+					//保证订单生成页的返回
+					var orderurl="{:U('Wap/Yydb/orderMake',array('sid'=>0,'lasturl'=>$lasturl))}";
+					var fun=function(){
+						
+						window.location.href=orderurl;
+					}
+					$.ajax({
+						type:"post",
+						url:"{:U('Wap/Yydb/fastbuy')}",
+						dataType:'json',
+						data:dt,
+						success:function(info){if(info['status']){Joel_gmuMsg(info['msg'],fun);}else{Joel_gmuMsg('发生未知错误,请重新尝试！');}return false;},
+						error:function(xh,obj){
+							Joel_gmuMsg('通讯失败，请重试！');
+						}
+					});
+					return false;
+				}
+			});
+			
+			///中奖人信息   夺宝记录
+			$("#winmsg").on('click',function(){
+				var winurl="{:U('Wap/Yydb/yydblog',array('goodsid'=>$goodsid,'type'=>'zj'))}";
+				window.location.href=winurl;
+			})
+			$("#winlog").on('click',function(){
+				var winurl="{:U('Wap/Yydb/yydblog',array('goodsid'=>$goodsid,'type'=>'gr'))}";
+				window.location.href=winurl;
+			})
+		</script>
+		<!--通用分享-->
+		<!--新版分享特效-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	var share_url = "{$_SESSION['WAP']['shopset']['url']}/Wap/Shop/goods/ppid/{$_SESSION['WAP']['vipid']}/id/{$cache.id}";
+	var share_title="{$_SESSION['WAP']['shopset']['name']}-{$cache.name}";
+	var share_content="{$cache.summary}";
+	var share_img="{$_SESSION['WAP']['shopset']['url']}{$joelpic.imgurl}";
+	
+  wx.config({
+      debug: false,
+      appId: "{$jsapi['appId']}",
+	  timestamp: "{$jsapi['timestamp']}",
+	  nonceStr: "{$jsapi['nonceStr']}",
+	  signature: "{$jsapi['signature']}",
+      jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+//      'translateVoice',
+//      'startRecord',
+//      'stopRecord',
+//      'onRecordEnd',
+//      'playVoice',
+//      'pauseVoice',
+//      'stopVoice',
+//      'uploadVoice',
+//      'downloadVoice',
+//      'chooseImage',
+//      'previewImage',
+//      'uploadImage',
+//      'downloadImage',
+//      'getNetworkType',
+//      'openLocation',
+//      'getLocation',
+//      'hideOptionMenu',
+//      'showOptionMenu',
+//      'closeWindow',
+//      'scanQRCode',
+//      'chooseWXPay',
+//      'openProductSpecificView',
+//      'addCard',
+//      'chooseCard',
+//      'openCard'
+      ]
+  });
+  
+  wx.ready(function () {
+	  	//开启菜单
+	  	wx.showOptionMenu();
+	  	//隐藏菜单
+	  	//wx.hideOptionMenu();
+	    //分享给朋友
+	    wx.onMenuShareAppMessage({
+	      title: share_title,
+	      desc: share_content,
+	      link: share_url,
+	      imgUrl: share_img,
+	      trigger: function (res) {
+	        //alert('用户点击发送给朋友');
+	      },
+	      success: function (res) {
+	        //alert('已分享');
+	      },
+	      cancel: function (res) {
+	        //alert('已取消');
+	      },
+	      fail: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+	    //分享到朋友圈
+	    wx.onMenuShareTimeline({
+	      title: share_title,
+	      link: share_url,
+	      imgUrl: share_img,
+	      trigger: function (res) {
+	        //alert('用户点击分享到朋友圈');
+	      },
+	      success: function (res) {
+	        //alert('已分享');
+	      },
+	      cancel: function (res) {
+	        //alert('已取消');
+	      },
+	      fail: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+	    //分享到QQ
+	    wx.onMenuShareQQ({
+	      title: share_title,
+	      desc: share_content,
+	      link: share_url,
+	      imgUrl: share_img,
+	      trigger: function (res) {
+	        //alert('用户点击分享到QQ');
+	      },
+	      complete: function (res) {
+	        //alert(JSON.stringify(res));
+	      },
+	      success: function (res) {
+	        //alert('已分享');
+	      },
+	      cancel: function (res) {
+	        //alert('已取消');
+	      },
+	      fail: function (res) {
+	        //alert(JSON.stringify(res));
+	      }
+	    });
+  });
+</script>
+	</body>
+</html>

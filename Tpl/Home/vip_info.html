@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+		<script type="text/javascript">
+			$(function() {
+					$(".moreinfo").click(function() {
+						$(".s_pcright1").removeClass("displaynone");
+						$(".s_pcright2").addClass("displaynone");
+						$(".s_pcright3").addClass("displaynone");
+					})
+					$(".basicinfo").click(function() {
+						$(".s_pcright1").addClass("displaynone");
+						$(".s_pcright2").addClass("displaynone");
+						$(".s_pcright3").removeClass("displaynone");
+					})
+					$(".touxiangpic").click(function() {
+						$(".s_pcright1").addClass("displaynone");
+						$(".s_pcright2").removeClass("displaynone");
+						$(".s_pcright3").addClass("displaynone");
+					})
+				})
+		</script>
+	</head>
+
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+		<div class="s_page">
+			<div class="s_pccontent">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<!--
+            	更多个人信息
+                -->
+				<div class="s_pcright1 fr font12 displaynone">
+					<div>
+						<a href="#" class="color1 basicinfo">基本信息</a>
+						<a href="#" class="color1 touxiangpic">头像照片</a>
+						<a href="#" class="color1 moreinfo">更多个人信息</a>
+					</div>
+					<div class="margintop40">
+						<span class="top-2 marginleft56">婚姻状况：</span>
+						<input type="radio" name="marry" id="unmarried" />
+						<label for="unmarried" class="top-2">未婚</label>
+						<input type="radio" name="marry" id="married" class="marginleft15" />
+						<label for="married" class="top-2">已婚</label>
+						<input type="radio" name="marry" id="secret" class="marginleft15" />
+						<label for="secret" class="top-2">保密</label>
+					</div>
+					<div class="monthincome">
+						<span>月收入：</span>
+						<select>
+							<option>请选择</option>
+							<option>1000以下</option>
+							<option>1000-3000</option>
+							<option>3000-5000</option>
+							<option>5000以上</option>
+						</select>
+					</div>
+					<div class="personid">
+						<span>身份证号码：</span>
+						<input type="text" />
+					</div>
+					<div class="education">
+						<span>教育程度：</span>
+						<select>
+							<option>请选择</option>
+							<option>初中</option>
+							<option>高中</option>
+							<option>专科</option>
+							<option>本科</option>
+							<option>本科以上</option>
+						</select>
+					</div>
+					<div class="education">
+						<span>所在行业：</span>
+						<select>
+							<option>请选择</option>
+							<option>行业1</option>
+							<option>行业2</option>
+							<option>行业3</option>
+							<option>行业4</option>
+							<option>行业5</option>
+						</select>
+					</div>
+					<div class="savebtn">
+						<button>保存</button>
+					</div>
+				</div>
+				<!--
+                	头像照片
+                -->
+				<div class="s_pcright2 fr font12 displaynone">
+					<div>
+						<a href="#" class="color1 basicinfo">基本信息</a>
+						<a href="#" class="color1 touxiangpic">头像照片</a>
+						<a href="#" class="color1 moreinfo">更多个人信息</a>
+					</div>
+					<div class="picleft fl">
+						<div class="uploadpic">
+							<button>
+								<img src="__PUBLIC__/home/img/icon9_03.jpg" class="top2" />
+								<span class="font12 fontfamily">选择您要上传的头像</span>
+							</button>
+							<br />
+							<span class="color1 marginleft31 fontfamily">仅支持
+								<span>JPG、GIF、PNG、JPEG、BMP</span>格式，文件小于
+							<span>4M</span>
+							</span>
+						</div>
+						<div class="picbg">
+							<div class="pic"></div>
+						</div>
+						<div class="savebtn2">
+							<button>保存</button>
+						</div>
+					</div>
+					<div class="fengexian fl"></div>
+					<div class="picright fl">
+						<p class="preview fontfamily">效果预览</p>
+						<p class="font12 color1" style="margin-top: 3px;">你上传的图片会自动生成2种尺寸，请注意小尺寸的头像是否清晰</p>
+						<div class="bigpic"></div>
+						<span class="color1">100*100像素</span>
+						<div class="smallpic"></div>
+						<span class="color1">50*50像素</span>
+					</div>
+				</div>
+				<!--
+                	基本信息
+                -->
+				<div class="s_pcright3 fr font12">
+					<div class="pic3left fl">
+						<a href="#" class="color1 basicinfo">基本信息</a>
+						<a href="#" class="color1 touxiangpic">头像照片</a>
+						<a href="#" class="color1 moreinfo">更多个人信息</a>
+						<p class="nikename">
+							<span><span class="color11">*</span>昵称：</span>
+							<input type="text" value="varanses" />
+						</p>
+						<p class="sex">
+							<span>
+								<span class="color11">*</span> 性别：
+							</span>
+							<input type="radio" id="male" name="sex" class="top2" />
+							<label for="male">男</label>
+							<input type="radio" id="female" name="sex" class="top2 marginleft15" />
+							<label for="female">女</label>
+							<input type="radio" id="sexsecret" name="sex" class="top2 marginleft15" />
+							<label for="sexsecret">保密</label>
+						</p>
+						<p class="birth">
+							<span>生日：</span>
+							<select>
+								<option>请选择</option>
+								<option>1990</option>
+								<option>1990</option>
+								<option>1990</option>
+								<option>1990</option>
+							</select>
+							<lable>年</lable>
+							<select>
+								<option>请选择</option>
+								<option>1</option>
+								<option>1</option>
+								<option>1</option>
+								<option>1</option>
+							</select>
+							<lable>月</lable>
+							<select>
+								<option>请选择</option>
+								<option>1</option>
+								<option>1</option>
+								<option>1</option>
+								<option>1</option>
+							</select>
+							<lable>日</lable>
+							<span class="color1">填写生日有惊喜哦~</span>
+						</p>
+						<p class="interesttitl">兴趣爱好：
+							<span style="margin-left: 7px;">请选择您感兴趣的分类，给您最精准的推荐</span>
+						</p>
+						<div class="category clr">
+							<div class="category1" style="width:137px;" onclick="jd(this)">
+								<span>鞋靴/箱包/钟表/奢侈品</span>
+							</div>
+							<div class="category1" style="width:68px;" onclick="jd(this)">
+								<span>运动健康</span>
+							</div>
+							<div class="category1" style="width:68px;" onclick="jd(this)">
+								<span>汽车用品</span>
+							</div>
+							<div class="category1" style="width:95px;" onclick="jd(this)">
+								<span>母婴/玩具乐器</span>
+							</div>
+							<div class="category1" style="width:119px;" onclick="jd(this)">
+								<span>食品饮料/保健食品</span>
+							</div>
+							<div class="category1" style="width:125px;" onclick="jd(this)">
+								<span>彩票/旅游/充值/票务</span>
+							</div>
+						</div>
+						<p class="email fl">
+							<span>邮箱：</span>
+							<span class="fontfamily" style="margin-left: 2px;">73*****56@qq.com</span>
+							<a href="#">修改</a>
+							<span class="color1">已验证</span>
+						</p>
+						<p class="realname fl">
+							<span><span class="color11">*</span>真实姓名：</span>
+							<input type="text" />
+						</p>
+						<p class="location fl">
+							<span>所在地：</span>
+							<select>
+								<option>江苏</option>
+								<option>江苏</option>
+								<option>江苏</option>
+								<option>江苏</option>
+								<option>江苏</option>
+							</select>
+							<select>
+								<option>苏州市</option>
+								<option>苏州市</option>
+								<option>苏州市</option>
+								<option>苏州市</option>
+								<option>苏州市</option>
+							</select>
+							<select>
+								<option>张家港市</option>
+								<option>张家港市</option>
+								<option>张家港市</option>
+								<option>张家港市</option>
+								<option>张家港市</option>
+							</select>
+							<br />
+							<input type="text" class="street" />
+							<br />
+							<button class="savebtn3">保存</button>
+						</p>
+
+					</div>
+					<div class="pic3right fl">
+						<div class="vip">
+							<div class="touxiang fl">
+								<img src="__PUBLIC__/home/img/touxiang_03.jpg" width="100px" height="100px" />
+							</div>
+							<div class="fl marginleft7">
+								<p class="margintop11 fontweight">
+									<span>用户名：</span>
+									<span class="fontfamily">varanses</span>
+								</p>
+								<p class="vippic">
+									<img src="__PUBLIC__/home/img/vip_03.jpg" width="20px" height="20px" />
+									<span class="viplevel">会员等级1</span>
+								</p>
+								<p style="margin-top:7px;">会员类型：个人用户</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br class="clear"/>
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+	</body>
+</html>

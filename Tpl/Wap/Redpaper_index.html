@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>红包中心</title>
+		<meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/style.css" />
+		<script type="text/javascript" src="__PUBLIC__/wap/js/zepto.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/js/countUp.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+		<!--复写css-->
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/redpaper.css" />
+		<!--复写css-->
+	</head>
+
+	<body class="back5">
+		<!-- 头部 -->
+		<div class="top">
+			<div class="center">
+				<!-- 头像 -->
+				<div class="headimg"><img src="{$vip.headimgurl}"></div>
+				<!-- 昵称 -->
+				<div class="nickname color8">昵称：{$vip.nickname}</div>
+			</div>
+			<div class="top_bottom color8">
+				<div class="border_r num">
+					<div class="fonts1">
+						<empty name="red['num']['num1']">
+							0
+						<else />
+							{$red['num']['num1']}
+						</empty>
+					</div>
+					<div class="fonts2">太阳星</div>
+				</div>
+				<div class="border_r num">
+					<div class="fonts1">
+						<empty name="red['num']['num2']">
+							0
+						<else />
+							{$red['num']['num2']}
+						</empty>
+					</div>
+					<div class="fonts2">地球星</div>
+				</div>
+				<div class="num">
+					<div class="fonts1">
+						<empty name="red['num']['num3']">
+							0
+						<else />
+							{$red['num']['num3']}
+						</empty>
+					</div>
+					<div class="fonts2">月亮星</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="part3">
+				<a class="color12" href="{:U('wap/shop/index')}">
+					<div><i class="iconfont i-size">&#xe6b8;</i></div>
+					<div class="fonts2">商城首页</div>
+				</a>
+			</div>
+			<div class="part3">
+				<a class="color12" href="{:U('wap/redpaper/cards')}">
+					<div><i class="iconfont i-size">&#xe6ac;</i></div>
+					<div class="fonts2">购买红包</div>
+				</a>
+			</div>
+			<div class="part3">
+				<a class="color12" id="sendred" href="#send">
+					<div><i class="iconfont i-size">&#xe6e0;</i></div>
+					<div class="fonts2">发送红包</div>
+				</a>
+			</div>
+			<!-- <div class="part5">
+				<a class="color12" id="showindex">
+					<div><i class="iconfont i-size">&#xe6fe;</i></div>
+					<div class="fonts2">查看进度</div>
+				</a>
+			</div>
+			<div class="part5">
+				<a class="color12" id="myget">
+					<div><i class="iconfont i-size">&#xe6d3;</i></div>
+					<div class="fonts2">我的收获</div>
+				</a>
+			</div> -->
+			<div class="clr"></div>
+		</div>
+		<div class="content">
+			<div class="my-red">
+				<span>我的红包</span><span class="fonts1 lst-mr padd">{$red['money']['total']}</span>
+				<div class="fr"><i class="iconfont">&#xe6a3;</i></div>
+			</div>
+			<div class="fonts2">
+				<div class="part4 mag-top-10">
+					<div class="padd3 color3 border-r2">
+						<empty name="red['pay']">
+							0.00
+						<else />
+							{$red['pay']}
+						</empty>
+					</div>
+					<div class="border-r2">卡主红包</div>
+				</div>
+				<div class="part4 mag-top-10">
+					<div class="padd3 color3 border-r2">
+						<empty name="red['money'][1]">
+							0.00
+						<else />
+							{$red['money'][1]}
+						</empty>
+					</div>
+					<div class="border-r2">太阳红包</div>
+				</div>
+				<div class="part4 mag-top-10">
+					<div class="padd3 color3 border-r2">
+						<empty name="red['money'][2]">
+							0.00
+						<else />
+							{$red['money'][2]}
+						</empty>
+					</div>
+					<div class="border-r2">地球红包</div>
+				</div>
+				<div class="part4 mag-top-10">
+					<div class="padd3 color3">
+						<empty name="red['money'][3]">
+							0.00
+						<else />
+							{$red['money'][3]}
+						</empty>
+					</div>
+					<div class="">月亮红包</div>
+				</div>
+				<div class="clr"></div>
+			</div>
+		</div>
+		<notempty name="red">
+		<div class="content">
+			<!-- 发送红包 -->
+			<if condition="$red['level'] egt 1">
+			<div class="sendred">
+				<div class="s-ji">
+					<empty name="vip['boss'][1]">
+						<div class="fl img"><img src="__PUBLIC__/wap/img/noname.jpg" /></div>
+						<div class="fl padd">匿名</div>
+					<else />
+						<div class="fl img"><img src="{$vip['boss'][1]['headimgurl']}" /></div>
+						<div class="fl padd">{$vip['boss'][1]['nickname']}</div>
+					</empty>
+					<div class="fr padd">属性：<div class="fr img"><img src="__PUBLIC__/wap/img/sun.png"></div></div>
+					<div class="clr"></div>
+				</div>
+			</div>
+			</if>
+			<if condition="$red['level'] egt 2">
+			<div class="sendred">
+				<div class="s-ji">
+					<empty name="vip['boss'][2]">
+						<div class="fl img"><img src="__PUBLIC__/wap/img/noname.jpg" /></div>
+						<div class="fl padd">匿名</div>
+					<else />
+						<div class="fl img"><img src="{$vip['boss'][2]['headimgurl']}" /></div>
+						<div class="fl padd">{$vip['boss'][2]['nickname']}</div>
+					</empty>
+					<div class="fr padd">属性：<div class="fr img"><img src="__PUBLIC__/wap/img/earth.png"></div></div>
+					<div class="clr"></div>
+				</div>
+			</div>
+			</if>
+			<if condition="$red['level'] egt 3">
+			<div class="sendred">
+				<div class="s-ji">
+					<empty name="vip['boss'][3]">
+						<div class="fl img"><img src="__PUBLIC__/wap/img/noname.jpg" /></div>
+						<div class="fl padd">匿名</div>
+					<else />
+						<div class="fl img"><img src="{$vip['boss'][3]['headimgurl']}" /></div>
+						<div class="fl padd">{$vip['boss'][3]['nickname']}</div>
+					</empty>
+					<div class="fr padd">属性：<div class="fr img"><img src="__PUBLIC__/wap/img/mon.png"></div></div>
+					<div class="clr"></div>
+				</div>
+			</div>
+			</if>
+			<div class="sendit" id="send" data-status="{$red['status']}">
+				<switch name="red['status']">
+					<case value="0"><img src="__PUBLIC__/wap/img/sendall.png"></case>
+					<case value="1"><img src="__PUBLIC__/wap/img/waitsend.png"></case>
+					<case value="2"><img src="__PUBLIC__/wap/img/resend.png"></case>
+					<case value="3"><img src="__PUBLIC__/wap/img/sendsuccess.png"></case>
+				</switch>
+			</div>
+		</div>
+		</notempty>
+
+		<!-- 查看进度 -->
+		<div class="showindex">
+			
+		</div>
+		<!-- 我的收货 -->
+		<div class="myget">
+			
+		</div>
+
+		<eq name="_SESSION['WAP']['vip']['sid']" value="0">
+			<include file="./Tpl/Wap/shop_footer.html" />
+		<else/>
+			<include file="./Tpl/Wap/fxshop_footer.html" />
+		</eq>
+		
+	</body>
+	<script>
+		$(".sendit").click(function(){
+			var status = $(".sendit").data('status');
+			if(!(status==0 || status==2)){
+				return false;
+			}
+			$.ajax({
+				type:'post',
+				url: "{:U('wap/redpaper/sentAll')}",
+				success: function(info){
+					if(info['status']){
+						alert(info['msg']);
+						$(".sendit").data('status',1);
+						$(".sendit img").attr('src','__PUBLIC__/wap/img/waitsend.png');
+					}else{
+						alert(info['msg']);
+					}
+				}
+			});
+		})
+		$("#sendred").click(function(){
+
+		})
+	</script>
+			<!--新版分享特效-->
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var share_url = "{$_SESSION['WAP']['shopset']['url']}/Wap/redpaper/index/ppid/{$_SESSION['WAP']['vipid']}";
+			var share_title="{$_SESSION['WAP']['shopset']['redtitle']}";
+			var share_content="{$_SESSION['WAP']['shopset']['redmsg']}";
+			var share_img="{$_SESSION['WAP']['shopset']['url']}{$shareimg}";
+			
+		  wx.config({
+		      debug: false,
+		      appId: "{$jsapi['appId']}",
+			  timestamp: "{$jsapi['timestamp']}",
+			  nonceStr: "{$jsapi['nonceStr']}",
+			  signature: "{$jsapi['signature']}",
+		      jsApiList: [
+		        'checkJsApi',
+		        'onMenuShareTimeline',
+		        'onMenuShareAppMessage',
+		        'onMenuShareQQ',
+		        'onMenuShareWeibo',
+		        'hideMenuItems',
+		        'showMenuItems',
+		        'hideAllNonBaseMenuItem',
+		        'showAllNonBaseMenuItem',
+		//      'translateVoice',
+		//      'startRecord',
+		//      'stopRecord',
+		//      'onRecordEnd',
+		//      'playVoice',
+		//      'pauseVoice',
+		//      'stopVoice',
+		//      'uploadVoice',
+		//      'downloadVoice',
+		//      'chooseImage',
+		//      'previewImage',
+		//      'uploadImage',
+		//      'downloadImage',
+		//      'getNetworkType',
+		//      'openLocation',
+		//      'getLocation',
+		//      'hideOptionMenu',
+		//      'showOptionMenu',
+		//      'closeWindow',
+		//      'scanQRCode',
+		//      'chooseWXPay',
+		//      'openProductSpecificView',
+		//      'addCard',
+		//      'chooseCard',
+		//      'openCard'
+		      ]
+		  });
+		  
+		  wx.ready(function () {
+			  	//开启菜单
+			  	wx.showOptionMenu();
+			  	//隐藏菜单
+			  	//wx.hideOptionMenu();
+			    //分享给朋友
+			    wx.onMenuShareAppMessage({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击发送给朋友');
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到朋友圈
+			    wx.onMenuShareTimeline({
+			      title: share_title,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到朋友圈');
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到QQ
+			    wx.onMenuShareQQ({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到QQ');
+			      },
+			      complete: function (res) {
+			        //alert(JSON.stringify(res));
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+		  });
+		</script>
+</html>

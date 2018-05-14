@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+	</head>
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+			
+		<div class="s_page">
+			<div class="s_content">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_PIright fl font12">
+					<form id="txForm">
+					<ul>
+						<li class="lititl">
+							<span>银行卡提现资料</span>
+						</li>
+						<li>
+							<span>姓名</span>
+							<input type="text" name="txname" value="{$data.txname}" placeholder="请输入姓名" id="txname" />
+						</li>
+						<li>
+							<span>电话</span>
+							<input type="text" name="txmobile" value="{$data.txmobile}" placeholder="请输入联系电话" id="txmobile" />
+						</li>
+						<li>
+							<span>开户银行</span>
+							<input type="text" name="txyh" value="{$data.txyh}" placeholder="请输入银行" id="txyh" />
+						</li>
+						<li>
+							<span>所属分行</span>
+							<input type="text" name="txfh" value="{$data.txfh}" placeholder="请输入银行分行" id="txfh" />
+						</li>
+						<li>
+							<span>开户行所在地</span>
+							<input type="text" name="txszd" value="{$data.txszd}" placeholder="请输入银行所在地" id="txszd" />
+						</li>
+						<li>
+							<span>银行卡号</span>
+							<input type="text" name="txcard" value="{$data.txcard}" placeholder="请输入银行卡号" id="txcard" />
+						</li>
+					</ul>
+					</form>
+					<button id="btntxsave">提&nbsp;&nbsp;交</button>
+				</div>
+				<br class="clear"/>
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+		<script>
+	$('#btntxsave').click(function() {
+		if (!$('#txname').val()) {
+			alert_msg('请填写提现姓名！');
+			return false;
+		}
+		if (!$('#txmobile').val()) {
+			alert_msg('请填写提现手机！');
+			return false;
+		}
+		if (!$('#txyh').val()) {
+			alert_msg('请填写开户银行！');
+			return false;
+		}
+		if (!$('#txfh').val()) {
+			alert_msg('请填写开户银行分行！没有请填写总行!');
+			return false;
+		}
+		if (!$('#txszd').val()) {
+			alert_msg('请填写提现所在地！');
+			return false;
+		}
+		if (!$('#txcard').val()) {
+			alert_msg('请填写提现银行卡号！');
+			return false;
+		}
+		$.ajax({
+			type: "post",
+			url: "{:u('vip/bankinfo')}",
+			async: true,
+			data: $('#txForm').serializeObject(),
+			success: function(e) {
+				if (e.status) {
+					alert_msg(e.msg);
+				} else {
+					alert_msg(e.msg);
+				}
+			}
+		});
+	})
+</script>
+	
+	</body>
+</html>

@@ -1,0 +1,224 @@
+ <!--百度编辑器-->
+<link href="__PUBLIC__/Cms/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Cms/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Cms/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Cms/umeditor/lang/zh-cn/zh-cn.js"></script>
+<style>
+	.tpl-select{
+		display: block;
+		float: left;
+		margin: .2em;
+		border: 1em solid #F0EAD8;
+		border-radius: 1em;
+	}
+	.tpl-select:hover{
+		border: 1em solid #000;
+	}
+</style>
+<div class="row" style="position:relative">
+	<!--模版列表-->
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-body" style="width: 1000px;">
+					<volist name='tpllist' id='vo'>
+						<div style="display: block;float: left;">
+							<span class="tpl-select" data-id='{$vo["id"]}'>
+		                    	<img src="{$vo['picurl']['imgurl']}" style="width: 143px;height: 277px;display: block; "/>
+	                    	</span>
+	                    	 <span style="display: block; width: 100%; text-align: center;">{$vo.name}</span>
+                    	</div>
+					</volist>
+					<br style="clear: both">
+				</div>
+				<!--<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary select-ok">确定</button>
+				</div>-->
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!--/模版列表-->
+    <div class="col-xs-12 col-xs-12">
+        <div class="widget radius-bordered">
+            <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">商城配置</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+                <div class="widget-body">
+                    <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                    <input type="hidden" name="id" value="{$cache.id}">
+                    <div class="form-group">
+		                <label class="col-lg-2 control-label">开启红包活动</label>
+		                <div class="col-lg-4">
+		                	<label>
+		                		  <input type="hidden" name="status" value="{$cache.status}" id="status">
+		                          <input class="checkbox-slider slider-icon colored-primary" type="checkbox" id="isstatusbtn" <eq name="cache.status" value="1">checked="checked"</eq>>
+		                          <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后前台将具有红包活动。</span>
+		                    </label>
+		                </div>
+		            </div>
+		            <div class="form-group">
+		                <label class="col-lg-2 control-label">活动名称<sup>*</sup></label>
+		                <div class="col-lg-4">
+		                	<input type="text" class="form-control" name="name" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.name}">
+		                </div>
+		            </div>
+					<div class="form-group">
+                        <label class="col-lg-2 control-label">分享图片<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" readonly="true" class="form-control" name="fxpic" value="{$cache.fxpic}" data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" id="Joel-fxpic">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-fxpic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-fxpic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                        <label class="col-lg-0 control-label">&nbsp;尺寸：300*300px</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">分享标题<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="fxtitle" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.fxtitle}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">分享内容<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	<textarea class="form-control" name="fxmsg" rows="5" data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" >{$cache.fxmsg}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">活动图片<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" readonly="true" class="form-control" name="pic" value="{$cache.pic}" id="Joel-pic">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-pic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-pic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                        <label class="col-lg-0 control-label">&nbsp;尺寸：700*450px</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">管理费所占比例<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="manager" placeholder="请填写整数"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.manager}">
+                        </div>
+                         <span class="text darkorange">&nbsp;&nbsp;&larr;重要：填写10，则系统将收取10%的费用。</span>
+                    </div>
+                    <div class="form-group">
+		                <label class="col-lg-2 control-label">一级红包价格<sup>*</sup></label>
+		                <div class="col-lg-4">
+		                	<input type="text" class="form-control" name="price1" placeholder="一级红包价格"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.price1}">
+		                </div>
+		                 <span class="text darkorange">&nbsp;&nbsp;&larr;重要：购买后能获得一级权限，权限等级最低。</span>
+		            </div>
+                    <div class="form-group">
+		                <label class="col-lg-2 control-label">二级红包价格<sup>*</sup></label>
+		                <div class="col-lg-4">
+		                	<input type="text" class="form-control" name="price2" placeholder="二级红包价格"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.price2}">
+		                </div>
+		                <span class="text darkorange">&nbsp;&nbsp;&larr;重要：购买后能获得二级权限，权限等级第二高。</span>
+		            </div>
+                    <div class="form-group">
+		                <label class="col-lg-2 control-label">三级红包价格<sup>*</sup></label>
+		                <div class="col-lg-4">
+		                	<input type="text" class="form-control" name="price3" placeholder="三级红包价格"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.price3}">
+		                </div>
+		                <span class="text darkorange">&nbsp;&nbsp;&larr;重要：购买后能获得三级权限，权限等级最高。</span>
+		            </div>
+				    <div class="form-group">
+		                <label class="col-lg-2 control-label">累计销售金额</label>
+		                <div class="col-lg-4">
+		                	<input type="text" class="form-control" value="{$cache.sell}" disabled="true">
+		                </div>
+		                 <span class="text darkorange">&nbsp;&nbsp;&larr;重要：用户在平台红包活动中消费的总金额。</span>
+		            </div>
+
+		            <div class="form-group">
+		                <label class="col-lg-2 control-label">最后修改时间</label>
+		                <div class="col-lg-4">
+		                	<input type="text" class="form-control" value="{$cache.ctime|date='Y-m-d H:i:s',###}" disabled="true">
+		                </div>
+		            </div>
+		            <div class="form-group">
+                        <label class="col-lg-2 control-label">游戏规则</label>
+                        <div class="col-lg-4">
+                        	<!--必须插入空input避免验证冲突--> 
+                        	<input type="hidden">
+                    		<script type="text/plain" id="J-ueditor" name="content" style="width:800px;height:400px;">{$cache.content|htmlspecialchars_decode}</script>
+                        </div>
+                   </div>
+					<div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-4">
+                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                        </div>
+                    </div>
+                   </form>
+                </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--编辑器封装-->
+<script type="text/javascript">
+	 var um = UM.getEditor('J-ueditor');
+</script>
+<!--/编辑器封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+           	var tourl="{:U('Cms/Redpaper/set')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+</script>
+<!--/表单验证与提交封装-->
+<script type="text/javascript">
+$('#isstatusbtn').on('click',function(){
+		var value=$(this).prop('checked')?1:0;
+		$('#status').val(value);
+	});
+</script>

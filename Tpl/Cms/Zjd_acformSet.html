@@ -1,0 +1,188 @@
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">活动表单设置</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                  <input type="hidden" name="id" id="ids" value="{$cache.id}">
+                  <div class="form-title">
+                        <a href="{:U('Cms/Zjd/acformList/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="表单列表">
+						<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">选择活动<sup>*</sup></label>
+                        <div class="col-lg-4">
+                             <select class="form-control" name="dzpid" id="actives" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空">
+                             		<option value="">请选择</option>
+                                  <volist name="active" id="vo" key="k">
+                                  	<option value="{$vo.id}" <eq name="vo.id" value="$cache.dzpid">selected</eq>>{$vo.name}</option>
+                                  	
+                                  </volist>
+                             </select>
+
+                        </div>
+                   </div>
+                   
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">表单名称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="name" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.name}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">表单说明</label>
+                        <div class="col-lg-4">
+                        <textarea class="form-control" name="summary" rows="5">{$cache.summary}</textarea>
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                   		<label class="col-lg-2 control-label">选择字段<sup>*</sup></label>
+                   		<div class="col-lg-4">
+                   			<volist name="field" id="vo_l">
+								<label>
+							  		
+	<input type="checkbox" class="colored-blue label-check" <in name="vo_l.id" value="$cache.fields">checked="checked"</in> value="{$vo_l.id}" data-label="{$vo_l.name}">
+	<span class="text">{$vo_l.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							  		
+					      		</label>
+				      		</volist>
+			       		</div>
+			       		<input type="hidden" name="fields" id="fields" value="{$cache.fields}" />
+                   </div>
+                   
+                   
+                   
+                   <!--<div class="form-group">
+		            <label class="col-lg-2 control-label">表单开关</label>
+		            <div class="col-lg-4">
+		              <label>
+		                <input type="hidden" name="status" value="{$cache.status}" id="status">
+		                <input class="checkbox-slider slider-icon colored-primary" type="checkbox" id="isstatus" 
+		                <eq name="cache.status" value="1">checked="checked"</eq>
+		                > <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后前台显示表单。</span> </label>
+		            </div>
+		          </div>-->
+		          
+					<div class="form-group">
+                         <div class="col-lg-offset-2 col-lg-4">
+                         <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                         <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                    </div>
+                </div>
+               </form>
+            </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<script>
+	$("#actives").change(function(){
+		var val=$("#actives").val();
+		var ids="{$cache.dzpid}";
+//		alert(ids);
+		if(val != ids){
+			
+			$.ajax({
+				type:"post",
+				url:"{:U('cms/Zjd/getishd')}",
+				data:{'val':val},
+				async:true,
+				success: function(data){
+					if(data.status =='0'){
+						
+						alert(data.msg);
+						$("#actives").val('');
+	   						
+   					}
+   					
+   				}
+   			});
+   		}
+   		})
+	
+		
+   </script>
+<script type="text/javascript">
+    $('.date-picker').datetimepicker({
+    	language:  'zh-CN',
+        format: "yyyy-mm-dd hh:ii",
+        autoclose: true,
+        todayBtn: true,
+        pickerPosition: "bottom-left"
+    });
+    $('#isstatus').on('click',function(){
+		var value=$(this).prop('checked')?1:0;
+		$('#status').val(value);
+	});
+	 $('#iswxbtn').on('click',function(){
+		var value=$(this).prop('checked')?1:0;
+		$('#iswx').val(value);
+	});
+</script>  
+
+<!--/面包屑导航封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+            var tourl="{:U('Cms/Zjd/acformSet')}";
+            
+            var fields='';
+			var checks=$('.label-check');
+			$(checks).each(function(){
+				if($(this).is(":checked")){
+					fields+=$(this).val()+',';
+				}
+			});
+			$('#fields').val(fields);
+			if($('#fields').val() == ''){
+				
+				alert("请选择字段！！");
+				$("button[type=submit]").removeAttr("disabled");
+				return false;
+			}
+			
+            var actives=$("#actives").val();
+            if(actives==''){
+            	alert("请选择活动");
+            	return false;
+            }
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+</script>
+<!--/表单验证与提交封装-->

@@ -1,0 +1,21 @@
+ <div class="row">
+        <div class="col-md-12">
+                <empty name="cache">
+                	此用户已是顶级
+                	<else/>
+                	<div class="dd dd-draghandle">
+				<ol class="dd-list">
+					<li class="dd-item dd2-item">
+						<div class="dd-handle dd2-handle">
+							<i class="normal-icon fa fa-male"></i>
+
+							<i class="drag-icon fa fa-arrows-alt "></i>
+						</div>
+						<div class="dd2-content">{$cache.id}：{$cache.nickname}</div>
+					</li>
+				</ol>
+			</div>
+                </empty>
+        </div>
+</div>
+

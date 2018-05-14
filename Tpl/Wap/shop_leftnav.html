@@ -1,0 +1,33 @@
+<div id="J-wrap-left">
+	<!--<p class="J-wrap-headerfix">
+	</p>-->
+	<!-- 侧栏导航 -->
+	<ul class="J-menu-lv1" id="J-menu"style="margin-top:50px">
+		<volist name="indexcate" id="vo">
+		<li><div class="p-dec1"></div><a <notempty name="vo['_child']">href="#"<else/>href="/Wap/Shop/cate/id/{$vo.id}"</notempty> ><i>-&nbsp;</i><b>{$vo.name}</b></a>
+			<notempty name="vo['_child']">
+				<ul class="J-menu-lv2" style="display: none;">
+				<volist name="vo['_child']" id="vo2">
+					<li><div class="p-dec2"></div><a href="/Wap/Shop/cate/id/{$vo2.id}">&nbsp;&nbsp;&nbsp;<i>·&nbsp;</i><b>{$vo2.name}</b></a></li>
+				</volist>
+				</ul>
+			</notempty>
+		</li>
+		</volist>
+	</ul>
+	<!--<p class="blank"></p>-->
+	<p class="J-wrap-footerfix">
+		<!--底部固顶补偿-->
+	</p>
+</div>
+<script>
+	var xbtn =$('.p-dec1').next();
+	$(xbtn).click(function(){	
+		if($(this).attr('href') !='#'){
+			return true;
+		}else{
+			$(this).parent().find('.J-menu-lv2').toggle();
+			return false;
+		}		
+	})
+</script>

@@ -1,0 +1,35 @@
+<style>
+	.seach{display:inline-block;    line-height: 30px; margin-left: 5%;}
+	.seach img{width: 10%;    vertical-align: middle;} 
+	.seach input{outline: none;border-radius: 5px;text-indent: 1em;    width: 180px;}
+</style>
+<div id="J-wrap-header">
+	<div class="J-topnav">
+		<div class="wp100" style="background: #CCCCCC;">
+			<!--<a class="fl" href="#" id="J-leftnav-switch"><i class="iconfont">&#xe6e2; </i></a>-->
+			<div class="seach">
+				<a href="javascript:void(0)" id='btn-search'><i class="iconfont">&#xe6fe;</i></a>
+				<input type="text" placeholder="请输入商品关键字" id="searchword">				
+			</div>
+			<a class="fr" href="/wap/vip/address" style="margin-left: 10px;"><i class="iconfont">&#xe6b7;</i></a>
+			<a class="fr" href="/wap/vip/message"><i class="iconfont">&#xe6bc;</i></a>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<div style="height: 3.1em;">
+	
+</div>
+<script>
+	$('#btn-search').click(function(){
+		var s=$('#searchword').val();
+		if(s==''){
+			Joel_gmuMsg('请填写搜索内容','请填写搜索内容!',false,function(){
+				$('.ui-btn-1').click();
+			})
+		}else{
+			location.href="{:u('fxshop/search')}/search/"+s;
+		}
+	});
+</script>
+	

@@ -1,0 +1,57 @@
+/*重写以前的css*/
+/*头部菜单背景颜色和边框*/
+#J-wrap-header{
+	background-color: rgba(255,255,255,0.45);
+	box-shadow:none;
+}
+/*头部菜单按钮颜色*/
+#J-wrap-header .iconfont{
+	color: #3D3D3D;
+}
+/*把轮播放到头部菜单后面*/
+#Joel-slider{
+	margin: -3em auto 0px;
+}
+/*底部菜单背景颜色*/
+.ui-nav{
+	border:none;
+	background: #333333;
+}
+/*底部菜单高度*/
+.insert1{
+	/*height: 49px;*/
+}
+/*轮播的小点位置*/
+#Joel-slider .dot{
+	/*position: absolute;
+	right: 10px;
+	bottom: 10px;*/
+}
+/*分类背景颜色*/
+.ui-panel {
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff4c4f), to(#ff4c4f));
+}
+/*分类文字背景颜色与文字颜色*/
+#J-menu li,.J-menu-lv1{
+	background: #ff4c4f;
+	border-color: #f24e63;
+}
+/*订单列表菜单 文字颜色和底边框颜色*/
+.ads-tabs a span.active {
+	color: #2BB8AA;
+	border-bottom: 3px solid #2BB8AA;
+}
+	
+/*用户中心 背景颜色*/
+.home-hd {
+	background-image: -webkit-linear-gradient(270deg, #2BB8AA,#2BB8AA);
+}
+/*用户中心菜单文字颜色*/
+.home-item a{
+	color: #ff4c4f;
+}
+/*用户中心菜单文字右边框颜色*/
+.home-br{
+  border-right: 1px solid rgba(255,76,79,0.6);
+}
+/*重写以前的css*/

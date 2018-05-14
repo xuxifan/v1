@@ -1,0 +1,168 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">活动数据列表</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="table-toolbar">
+					<a href="{:U('Cms/Ggk/acformList/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="数据列表">
+						<i class="fa fa-mail-reply"></i>返回
+						</a>
+					<!--<a href="{:U('Cms/Ggk/acformSet/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="活动表单设置">
+						<i class="fa fa-plus"></i>新增活动表单
+					</a>
+					
+					<a href="{:U('Cms/Ggk/acformField/',array('dzpid'=>$vo['id']))}" class="btn btn-sky " data-loader="Joel-loader" data-loadername="字段管理">
+						<i class="fa fa-cogs"></i> 字段</a>&nbsp;&nbsp;-->
+					
+					
+					<!--<a href="#" class="btn btn-danger" id="Joel-delall">
+						<i class="fa fa-delicious"></i>全部删除
+					</a>-->
+					<div class="pull-right">
+						<Active id="Joel-search">
+							<!--<label style="margin-bottom: 0px;">
+								<input name="name" type="search" class="Active-control input-sm">
+							</label>
+							<a href="{:U('Cms/Ggk/ActiveList/')}" class="btn btn-success" data-loader="Joel-loader" data-loadername="数据列表" data-search="Joel-search">
+								<i class="fa fa-search"></i>搜索
+							</a>-->
+						</Active>
+					</div>
+				</div>
+
+				<table id="Joel-table" class="table table-bordered table-hover">
+					<thead class="bordered-darkorange">
+						<tr role="row">
+							<th width="30px"><div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+									<label style="padding-left: 4px;"> <input type="checkbox" class="Joel-checkall colored-blue">
+                                     <span class="text"></span>
+									</label>                                    
+                                </div></th>
+							<!--<th width="80px">ID</th>-->
+							<th width="80px">活动ID</th>
+							<th width="350px">OPENID</th>
+							<!--<volist name="cache" id="vo">
+								<if condition="$vo['finame'] neq ''">
+									<th width="150px">{$vo.finame}</th>
+								</if>
+							</volist>-->
+							<th>操作</th>	
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="cache" id="vo">
+							<tr id="item{$vo.id}">
+								<td>
+									<div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+										<label style="padding-left: 4px;"> <input name="checkvalue" type="checkbox" class="colored-blue Joel-check" value="{$vo.id}">
+	                                     <span class="text"></span>
+										</label>
+	                                </div>
+								</td>
+								<!--<td class=" sorting_1">{$vo.id}</td>-->
+								<td class=" sorting_1">{$vo.dzpid}</td>
+								<td class=" ">{$vo.openid}</td>
+								<!--<volist name="cache" id="vo">
+									<if condition="$vo['finame'] neq ''">
+										<td class=" ">{$vo.name}</th>
+									</if>
+							</volist>-->
+								<td class="center ">
+									
+									<a href="{:U('Cms/Ggk/acformdatainfo/',array('dzpid'=>$vo['dzpid'],'openid'=>$vo['openid']))}" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="中奖纪录"><i class="fa fa-edit"></i> 详情</a>&nbsp;&nbsp;
+								</td>
+							</tr>
+						</volist>
+												
+					</tbody>
+				</table>
+				<div class="row DTTTFooter">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--全选特效封装/全部删除-->
+<script type="text/javascript">
+	//全选
+	var checkall=$('#Joel-table .Joel-checkall');
+	var checks=$('#Joel-table .Joel-check');
+	var trs=$('#Joel-table tbody tr');
+	$(checkall).on('click',function(){
+		if($(this).is(":checked")){			
+			$(checks).prop("checked","checked");
+		}else{
+			$(checks).removeAttr("checked");
+		}		
+	});
+	$(trs).on('click',function(){
+		var c=$(this).find("input[type=checkbox]");
+		if($(c).is(":checked")){
+			$(c).removeAttr("checked");
+		}else{
+			$(c).prop("checked","checked");
+		}		
+	});
+	//全删
+	$('#Joel-delall').on('click',function(){
+		var checks=$(".Joel-check:checked");
+		var chk='';
+		$(checks).each(function(){
+			chk+=$(this).val()+',';
+		});
+		if(!chk){
+			$.Joel.alert('danger','请选择要删除的项目！');
+			return false;
+		}
+		var toajax="{:U('Cms/Ggk/ActiveDel')}"+"/id/"+chk;
+		var callok=function(){
+			//主框架可以直接模拟点击刷新按钮
+			$('#refresh-toggler').trigger('click');
+			return false;
+		};
+		var callerr=function(){
+			//拦截错误
+			return false;
+		};
+		$.Joel.ajax('post',toajax,'nodata',callok,callerr);
+	});
+	
+	$('.Joel-preview').on('click',function(){
+		var id=$(this).data('id');
+		var mb="<div style='text-align:center'><img src='/Cms/Ggk/getqrcode/id/"+id+"'></div>";
+		bootbox.dialog({
+			message:mb,
+			title:"万能表单预览地址",
+			className:"modal-darkorange",
+			buttons:{
+				 "取消": {
+			                        className: "btn-danger",
+			                        callback: function () { }
+			      }
+			}
+		});
+	});
+
+</script>
+<!--/全选特效封装-->

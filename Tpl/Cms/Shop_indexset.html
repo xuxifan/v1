@@ -1,0 +1,143 @@
+<!--百度编辑器-->
+<!--<script src="__PUBLIC__/Cms/ueditor/ueditor.config.js"></script>
+<script src="__PUBLIC__/Cms/ueditor/ueditor.all.min.js"></script>-->
+<style>
+  .tpl-select{
+    display: block;
+    float: left;
+    margin: .2em;
+    border: 1em solid #F0EAD8;
+    border-radius: 1em;
+  }
+  .tpl-select:hover{
+    border: 1em solid #000;
+  }
+</style>
+<div class="row">
+  <div class="col-xs-12 col-xs-12">
+    <div class="widget radius-bordered">
+      <div class="widget-header bg-blue"> <i class="widget-icon fa fa-arrow-down"></i> <span class="widget-caption">首页模板设置</span>
+        <div class="widget-buttons"> <a href="#" data-toggle="maximize"> <i class="fa fa-expand"></i> </a> <a href="#" data-toggle="collapse"> <i class="fa fa-minus"></i> </a> <a href="#" data-toggle="dispose"> <i class="fa fa-times"></i> </a> </div>
+      </div>
+      <div class="widget-body">
+        <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+
+          
+          <!-- 拼团购 -->
+          <!-- 作者：郑伊凡 2016-1-25 功能：拼团购开关 -->
+          <div class="form-group">
+              <label class="col-lg-2 control-label">开启首页模板</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="istpl" value="{$cache.istpl}" id="istpl">
+                        <input class="checkbox-slider slider-icon colored-primary" type="checkbox" id="istplbtn" <eq name="cache.istpl" value="1">checked="checked"</eq>>
+                        <span class="text darkorange">&nbsp;&nbsp;&larr;重要：打开后商城将出现模板。</span>
+                  </label>
+              </div>
+          </div>
+          <!-- 作者：郑伊凡 2016-1-25 功能：拼团购开关 -->
+          <div class="form-group">
+            <label class="col-lg-2 control-label">模版<sup>*</sup></label>
+            <div class="col-lg-4">
+              <div class="input-group input-group-sm">
+                <input type="text" class="form-control" name="tplid" id='tplid' placeholder="必填" data-bv-notempty="true" data-bv-notempty-message="不能为空" value="{$cache.tplid}">
+                <span class="input-group-btn">
+                  <button class="btn btn-default shiny select-tpl" type="button" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-film"></i>模版选择</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- 拼团购 -->
+  <!--模版列表-->
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="myLargeModalLabel">请选择模版</h4>
+        </div>
+        <div class="modal-body">
+            <span class="tpl-select" data-id='1'>
+              <img src="__PUBLIC__/cms/img/indextemp1.png"  style="width: 143px;height: 277px;"/>
+            </span>
+          <br style="clear: both">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary select-ok">确定</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!--/模版列表-->
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-4">
+              <button class="btn btn-primary btn-lg" type="submit">保存</button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script> 
+<!--/面包屑导航封装--> 
+<!--编辑器封装--> 
+<script type="text/javascript">
+	var ue = UE.getEditor('J-ueditor', {
+		textarea:'content'//提交字段名，必须填写，数据库必须有此字段		
+	});	
+</script> 
+<!--/编辑器封装--> 
+<!--表单验证与提交封装--> 
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+           	var tourl="{:U('Cms/Shop/indexset')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+</script> 
+<!--/表单验证与提交封装--> 
+<script type="text/javascript">
+  $('#istplbtn').on('click',function(){
+    var value=$(this).prop('checked')?1:0;
+    $('#istpl').val(value);
+  });
+  $('.select-tpl').click(function(){
+    if($('#tplid').val()){
+      $('.tpl-select').eq($('#tplid').val()-1).css('border','1em solid #000');
+    }
+    return;
+  });
+  /**
+   * 弹出选择模版框
+   */
+  $('.tpl-select').click(function(){
+    tplid=$(this).data('id');
+    $('.tpl-select').css('border','1em solid #F0EAD8');
+    $(this).css('border','1em solid #000');
+  })
+  /**
+   * 确认选择模版
+   */
+  $('.select-ok').click(function(){
+    $('#tplid').val(tplid);
+    $('.close').click();
+    
+  })
+</script>

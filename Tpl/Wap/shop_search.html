@@ -1,0 +1,311 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>{$_SESSION['WAP']['shopset']['name']}</title>
+		<meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<!--Wap前端GMU样式-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/gmu/gmu.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/fxstyle.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/Joel-frame.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/joelslider.css" />
+		<!--组件依赖js begin-->
+		<script type="text/javascript" src="__PUBLIC__/wap/js/zepto.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/js/joelslider.min.js"></script>
+		<!--组件依赖js end-->
+
+		<style>
+		#Joel-wrap-main{
+			background: #FFFFFF;
+		}
+		.ui-nav{z-index: 1100;}
+		.p-notice{
+			background:#249e92;
+			color:#fff;
+			font-size:0.8em;
+			line-height:2.5em;
+			text-indent:0.5em;
+		}
+		.p-bread{
+			background:#249e92;
+			color:#FBEFDF;
+			font-size:1em;
+			line-height:2.5em;
+			text-indent:0.5em;
+		}
+		.p-bread a,.p-bread:visited{
+			color: #FBEFDF;
+		}
+		.p-actbox{
+			/*margin-top:3px;*/
+			width:100%;
+			background:#2bb8aa;
+		}
+		.p-actbox img{
+			display:block;
+			width:100%
+		}
+		.p-actdate{
+			padding:7% 0;
+			float:left;
+			width:20%;
+			color:#fff;
+			text-align:center;
+		}
+		.p-clear{
+			clear:both;
+		}
+		.p-probox-wrap{
+			background: #FFFFFF;
+		}
+		.p-probox{
+			padding-bottom: 4px;
+			margin-bottom:4px;
+			position:relative;
+			width:100%;
+			background:#fff;
+			border-bottom: 1px dashed #CCCCCC;
+		}
+		.p-probox-wrap .p-probox:last-child{
+			padding-bottom: 0px;
+			margin-bottom:0px;
+			border-bottom: 0px dashed #CCCCCC;
+		}
+		.p-probox img{
+			display:block;
+			width:35%;
+		}
+		.p-proname{
+			position:absolute;
+			top:0.5em;
+			left:37%;
+			width:63%;
+			font-size:1em;
+			color:#000;
+			white-space:nowrap; 
+			text-overflow:ellipsis; 
+			-o-text-overflow:ellipsis; 
+			overflow: hidden; 
+		}
+		.p-botbox{
+			position:absolute;
+			bottom:0.5em;;
+			left:37%;
+			width:63%;
+		}
+		.p-proprice{
+			font-size:1.4em;
+			font-weight:bold;
+			color:#eb6100;
+		}
+		.p-proprice span{
+			color:#8a8a8a;
+			font-size:0.5em;
+			font-weight:normal;
+		}
+		.p-sp1{
+			text-decoration:line-through;
+		}
+		.p-pronum{
+			color:#8a8a8a;
+			font-size:0.7em;
+		}
+		#J-getmore{
+			border: none;
+			line-height: 2em;
+			font-size: 1em;
+			color: #FFFFFF;
+			text-align: center;
+			background: #249e92;
+			border-radius:30px;
+			width: 80%;
+			margin: 30px 0px 30px 10%;			
+		}
+		</style>
+		<style>
+		.p-clear{
+			clear:both;
+		}
+		.p-prolist{
+			margin:0 auto;
+			width:95%;
+			background:#fff;
+		}
+		.p-pitembox{
+			margin:0 auto;
+			padding:0.5em 0;
+			width:95%;
+			border-bottom:solid 1px #e7e7e7;
+		}
+		.p-pitemleft{
+			float:left;
+			width:5.5em;
+			height:5.5em;
+		}
+		.p-pitemleft img{
+			height:100%;
+		}
+		.p-pitemright{
+			position:relative;
+			float:left;
+			margin-left:2%;
+			width:68%;
+			height:5.5em;
+		}
+		.p-pitemname{
+			margin-bottom:0.5em;
+			width:100%;
+			height:2.2em;
+			font-size:1em;
+			font-weight:bold;
+		}
+		.p-pitemprice{
+			width:100%;
+			font-size:1.2em;
+			font-weight:bold;
+			color:#eb6100;
+		}
+		.p-pitemprice span{
+			font-size:0.8em;
+			font-weight:normal;
+			color:#999;
+		}
+		.p-pitemsx{
+			position:absolute;
+			left:0;
+			bottom:0;
+			width:50%;
+			color:#999;
+			font-size:0.9em;
+		}
+		.p-pitemsl{
+			float:left;
+			color:#999;
+			text-align:right;
+			font-size:0.9em;
+		}
+		.p-loadmore{
+			margin:0.5em auto;
+			width:70%;
+			background:#2bb8aa;
+			color:#fff;
+			text-align:center;
+			font-size:0.9em;
+			line-height:2em;
+			border-radius: 2em;
+		}
+		.goodtitle{
+				color: #292929;
+				font-size: 14px;
+				border-bottom: solid 1px #ccc;
+				border-left: .5em solid #ccc;
+				text-indent: .5em;
+				background-color: #fff;
+				width: 93%;
+				margin: 0 auto;
+				line-height: 2.5em;
+				margin-top: 2px;
+				margin-bottom: 5px;
+			}
+		.goodtitle a{color:red;}
+		.good ul{width: 100%;}
+		.good ul li{float: left;width: 45.5%;background: #FFFFFF;border: 0px solid #e7e7e7;text-align: center;margin-left: 3%; margin-bottom: 10px;}
+		.good ul li a{color: black;}
+		.good ul li .gpic{ height: 150px; overflow: hidden;}
+
+		.good ul li .gname{line-height: 1.2em; height: 1.2em; overflow: hidden; margin:10px 0;}
+		.p-pitemprice,.p-pitemsl{text-align:left;}
+		.p-pitemprice span,.p-pitemsl span{margin:0 10px;color:#838181;}
+		.p-pitemprice font{font-size:1.2em;}
+		.good{
+			font-size: 0.8em;
+		}
+		</style>
+	</head>
+	<body style="background: #f0f0f0;">
+		<div id="J-wrap">
+			<include file="./Tpl/Wap/shop_header.html" />
+			<div id="Joel-wrap-main">
+				
+				<!--主内容，全部包裹，左边推出特效-->
+	                <div class="good" style="background: #f0f0f0;">
+							<p class="goodtitle"><a href="{:U('Wap/Shop/index')}">首页</a> &gt; {$search}</p>
+							<ul id="J-prowrap">
+							
+							<foreach name="catecache" item="vv">
+								<li><a href="{:U('Wap/Shop/goods',array('id'=>$vv['id']))}">
+									<p class="marbottom10 gpic"><img src="{$vv.imgurl}" width="71.5%" /></p>
+									<p class="f13 cor1 gname">{$vv.name}</p>
+									<p class="p-pitemprice"><span><font color="red">￥{$vv.price}</font></span> <span><del>￥{$vv.oprice}</del></span></p>
+									<p class="p-pitemsl"><span>已售：<eq name="issells" value="1">{$vv.dissells}<else/>{$vv.sells}</eq></span><span>&nbsp剩余:{$vv.num}</span></p></a>
+								</li>
+							</foreach>
+							</ul>
+							<div style="clear:both"></div>
+	                </div>
+	               <!-- <notempty name="nextpage">
+	                	<div style="width: 100%;">
+	                	<button id="J-getmore" class="p-loadmore" data-page = "{$nextpage}" data-cid="{$cate.id}">加载更多商品</button>
+	                	</div>
+	                </notempty>-->
+			</div>
+			<!-- 底部导航 -->
+			<include file="./Tpl/Wap/shop_footer.html" />
+			<!-- /底部导航 -->
+		</div>
+
+		<!--Wap框架JS封装-->
+		<script type="text/javascript">
+			Zepto(function($) {
+				//获取更多特效
+				$('#J-getmore').on('click',function(){
+					$(this).html('正在努力为您加载...').prop('disabled',true);
+					var nowpage=$(this).data('page');
+					var nextpage=nowpage+1;
+					var cid=$(this).data('cid');
+					var dt={'cid':cid,'page':nowpage};
+					$.ajax({
+						type:"post",
+						url:"{:U('Wap/Shop/cateMore')}",
+						dataType:'json',
+						data:dt,
+						success:function(info){
+							if(info.status){
+								$('#J-getmore').data('page',nextpage).html('加载更多商品').prop('disabled',false);
+								$('#J-prowrap').append(info.result);
+							}else{
+								$('#J-getmore').hide();
+								Joel_gmuMsg(info.msg);
+							}
+						},
+						error:function(xh,obj){
+							$('#J-getmore').data('page',nextpage).html('加载更多商品').prop('disabled',false);
+							Joel_gmuMsg('通讯失败,请重新尝试！');
+						}
+					});
+					return false;
+				});
+			});
+		</script>
+		<include file="./Tpl/Wap/shop_share.html" />
+	</body>
+
+</html>

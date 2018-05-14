@@ -1,0 +1,56 @@
+<div class="top_nav_box f_sont">
+	<div class="wapper">
+		<div class="fl nav_l">
+			<if condition="$_SESSION['HOME']['vipid'] neq null">
+				<span class="title">Hi,{$_SESSION['HOME']['vip']['nickname']},欢迎光临{$_SESSION['SHOPSET']['name']}！</span><a href="{:u('home/vip/logout')}">退出</a>
+				<else/>
+				<a href="{:u('home/vip/login')}" style="margin-right: 0;">登录</a><span class="xiegan">/</span>
+				<a href="{:u('home/vip/login')}">免费注册</a>
+			</if>
+		</div>
+		<div class="fr nav_r">
+			<a href="{:u('home/vip/index')}"  target="_blank"><img src="__PUBLIC__/home/img/top_nav02.png">会员中心</a>
+			<!--<a href="{:u('home/index/basket')}"  target="_blank"><img src="__PUBLIC__/home/img/top_nav04.png">购物车<span class="f_arial cor07">（<em id="basketnum">{$basketnum}</em>）</span></a>-->
+			<a href="javascript:void(0)"><img src="__PUBLIC__/home/img/top_nav06.png">全国订购统一热线：{:sysconfig('tel')}</a>
+		</div>
+	</div>
+</div>
+<div class="bg_corb" style="padding-bottom: 16px;">
+	<div class="wapper">
+		<div class="fl logo">
+			<a href="{:u('home/index/index')}"><img src="__PUBLIC__/home/img/logo2.jpg" width="379" height="89"></a>
+		</div>
+		<div class="fl qrcode-box" style="position: absolute;top:150px;z-index: 10000;display: none"><img src="__PUBLIC__/home/img/erwei.jpg" style="width:300px"/></div>
+		<div class="fr search_box">
+			<div class="search">
+				<input class="f_sont fl" type="text" placeholder="请输入搜索商品关键字..." id="search-head-txt" value="{$s}" />
+				<button class=" cor02 f16 textc fl f_wei" id="btn-head-search">搜&nbsp;索</button>
+			</div>
+			<div class="hot_key f_sont">
+                <volist name='searchwords' id='vo'>
+                    <a href="{:u('home/index/catelist',array('s'=>$vo['text']))}">{$vo.text}</a><span>|</span>
+                </volist>
+            </div>
+		</div>
+	</div>
+</div>
+<script>
+
+$('.logo').on('mousemove',function(){
+	$('.qrcode-box').show(100);
+});
+$('.logo').on('mouseout',function(){
+	$('.qrcode-box').hide(100);
+})
+	$('#search-head-txt').keyup(function(event) {
+		if (event.keyCode == 13) {
+			$('#btn-head-search').click();
+		}
+	});
+	$('#btn-head-search').click(function(){
+		var search=$('#search-head-txt').val();
+		if(search.length>0){
+			window.open("{:u('index/catelist')}/s/"+search);
+		}
+	})
+</script>

@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+<head>
+    <title>聚友杀</title>
+    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/fxstyle.css" />
+	    <!--组件依赖js begin-->
+	    <script src="__PUBLIC__/wap/js/zepto.min.js"></script>
+	    <!--组件依赖js end-->		
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+    
+		<style>
+			.headiconwp{text-align: center;}
+			.headicon{width: 100%; border-radius:100px;}
+			.cutmsg{font-size: 2em; font-weight:bold ; text-align: center;}
+			.t-c{text-align: center;}
+			.cutinfo{ font-size: 1em;}
+			.bred{ color: #f7194d; font-size:1.5em ;}
+			.sgre{ color: #9d9c9c; font-size: 0.8em;text-decoration:line-through}
+			
+			/*砍价日至*/
+			.cutlog { padding-bottom: 5px; margin-bottom: 5px; border-bottom: 1px dotted #9c9c9c;}
+			.cutlog .left{ float: left; width: 60px;}
+			.cutlog .left2{ float: left; padding-left: 10px; vertical-align: middle; height: 100%;}
+			.cutlog .right{ float: right;}
+			.cutlog span{ text-decoration:inherit ; color: #9c9c9c; text-align: right; font-size: 0.8em;}
+			.clear{ clear: both;}
+			/*选择框*/
+			#msgopt{ width: 100%; border: 1px solid #CCCCCC; line-height: 1em; height: 1.5em; font-size: 1em;}
+			/*主控按钮*/
+			.J-btn{ width: 90%; margin: 0px auto; text-align: center; line-height: 2em; margin-bottom: 1em;}
+			a.J-btn-red,a.J-btn-red:visited{ background: #f7194d; color: #FFFFFF; width: 40%; text-align: center; border-radius: 10px;  display: block; margin: 0px auto;}
+			a.J-btn-red2,a.J-btn-red2:visited{ background: #f7194d; color: #FFFFFF; width: 40%; text-align: center; border-radius: 10px; float: left;display: block;}
+			a.J-btn-green,a.J-btn-green:visited{ background: #2bb8aa; color: #FFFFFF;width: 40%; text-align: center; border-radius: 10px; float: right;display: block;}
+			a.J-btn-gre,a.J-btn-gre:visited{ background: #999999; color: #FFFFFF;width: 40%; text-align: center; border-radius: 10px; float: left;display: block;}
+		</style>
+</head>
+<body class="back1 ">
+		<div class="ads-lst border-b1 ovflw mr-b back2 color6 border-t1">
+			<p class="ads-tt border-b1 color9">订单明细</p>
+			<volist name="cache.items" id="vt">
+					<div class="ads_orinfo ads_padding3 ovflw border-b1">
+						<div class="ads_orinfol ovflw fl">
+							<div class="ads_or_img fl">
+								<!-- 图片大小为147*101 -->
+								<img  src="{$vt.pic}"/>
+							</div>
+							<h3>{$vt.name}</h3>
+							<notempty name="vt.skuattr">
+							<p class="color3 fonts2">{$vt.skuattr}</p>
+							</notempty>
+						</div>
+						<div class="ads_orprice ovflw ">
+							<p ><em class="fonts85">￥</em><em class="fonts18">{$vt.price}</em></p>
+							<p class="ads_ornum fonts85">X{$vt.num}</p>
+						</div>
+					</div>
+			</volist>
+			<!-- 支付方式 -->
+			<p class=" ads_ortt3 fonts85 ovflw border-b1"><span class="fl">共{$cache.totalnum}件商品</span><span class="fr">总价：<em class="fonts18">￥{$cache.totalprice}</em></span></p>
+			
+			</div>
+		<div class="odrd_cc back2 ovflw color9 border-b1 border-t1 mr-b" >
+			<div class="border-b1 odrd_tt">订单主人</div>
+				<p style="line-height: 5px;">&nbsp;</p>
+				<p class="headiconwp"><img src="{$zr.headimgurl}" class="headicon" style="width: 80px;"></p>
+				<p class="cutmsg" style="font-size: 1.2em;color:#009DFF">{$zr.nickname}：<em id="showmsg"><empty name="cache.cutmsg">{$firstmsg}<else/>{$cache.cutmsg}</empty></em></p>
+				<p class="cutinfo t-c">现价：<em class="bred">￥{$cache.payprice}</em><em class="sgre">￥{$cache.totalprice}</em></p>
+				<eq name="isself" value="1">					
+					<p class="cutinfo t-c">已砍：<em class="bred"> {$totalcut} </em>刀<!-- ，本单最高可优惠<em class="bred"> ￥{$cache.cutmax}</em>！ --></p>
+				<else/>
+					<p class="cutinfo t-c">已砍：<em class="bred"> {$totalcut} </em>刀，您的一刀最高可砍<em class="bred"> ￥{$cache.cuttop}</em>！</p>
+				</eq>
+		</div>	
+		<eq name="isself" value="1">
+		<div class="odrd_cc back2 ovflw color9 border-b1 border-t1 mr-b" >
+			<div class="border-b1 odrd_tt">玩法说明</div>
+			<p style="line-height: 1.5em; font-size: 0.8em; font-weight: normal; margin: 5px 0px;">1:选择砍价宣言[可选]</p>
+			<select id="msgopt">
+				<foreach name="jysmsg" item="vo">
+					<option value="{$vo}" <eq name="vo" value="$cache.cutmsg">selected</eq>>{$vo}</option>	
+				</foreach>
+			</select>
+			<p style="line-height: 1.5em;font-size: 0.8em;font-weight: normal;margin: 5px 0px;">2:点击右上角分享到朋友圈，让他们帮你砍价吧！</p>
+		</div>
+		</eq>
+		<div class="odrd_cc back2 ovflw color9 border-b1 border-t1 mr-b" >
+			<div class="border-b1 odrd_tt">砍价记录</div>
+			<p style="line-height: 5px;">&nbsp;</p>
+			<volist name="cutlog" id="vo">
+			<div class="cutlog">
+				<div class="left">
+					<img src="{$vo.headimgurl}" class="headicon">
+				</div>
+				<p class="left2">
+					{$vo.nickname}
+				</p>
+				<div class="right">
+					<p class="t-r">帮<eq name="isself" value="1">您<else />TA</eq>砍了<em class="bred">{$vo.cutnum}</em>元</p>
+					<span>{$vo.ctime|date="Y-m-d",###}</span>
+				</div>
+				<div class="clear"></div>
+			</div>
+			</volist>
+			<empty name="cutlog">
+			<p>还没有人砍过价呢，你做第一个吧！</p>
+			</empty>
+		</div>
+		<!-- 底部导航 -->
+			<div class="J-btn">
+				<eq name="isself" value="1">
+					<eq name="cache.iscut" value="1">
+						<empty name="zr.sid">
+							<a href="/Wap/shop/orderDetail/sid/0/orderid/{$cache.id}" class="J-btn-red2" style="float: left;">立刻支付</a>
+						<else/>
+							<a href="/Wap/fxshop/orderDetail/sid/{$zr.sid}/orderid/{$cache.id}" class="J-btn-red2" style="float: left;">立刻支付</a>
+						</empty>
+					<else />
+						<a href="#" class="J-btn-gre">砍价结束</a>
+					</eq>
+					<eq name="_SESSION['WAP']['vip']['sid']" value="0">
+						<a href="/Wap/Shop/jysorderList/sid/{$zj.sid}" class="J-btn-green">返回订单列表</a>
+					<else />
+						<a href="/Wap/fxshop/jysorderList/sid/{$zj.sid}" class="J-btn-green">返回订单列表</a>
+					</eq>
+				<else/>
+					<eq name="cache.iscut" value="1">
+						<eq name="iscut" value="1">
+						<a href="#" class="J-btn-gre">您已砍过</a>
+						<else/>
+						<a href="/Wap/Jys/cut/orderid/{$cache.id}" class="J-btn-red2">帮砍一刀</a>
+						</eq>
+					<else/>
+						<a href="#" class="J-btn-gre">砍价结束</a>
+					</eq>
+					<a href="/Wap/jys/jyslist/sid/0/" class="J-btn-green">我也要玩</a>
+				</eq>
+			<div class="clear"></div>
+			</div>
+		<!--通用分享-->
+		<script>
+			var id="{$cache.id}";
+			var opts=$('#msgopt');
+			var showmsg=$('#showmsg');
+			$(opts).on('change',function(){
+				var msg=$(this).val();
+				$(showmsg).html(msg);
+				$.ajax({
+					type:"post",
+					url:"{:U('Wap/Jys/setMsg')}",
+					dataType:'json',
+					data:{'id':id,'msg':msg},
+					success:function(info){if(info['status']){Joel_gmuMsg(info['msg']);}else{Joel_gmuMsg(info['msg']);}return false;},
+					error:function(xh,obj){
+						Joel_gmuMsg('通讯失败，请重试！');
+					}
+				});
+			});
+		</script>
+		<!--新版分享特效-->
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var share_url = "{$shopset['url']}/Wap/Jys/index/ppid/{$zr.id}/sid/{$zr.sid}/orderid/{$cache.id}/";
+			var share_title="{$shopset['jysname']}";
+			var share_content="好心的大哥大姐，来帮 {$zr.nickname} 砍个价吧~~\n{$goods['summary']}";
+			var share_img="{$_SESSION['SET']['wxurl']}{$vt.pic}";
+			
+		  wx.config({
+		      debug: false,
+		      appId: "{$jsapi['appId']}",
+			  timestamp: "{$jsapi['timestamp']}",
+			  nonceStr: "{$jsapi['nonceStr']}",
+			  signature: "{$jsapi['signature']}",
+		      jsApiList: [
+		        'checkJsApi',
+		        'onMenuShareTimeline',
+		        'onMenuShareAppMessage',
+		        'onMenuShareQQ',
+		        'onMenuShareWeibo',
+		        'hideMenuItems',
+		        'showMenuItems',
+		        'hideAllNonBaseMenuItem',
+		        'showAllNonBaseMenuItem',
+		//      'translateVoice',
+		//      'startRecord',
+		//      'stopRecord',
+		//      'onRecordEnd',
+		//      'playVoice',
+		//      'pauseVoice',
+		//      'stopVoice',
+		//      'uploadVoice',
+		//      'downloadVoice',
+		//      'chooseImage',
+		//      'previewImage',
+		//      'uploadImage',
+		//      'downloadImage',
+		//      'getNetworkType',
+		//      'openLocation',
+		//      'getLocation',
+		//      'hideOptionMenu',
+		//      'showOptionMenu',
+		//      'closeWindow',
+		//      'scanQRCode',
+		//      'chooseWXPay',
+		//      'openProductSpecificView',
+		//      'addCard',
+		//      'chooseCard',
+		//      'openCard'
+		      ]
+		  });
+		  
+		  wx.ready(function () {
+			  	//开启菜单
+			  	wx.showOptionMenu();
+			  	//隐藏菜单
+			  	//wx.hideOptionMenu();
+			    //分享给朋友
+			    wx.onMenuShareAppMessage({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击发送给朋友');
+			        this.desc="来自{$zr.nickname}的邀请："+$('#showmsg').html()+"\n{$goods['summary']}";
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到朋友圈
+			    wx.onMenuShareTimeline({
+			      title: share_title,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到朋友圈');
+			        this.title=share_title+'：'+"来自{$zr.nickname}的邀请："+$('#showmsg').html()+"\n{$goods['summary']}";
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到QQ
+			    wx.onMenuShareQQ({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到QQ');
+			        this.desc="来自{$zr.nickname}的邀请："+$('#showmsg').html()+"\n{$goods['summary']}";
+			      },
+			      complete: function (res) {
+			        //alert(JSON.stringify(res));
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+		  });
+		</script>
+	</body>
+</html>

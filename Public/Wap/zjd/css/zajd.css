@@ -1,0 +1,59 @@
+/******rest$通用*******/
+html, body {font-family:Microsoft YaHei,Helvitica,Verdana,Tohoma,Arial,san-serif; font-size:16px;text-decoration: none; max-width:720px;width:100%; margin:0 auto; color: #3c3c3c;}
+*{ margin:0; padding:0;}
+img{ border:none; vertical-align:middle;  width:100%;}
+ol, ul,li {list-style: none;margin:0;padding: 0;}
+b,em,i,s,u{ font-style:normal; text-decoration: none;}	
+a {color:#3c3c3c;text-decoration: none;}
+.fl{ float:left; display:inline;}
+.fr{ float:right; display:inline;}
+.clr{ clear:both; overflow: hidden;}
+.flow{ overflow: hidden; display: block;}
+
+/******砸金蛋主体*******/
+.egg_box{ width: 100%; max-width: 720px; position: relative;}
+.egg_01 a,.egg_02 a,.egg_03 a{ display: block; position: absolute; z-index: 100;}
+.egg_01 a{ background: url(../img/01.png) no-repeat; background-size: 100% auto; width: 100px; height: 162px; bottom: 12%; left: 36%;}
+.egg_02 a{ background: url(../img/02.png) no-repeat; background-size: 100% auto;width:90px; height: 146px;bottom: 20%; right: 3%;}
+.egg_03 a{ background: url(../img/03.png) no-repeat; background-size: 100% auto;width:90px; height: 146px;bottom: 20%; left: 3%;}
+.egg_01 a:hover,.egg_01 .hover{ background: url(../img/01-1.png) no-repeat; background-size: 100% auto; }
+.egg_02 a:hover,.egg_02 .hover{ background: url(../img/02-1.png) no-repeat; background-size: 100% auto; }
+.egg_03 a:hover,.egg_03 .hover{ background: url(../img/03-1.png) no-repeat; background-size: 100% auto; }
+.hit{ display: block; position: absolute; z-index: 110; width: 50px; top: 20%; left: 20%;}
+.egg_tit img{ width: 25%; padding: 10px;}
+.egg_txt{ color: #86695a; line-height: 18px; font-size: 0.8em; padding: 20px 10px 10px; background: #25160e; border-bottom: 1px solid #6c3520;}
+.egg_txt li,.egg_txt_x li{ overflow: hidden; padding-bottom: 10px;}
+.egg_txt li em{ font-weight: 600; float: left; width:18%;}
+.egg_txt li p{ float: left; width: 82%; }
+.egg_txt_x{color: #86695a;line-height: 18px;font-size: 0.8em; padding: 20px 10px 10px; background: #25160e; }
+.egg_txt_x li em{ float: left; width: 6%;}
+.egg_txt_x li p{float: left; width: 94%;}
+.look_re a{ background: url(../img/dzp05.png) no-repeat; background-size: 100% 100%; display: block; width: 40%; line-height: 46px; text-align: center; color: #110804; margin: 0 auto 10px;}
+.on_re{color: #86695a;line-height:30px;font-size: 0.8em; padding:10px 20px; background: #25160e;border-bottom: 1px solid #6c3520;}
+.on_re li{ overflow: hidden;}
+.on_re li span,.on_re li em,.on_re li i{ float: left;}
+.on_re li span{ width: 35%;}
+.on_re li em{ width: 30%; text-align: center;}
+.on_re li i{ width: 30%; text-align: right;}
+
+
+/******中奖啦*******/
+.egg_out_box{ position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200; background: rgba(0,0,0,0.7);}
+.win{ width: 80%; margin: 20% auto 0;}
+.win a{ width: 60%; margin: 10px auto 0; display: block;}
+
+/******很遗憾*******/
+.lose{width: 80%; margin: 20% auto 0; position: relative;}
+.lose_txt{ font-size: 0.85em; color: #000; line-height: 24px; text-align: center; position: absolute; top: 50%; z-index: 300; width: 100%;}
+.lose a{ display: block; width: 30px; position: absolute; right:-10px; top: 20%;}
+.lose_txt em{ color: #d02d48; font-weight: bold; margin: 0 5px;}
+
+/******填写信息*******/
+.win_info{ width: 80%; margin: 20% auto 0; background: #fff; border-radius: 10px; overflow: hidden;}
+.sj_inf{ background: #f7f7f7; border-bottom: 1px solid #cecece; font-size: 0.8em; padding: 10px; line-height: 20px;}
+.sj_inf p{ padding: 3px 0;}
+.yh_info{ padding-top: 20px; padding-bottom: 20px;}
+.yh_info p{ display: block; overflow: hidden; line-height: 40px; margin-bottom: 10px;}
+.yh_info p em{ font-size: 0.9em; float: left; width: 30%; text-align: right;}
+.yh_info p input{ float: left; width: 60%; height:30px; line-height: 30px; font-size: 0.9em; border-radius: 0; background: none; border: 1px solid #000;margin-top: 5px;}
+.yh_info a{ display: block;line-height: 40px; border-radius:5px; width: 90%; margin:0 auto; text-align: center; background: #D02D48; color: #fff;}

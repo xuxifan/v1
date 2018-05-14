@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>订单确认</title>
+		<include file="./Tpl/home/index_head.html" />
+		<script type="text/javascript">
+			$(function() {
+				//选择地址
+				var address = 0;
+				$('.address-item').click(function() {
+					if(!$(this).find('.provids').data('id')){
+						return false;
+					}
+					$.ajax({
+						type:"post",
+						url:"{:u('home/index/getpostage')}",
+						async:false,
+						data:{
+							heavy:$('input[name=heavy]').val(),
+							prid:$(this).find('.provids').data('id'),
+							totalprice:$('input[name=totalprice]').val()
+						},
+						success:function(e){
+							if(e.money>=0){
+								$('.yf').html("￥"+e.money);
+								var totalprice=parseFloat($('#totalprice').html().substr(1));
+								$('#totalprice').html("￥"+({$totalprice}+e.money));
+								$('input[name=yf]').val(e.money);
+							}
+						}
+					});
+					$('.address-item').removeClass('hover');
+					$(this).addClass('hover');
+					address = $(this).data('id');
+					$('input[name=vipname]').val($(this).find('.vipname').html());
+					$('input[name=vipmobile]').val($(this).find('.vipmobile').html());
+					$('input[name=vipaddress]').val($(this).find('.vipaddress').html());
+					$('input[name=provids]').val($(this).find('.provids').data('id'));
+				});
+				$('.address-item').mouseover(function(){
+					$(this).find('.vipaddress-lit').html($(this).find('.vipaddress').html());
+				})
+				$('.address-item').mouseout(function(){
+					$(this).find('.vipaddress-lit').html($(this).find('.vipaddress-lit').data('val'));
+				})
+				/**
+				 * 删除地址
+				 */
+				$('#btndeladdress').click(function() {
+					if (address == 0) {
+						alert_msg('请选择要删除的地址!')
+						return
+					}
+					if (confirm('确认要删除此地址')) {
+						$.ajax({
+							type: "post",
+							url: "{:u('index/removeaddress')}",
+							async: true,
+							data: {
+								id: address
+							},
+							success: function(e) {
+								if (e.status == 1) {
+									$('li[data-id=' + address + ']').remove();
+									address = 0;
+								} else {
+									alert_msg(e.msg);
+								}
+							}
+						});
+					}
+				});
+				$("#btnaddaddress").click(function() {
+					var docHeight = $(document).height();
+					$("body").append("<div class='coverbg'></div>");
+					$(".tanchuangbg").show(10);
+					$(".coverbg").height(docHeight);
+				})
+				$(".close-icon").click(function() {
+					$(".tanchuangbg").hide();
+					$(".coverbg").remove();
+				});
+				/**
+				 * 新增地址
+				 */
+				$('.btnsaveaddress').click(function() {
+					var formdata = $('#addressform').serializeObject();
+					if (formdata.province==0) {
+						alert_msg('请选择省份!');
+						return;
+					}
+					if (formdata.mobile.length != 11) {
+						alert_msg('手机号码不正确!');
+						return;
+					}
+					$.ajax({
+						type: "post",
+						url: "{:u('index/saveaddress')}",
+						async: true,
+						data: {
+							'data': formdata
+						},
+						success: function(e) {
+							if (e.status == 1) {
+								location.href = location.href;
+							} else {
+								alert_msg(e.msg);
+							}
+						}
+					});
+				});
+				$('#btnorderok').click(function() {
+					var formdata = $('#orderform').serializeObject();
+					if (address == 0) {
+						alert_msg('请选择地址!');
+						return false;
+					}
+					
+					if ($('.orderform').find('.provids').data('id') == 0) {
+						alert_msg('所选地址信息填写不完全!');
+						return false;
+					}
+					if (formdata.paytype == undefined) {
+						alert_msg('请选择支付方式')
+						return false;
+					}
+					$('#orderform').submit();
+				});
+				$('.sum-box').height(79 * parseInt('{:count($cache)}') - 11);
+				var djqops = document.getElementById("djqid");
+				djqops.addEventListener('change', function() {
+					var newmoney = Number("{$totalprice}") - Number(djqops.options[djqops.selectedIndex].getAttribute('data-money'));
+					if (newmoney > 0) {
+						$('#totalprice').html("￥" + newmoney);
+					} else {
+						$('#totalprice').html("￥0");
+					}
+				});
+			})
+			
+		</script>
+	</head>
+
+	<body>
+		<include file="./Tpl/home/index_header.html" />
+		<!--logo和订单确认title-->
+		<div class="wapper">
+			<div class="fr mygwc">
+				<a href="#">
+					<img src="__PUBLIC__/home/img/sureorder_03.png" width="24" height="26">
+					<span>确认订单信息</span>
+				</a>
+			</div>
+		</div>
+		<!--弹窗-->
+		<div class="tanchuangbg">
+			<div class="tanchuang_top">
+				<h4 class="f14 fl">新增收货地址</h4>
+				<a href="javascript:void(0);" class="fr close-icon" style="color: #008cd6;">关闭×</a>
+			</div>
+			<div class="tanchuang_bottom f14" style="padding-left: 19px;">
+				<form id="addressform">
+					<p>
+						<span>详细地址：</span>
+						<select name='province'>
+							<option value="0">-请选择-</option>
+							<volist name='prov' id='vo'>
+								<option value="{$vo.id}">{$vo.name}</option>
+							</volist>
+						</select>
+						<input type="text" placeholder="例如：人民路47号" name="address" style="width: 185px;" />
+					</p>
+					<p>
+						<span>收货人：</span>
+						<input type="text" style="margin-left: 14px;" name="name" />
+					</p>
+					<p>
+						<span>手机号码：</span>
+						<input type="text" name="mobile" />
+					</p>
+				</form>
+				<button class="f18 f_wei btnsaveaddress">保存</button>
+			</div>
+		</div>
+		<!--主内容-->
+		<div class="f_sont wapper">
+			<h4 class="f14">1.选择地址</h4>
+			<div class="address">
+				<ul>
+					<volist name='vip' id='vo'>
+						<li class="address-item" data-id="{$vo.id}">
+							<p class="vipname">{$vo.name}</p>
+							<p class="vipmobile">{$vo.mobile}</p>
+							<p class="provids fl" data-id='{$vo.province}'>{$vo.provtext}-</p>
+							<p class="vipaddress-lit" data-val='{$vo.address|mb_substr=0,15}'>{$vo.address|mb_substr=0,15}</p>
+							<p class="vipaddress" style="display: none;">{$vo.provtext}-{$vo.address}</p>
+						</li>
+					</volist>
+					<br class="clear">
+				</ul>
+				<br>
+				<button id="btnaddaddress"><img src="__PUBLIC__/home/img/addaddress_03.png" style="margin-right: 6px;">使用新地址</button>
+				<button id="btndeladdress"><img src="__PUBLIC__/home/img/dele_03.png" style="margin-right: 6px;">删除选中</button>
+			</div>
+			<form id="orderform" method="post">
+				<input type="hidden" name="sid" value="{$sid}">
+				<input type="hidden" name="vipid" value="{$vipinfo.id}" id="ordervip">
+				<input type="hidden" name="vipopenid" value="{$vipinfo.openid}">
+				<input type="hidden" name="vipname" value="{$vip.name}">
+				<input type="hidden" name="vipaddress" value="{$vip.provtext}-{$vip.address}">
+				<input type="hidden" name="vipmobile" value="{$vip.mobile}">
+				<input type="hidden" name="totalnum" value="{$totalnum}">
+				<input type="hidden" name="totalprice" value="{$totalprice}">
+				<input type="hidden" name="provids" value="{$provids}">
+				<input type="hidden" name="yf" value="">
+				<input type="hidden" name="heavy" value="{$heavyall}">
+				<textarea name="items" style="display: none;">{$allitems}</textarea>
+				<h4 class="f14">2.产品清单</h4>
+				<div class="productlist f14 fl">
+					<ul style="width: 265px;">
+						<li>产品名称</li>
+						<volist name='cache' id='vo'>
+							<li style="height: 68px;">
+								<img src="{$vo.pic}" width="58" height="58" />
+								<p>{$vo.name}</p>
+							</li>
+						</volist>
+					</ul>
+					<ul style="width: 154px;text-align: center;">
+						<li>价格</li>
+						<volist name='cache' id='vo'>
+							<li style="height: 68px;">
+								<p>平台价：{$vo.price}元</p>
+								<p class="f12 cor01" style="">{$vo.skuattr}&nbsp;</p>
+							</li>
+						</volist>
+					</ul>
+					<ul style="width: 179px;text-align: center;">
+						<li>数量</li>
+						<volist name='cache' id='vo'>
+							<li style="height: 68px;border-right: 1px solid #dcdcdc;">
+								<p>×{$vo.num}份</p>
+							</li>
+						</volist>
+					</ul>
+					<ul style="width: 122px;text-align: center;">
+						<li>合计（元）</li>
+						<li style="border-right: 1px solid #dcdcdc;" class="sum-box">
+							<p class="cor03">{$totalprice}</p>
+						</li>
+					</ul>
+					<ul style="width: 245px;text-align: center;">
+						<li>备注</li>
+						<li style="" class="sum-box">
+							<textarea placeholder="请输入你的备注内容..." name="msg"></textarea>
+						</li>
+					</ul>
+				</div>
+				<h4 class="f14 fl">3.支付方式</h4>
+				<span class="fr f14" style="margin-right: 32px;">共<span class="f20 f_wei cor03"> {$totalnum} </span>件商品 
+				邮费:<span class="f20 f_wei cor03 yf"> ¥0</span> 
+				商品合计：<span class="f20 f_wei cor03" id="totalprice">¥{$totalprice}</span></span>
+				<div class="payway fl">
+					<ul class="fl" style="width: 100%;">
+						<li>
+							<input type="radio" name="paytype" value="money" checked="checked" /><img src="__PUBLIC__/home/img/payway_03.png" class="way" /></li>
+						<li>
+							<input type="radio" name="paytype" value='wxpay' /><img src="__PUBLIC__/home/img/payway_06.png"  class="way" /></li>
+						<!--<li>
+							<input type="radio" name="paytype" value="alipay" /><img src="__PUBLIC__/home/img/payway_05.png" class="way" /></li>-->
+					</ul>
+					<br style="clear: both;" />
+				</div>
+				<p class="border-b1 ads_ortt3 fonts18 color3 fl" style="">&nbsp; 
+					<div class="fl">使用代金券:</div>
+					<span class="fl">
+					<select name="djqid" id="djqid" class="ads-sel">
+						<option value="0" data-money="0">请选择有效代金券</option>
+						<foreach name="djq" item="vo"><option value="{$vo.id}" data-money="{$vo.money}">{$vo.money}元代金券</option></foreach>
+					</select>
+					</span>
+				</p>
+			</form>
+			<div class="payway fl orderbtns">
+				<button class="fl backgwc f14" onclick='location.href="{:u(' index/basket ')}"'>返回购物车</button>
+				<button class="fr submitorder f18 f_wei" id="btnorderok">确认订单</button>
+			</div>
+		</div>
+		<include file="./Tpl/home/index_footer.html" />
+		<include file="./Tpl/home/index_rightnav.html" />
+	</body>
+
+</html>

@@ -1,0 +1,124 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">团购订单</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="table-toolbar">
+					<div class="pull-right" <eq name="isptg" value="0">style="display: none;"</eq>>
+						<form id="Joel-search">
+							<label style="margin-bottom: 0px;">
+								<input name="name" type="search" class="form-control input-sm" value="{$name}" placeholder="搜索会员id">
+							</label>
+							<a href="{:U('Cms/Shop/ptgorder/')}" class="btn btn-success" data-loader="Joel-loader" data-loadername="团购列表" data-search="Joel-search">
+								<i class="fa fa-search"></i>搜索
+							</a>
+						</form>
+					</div>
+				</div>
+
+				<table id="Joel-table" class="table table-bordered table-hover">
+					<thead class="bordered-darkorange">
+						<tr role="row">
+							<th width="30px"><div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+									<label style="padding-left: 4px;"> <input type="checkbox" class="Joel-checkall colored-blue">
+                                     <span class="text"></span>
+									</label>                                    
+                                </div></th>
+							<th>ID</th>
+							<!--1.25 zxg 新闻添加标签-->
+							<th>发起人id</th>
+							<th>商品id</th>
+							<th>团购总人数</th>
+							<th>团购价格</th>
+							<th>创建时间</th>
+							<th>订单状态</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="cache" id="vo">
+							<tr id="item{$vo.id}">
+								<td>
+									<div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+										<label style="padding-left: 4px;"> <input name="checkvalue" type="checkbox" class="colored-blue Joel-check" value="{$vo.id}">
+	                                     <span class="text"></span>
+										</label>                                    
+	                                </div>
+								</td>
+								<td class=" sorting_1">{$vo.id}</td>
+								<td class=" ">{$vo.vipid}</td>
+								<td class=" ">{$vo.goodsid}</td>
+								<td class=" ">{$vo.groupmax}</td>
+								<td class=" ">{$vo.groupprice}</td>
+								<td class=" ">{$vo.ctime|date="Y-m-d H:i:s",###}</td>
+								<td class=" ">
+									<switch name="vo['status']">
+										<case value="1">进行中</case>
+										<case value="2">已结束</case>
+									</switch>
+								</td>
+								<td class="center ">
+									<a href="{:U('Cms/Shop/showptgorder/',array('pid'=>$vo['id']))}" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="查看进度" <eq name="isptg" value="0">disabled</eq>><i class="fa fa-list-alt"></i> 查看参与拼团人员</a>
+									<a data-id="{$vo['id']}" class="btn btn-success btn-xs finish"<neq name="vo['status']" value="1">disabled</neq>>完成此团购</a>
+								</td>
+							</tr>
+						</volist>
+												
+					</tbody>
+				</table>
+				<div class="row DTTTFooter">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--全选特效封装/全部删除-->
+<script type="text/javascript">
+	$(".finish").click(function(){
+		var id=$(this).data("id");
+		$.Joel.confirm("确认完成这笔订单吗？",function(){
+			$.ajax({
+        		type:"post",
+        		url:"{:U('Cms/Shop/ptgorderover')}",
+        		data:{'id':id},
+        		dataType:"json",
+        		success:function(info){
+        			if(info['status']){
+        				$.Joel.alert('success',info['msg']);		
+        				$('#Joel-reloader').trigger('click');
+        			}else{
+        				$.Joel.alert('danger',info['msg']);			
+        			}
+        			return false;
+        		},
+        		error:function(xhr){
+					$.Joel.alert('danger','通讯失败！请重试！');
+					return false;
+				}
+        	});
+		})
+	})
+	
+</script>
+<!--/全选特效封装-->

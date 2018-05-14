@@ -1,0 +1,60 @@
+/*For Memory,For Joel
+Joel-Wap-前端CSS V1.0
+Auth:蒋金辰 Joel
+Mail:54006600@qq.com
+(c) Copyright 2014 Joel. All Rights Reserved.*/
+*{margin: 0px;padding: 0px;}
+input,textarea {outline:none;}
+li{list-style:none;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear: both;height: 0px;line-height: 0px;}
+.wp96{ width: 96%; margin: 0 auto;}
+.wp100{width: 100%;}
+.pd2{padding: 2%;}
+.lh5{line-height: 5px;}
+.blank{line-height: 10px; height: 10px;}
+#J-wrap{max-width: 720px; margin: 0 auto; overflow: hidden; position: relative;}
+#J-wrap-header{height: 3em; line-height: 3em; background:#2bb8aa; opacity:0.8;  color: #FBEFDF; position: fixed;top:0px;box-shadow: rgba(0,0,0,0.4) 0px 0px 1px 1px; z-index: 1100; width: 100%; max-width: 720px; }
+#J-wrap-header .iconfont{font-size: 1.8em; color: green;}/*FBEFDF*/
+.J-wrap-headerfix{height: 3em; line-height: 3em; display: block;}
+/*#Joel-wrap-main{ background: #FFF4E0;}*/
+
+/*navbar*/
+.J-wrap-footerfix{height: 50px;}
+#Joel-wrap-footer{z-index: 1100;}
+
+/*侧边导航*/
+#J-menu li {
+	width:100%;
+	border-top: 1px solid #2ab4a6;/*修改了边框颜色*/
+	background:#249e92;
+}
+#J-menu li a, #J-menu li a:visited {
+	color:#fff;
+	display: block;
+	font-size: 0.9em;
+	padding: 8px;
+	font-weight: 300;
+}
+.J-menu-lv1{
+	border-bottom: 1px solid #2ab4a6;/*修改了边框颜色*/
+}
+#J-menu .J-menu-lv2 li{
+	color: #636363 !important;/*修改了文字颜色*/
+background-color: #fff;/*修改了背景颜色*/
+}
+#J-menu .J-menu-lv2 a {
+	color: #636363 !important;/*修改了文字颜色*/
+	font-size:0.8em;
+	padding-left: 10px;
+}
+#J-menu .J-menu-lv3 a {
+	color: #636363;
+	padding-left: 25px;
+}
+#J-menu .J-menu-lv3 li{
+	color: #636363;
+background-color: #EDEDED;
+}
+

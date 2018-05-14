@@ -1,0 +1,8 @@
+<foreach name="new" item="vv">
+	<li><a href="{:U('Wap/Shop/goods',array('id'=>$vv['id']))}">
+		<p class="marbottom10 gpic"><img src="{$vv.imgurl}" width="71.5%" /></p>
+		<p class="f13 cor1 gname">{$vv.name}</p>
+		<p class="p-pitemprice"><span><font color="red">￥{$vv.price}</font></span> <span><del>￥{$vv.oprice}</del></span></p>
+		<p class="p-pitemsl"><span>已售：<eq name="issells" value="1">{$vv.dissells}<else/>{$vv.sells}</eq></span><span>&nbsp剩余:{$vv.num}</span></p></a>
+	</li>
+</foreach>

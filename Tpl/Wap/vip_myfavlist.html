@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>我的收藏</title>
+		<meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/sxsx.css" />
+	</head>
+	<body style="background: #eee;">
+		<!--头部-->
+		<div class="top_nav_total top_nav_bg01">
+			<a class="fl nav_icon" href="javascript:history.back();"><img src="__PUBLIC__/wap/img/sx04.png"></a>
+			<span class="corblue">我的收藏</span>
+		</div>
+		<ul class="favo_main">
+			<volist name='data' id='vo'>
+				<li>
+					<a href="{:u('shop/goods',array('id'=>$vo['id']))}">
+						<u><img src="{$vo.imgurl}"></u>
+						<span>
+							<h4>{$vo.name}</h4>
+							<em>价格：￥{$vo.price}/{$vo.unit}</em>
+						</span>
+						<b><img src="__PUBLIC__/wap/img/arrow_rh.png"></b>
+					</a>
+				</li>
+			</volist>
+		</ul>
+	</body>
+</html>

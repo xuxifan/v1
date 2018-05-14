@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+		<script type="text/javascript" src="__PUBLIC__/home/js/modal.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/home/js/mybase.js" ></script>
+		<link rel="stylesheet" href="__PUBLIC__/home/css/modal.css" />
+	</head>
+
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+		<div class="s_page">
+			<div class="s_addresscontent">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_addressright fl font12">
+					<div class="adright_top">
+						<p class="fontweight marginbottom14" style="color: #666666;">收货地址和轻松购</p>
+						<p class="marginbottom45">设置好轻松购信息，就可以在商品页面直接下单，购物从此变得简单快乐。</p>
+					</div>
+					<div class="adright_bottom">
+						<p>
+							<button class="addaddress fontfamily2">新增收货地址</button>
+							<span class="margintop5 color1">您已创建
+								<span class="color14">{:count($data)}</span> 个收货地址，最多可创建
+							<span class="color14">20</span> 个
+							</span>
+						</p>
+						<volist name='data' id='vo'>
+							<div class="address">
+								<p>
+									<span>{$vo.name}</span>
+									<button class="close fr btn-del" data-id='{$vo.id}'></button>
+								</p>
+								<p class="margintop40 marginleft13"><span>收货人：</span><em class="address-name">{$vo.name}</em></p>
+								<p class="marginleft26"><span>地址：</span><em class="address-province" data-id='{$vo.province}'>{$vo.provtext}</em>-<em class="address-address">{$vo.address}</em></p>
+								<p class="marginleft26"><span>手机：</span><em class="address-mobile">{$vo.mobile}</em></p>
+								<p>
+									<a href="javascript:void(0)" class="edit fr btn-edit" data-id='{$vo.id}'>编辑</a>
+								</p>
+							</div>
+						</volist>
+					</div>
+				</div>
+			</div>
+			<br class="clear" />
+			<div id="alert-box" style="display: none;">
+				 <div class="addproj color1">
+				 	<form id="addressform">
+					<p><span class="color11">*</span>收货人：</p><p class="margintop6"><input type="text" class="consignee" style="width:229px;" name="name" id="name"></p>
+					<p class="margintop11"><span class="color11">*</span>详细地址：</p>
+					<p class="margintop6">
+						<select name="province" class="consignee">
+							<option value="0">-请选择-</option>
+							<volist name='prov' id='vo'>
+								<option value="{$vo.id}">{$vo.name}</option>
+							</volist>
+						</select>
+						<input type="text" class="consignee" style="width:400px;" name="address">
+					</p>
+					<p class="margintop11"><span class="color11">*</span>手机号码：</p><p class="margintop6"><input type="text" class="consignee" style="width:229px;" name="mobile"></p>
+				 	</form>
+					<p class="saveadd margintop6"><button id="saveaddress">保存收货地址</button></p>
+					<p class="msg-box"></p>
+				 </div>
+			</div>
+			
+		</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+		<script>
+			
+			$('.btn-del').click(function() {
+				var th=$(this);
+				var id=$(this).data('id');
+				var deladdress=function(){
+					
+					$.ajax({
+						type:"post",
+						url:"{:u('home/index/removeaddress')}",
+						async:true,
+						data:{
+							id:id
+						},
+						success:function(e){
+							if(e.status==1){
+								alert_msg(e.msg);
+								th.parent('p').parent('.address').remove();
+							}else{
+								alert_msg(e.msg);
+							}
+						}
+					});
+					
+				};
+				alert_msg('确认删除?',deladdress);
+				
+			});
+			 $('.btn-edit').click(function() {
+			 	var html=$('#alert-box').html();
+				alert_win(html, 600, 350);
+				var id=$(this).data('id');
+				$('#addressform input[name=name]').val($(this).parent('p').parent('.address').find('.address-name').html());
+				$('#addressform input[name=address]').val($(this).parent('p').parent('.address').find('.address-address').html());
+				$('#addressform input[name=mobile]').val($(this).parent('p').parent('.address').find('.address-mobile').html());
+				if($(this).parent('p').parent('.address').find('.address-province').data('id')){
+					$('#addressform select[name=province] option[value='+$(this).parent('p').parent('.address').find('.address-province').data('id')+']').attr('selected','selected');
+				}
+				//提交
+				$('#saveaddress').click(function() {
+					var data=$('#addressform').serializeObject();
+					data.id=id;
+					if(data.province==0){
+						$('.msg-box').html('请选择省份!');
+						return false;
+					}
+					$.ajax({
+						type:"post",
+						url:"{:u('vip/address')}",
+						async:true,
+						data:data,
+						success:function(e){
+							if(e.status==1){
+								$('.msg-box').html(e.msg);
+								setTimeout(function(){location.href=location.href},2000);
+							}else{
+								alert_msg(e.msg);
+								setTimeout(function(){$('.msg-box').empty()},2000);
+							}
+						}
+					});
+				});
+			});
+			$('.addaddress').click(function() {
+				var html=$('#alert-box').html();
+				alert_win(html, 600, 350);
+				//提交
+				$('#saveaddress').click(function() {
+					var data=$('#addressform').serializeObject();
+					if(data.province==0){
+						$('.msg-box').html('请选择省份!');
+						return false;
+					}
+					$.ajax({
+						type:"post",
+						url:"{:u('vip/address')}",
+						async:true,
+						data:data,
+						success:function(e){
+							if(e.status==1){
+								$('.msg-box').html(e.msg);
+								setTimeout(function(){location.href=location.href},2000);
+							}else{
+								$('.msg-box').html(e.msg);
+								setTimeout(function(){$('.msg-box').empty()},2000);
+							}
+						}
+					});
+				});
+			})
+		</script>
+	</body>
+
+</html>

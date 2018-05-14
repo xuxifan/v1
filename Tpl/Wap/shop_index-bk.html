@@ -1,0 +1,395 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>{$_SESSION['WAP']['shopset']['name']}</title>
+		<meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<!--Wap前端GMU样式-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/gmu/gmu.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/fxstyle.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/Joel-frame.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/joelslider.css" />
+		<!--组件依赖js begin-->
+		<script type="text/javascript" src="__PUBLIC__/wap/js/zepto.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/js/joelslider.min.js"></script>
+		<!--组件依赖js end-->
+
+		<style>
+		#J-wrap-header{
+			    background: #fff;
+				opacity: 0.3;
+		}
+		#J-wrap-header .iconfont {
+			color: #000;
+		}
+		.J-wrap-headerfix{
+			height:0px;
+		}
+		.ui-panel{
+			background: -webkit-gradient(linear, left top, left bottom, from(#c32236), to(#c32236))
+		}
+		.J-menu-lv1 {
+			border-bottom: none; 
+		}
+		#J-menu li {
+			width: 100%;
+			border-top: 1px solid #2ab4a6; */
+			/* background: #249e92; */
+		}		
+		
+		#Joel-wrap-main{
+			background: #FFFFFF;
+		}
+		.ui-nav{z-index: 1100;}
+		.p-notice{
+			background:#249e92;
+			color:#fff;
+			font-size:0.8em;
+			line-height:2.5em;
+			text-indent:0.5em;
+		}
+		.p-bread{
+			background:#c32236/*#249e92*/;
+			color:#FBEFDF;
+			font-size:1em;
+			line-height:2.5em;
+			text-indent:0.5em;
+		}
+		.p-bread a,.p-bread:visited{
+			color: #FBEFDF;
+		}
+		.p-actbox{
+			/*margin-top:3px;*/
+			width:100%;
+			background:#2bb8aa;
+		}
+		.p-actbox img{
+			display:block;
+			width:100%
+		}
+		.p-actdate{
+			padding:7% 0;
+			float:left;
+			width:20%;
+			color:#fff;
+			text-align:center;
+		}
+		.p-clear{
+			clear:both;
+		}
+		.p-probox-wrap{
+			background: #FFFFFF;
+		}
+		.p-probox{
+			padding-bottom: 4px;
+			margin-bottom:4px;
+			position:relative;
+			width:100%;
+			background:#fff;
+			border-bottom: 1px dashed #CCCCCC;
+		}
+		.p-probox-wrap .p-probox:last-child{
+			padding-bottom: 0px;
+			margin-bottom:0px;
+			border-bottom: 0px dashed #CCCCCC;
+		}
+		.p-probox img{
+			display:block;
+			width:35%;
+		}
+		.p-proname{
+			position:absolute;
+			top:0.5em;
+			left:37%;
+			width:63%;
+			font-size:1em;
+			color:#000;
+			white-space:nowrap; 
+			text-overflow:ellipsis; 
+			-o-text-overflow:ellipsis; 
+			overflow: hidden; 
+		}
+		.p-botbox{
+			position:absolute;
+			bottom:0.5em;;
+			left:37%;
+			width:63%;
+		}
+		.p-proprice{
+			font-size:1.4em;
+			font-weight:bold;
+			color:#eb6100;
+		}
+		.p-proprice span{
+			color:#8a8a8a;
+			font-size:0.5em;
+			font-weight:normal;
+		}
+		.p-sp1{
+			text-decoration:line-through;
+		}
+		.p-pronum{
+			color:#8a8a8a;
+			font-size:0.7em;
+		}
+		#J-getmore{
+			border: none;
+			line-height: 2em;
+			font-size: 1em;
+			color: #FBEFDF;
+			text-align: center;
+			background: #c32236/*#249e92*/;
+			border-radius:30px;
+			width: 80%;
+			margin: 30px 0px 30px 10%;			
+		}
+		</style>
+		<style>
+		.p-clear{
+			clear:both;
+		}
+		.p-prolist{
+			margin:0 auto;
+			width:95%;
+			background:#fff;
+		}
+		.p-pitembox{
+			margin:0 auto;
+			padding:0.5em 0;
+			width:95%;
+			border-bottom:solid 1px #e7e7e7;
+		}
+		.p-pitemleft{
+			float:left;
+			width:5.5em;
+			height:5.5em;
+		}
+		.p-pitemleft img{
+			height:100%;
+		}
+		.p-pitemright{
+			position:relative;
+			float:left;
+			margin-left:2%;
+			width:68%;
+			height:5.5em;
+		}
+		.p-pitemname{
+			margin-bottom:0.5em;
+			width:100%;
+			height:2.2em;
+			font-size:1.1em;
+			font-weight:bold;
+			font-family: monospace;
+			color: #8A5E5E;
+		}
+		.p-pitemprice{
+			width:100%;
+			font-size:1.2em;
+			font-weight:bold;
+			color:#eb6100;
+		}
+		.p-pitemprice span{
+			font-size:0.8em;
+			font-weight:normal;
+			color:#999;
+		}
+		.p-pitemsx{
+			position:absolute;
+			left:0;
+			bottom:0;
+			width:50%;
+			color:#999;
+			font-size:0.9em;
+		}
+		.p-pitemsl{
+			position:absolute;
+			right:0;
+			bottom:0;
+			float:left;
+			width:50%;
+			color:#999;
+			text-align:right;
+			font-size:0.9em;
+		}
+		.p-loadmore{
+			margin:0.5em auto;
+			width:70%;
+			background:#2bb8aa;
+			color:#fff;
+			text-align:center;
+			font-size:0.9em;
+			line-height:2em;
+			border-radius: 2em;
+		}
+		.menu-box {
+				height: 45px;
+			}
+			.menu-box ul li {
+				float: left;
+				/*width: 33.33%;*/
+				width:25%;
+				height: 36px;
+			}
+			.menu-box ul li a {
+				display: block;
+				height: 100%;
+				line-height: 38px;
+				margin: 3px;
+				text-align: center;
+				background-color: #ea434b/*#93c8cb*/;
+				border-radius: 2px;
+				color: #FBEFDF;
+			}
+			.menu-actvited {
+				background-color: #38a9af;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="J-wrap">
+			<!--顶部导航-->
+			<include file="./Tpl/Wap/shop_header.html" />
+			<!--/顶部导航-->
+			<div id="Joel-wrap-main">
+				<div id="Joel-slider">
+					<ul>
+						<foreach name="indexalbum" item="vo">
+							<li><a href="{$vo.url}"><img src="{$vo.imgurl}"></a></li>
+						</foreach>
+					</ul>
+					<div class="dot">
+						<foreach name="indexalbum" item="vo">
+							<span></span>
+						</foreach>
+					</div>
+				</div>
+				<div class="menu-box">
+			<ul>
+				<li><a href="javascript:void(0)" id="menu-item" class="menu-item">商品分类</a></li>
+				
+				<volist id='vo' name='label'>
+					<li><a href="{:u('Shop/label',array('id'=>$vo['id']))}" class="menu-item">{$vo.name}</a></li>
+				</volist>
+				
+			</ul>
+		</div>
+				<div class="p-bread">
+					<div class="wp96">
+						<a href="{:U('Wap/Shop/index')}">热卖商品</a>
+					</div>
+				</div>
+				<!--主内容，全部包裹，左边推出特效-->
+	               <div class="p-prolist">
+	                <volist name="indexcache" id="vt">
+	                	<div class="p-pitembox">
+                        <div class="p-pitemleft"><a href="{:U('Wap/Shop/goods',array('id'=>$vt['id']))}"><img src="{$vt.imgurl}"></a></div>
+                        <div class="p-pitemright">
+                        	<a href="{:U('Wap/Shop/goods',array('id'=>$vt['id']))}">
+                            <div class="p-pitemname">{$vt.name}</div>
+                            <div class="p-pitemprice">￥{$vt.price} <span>原价￥{$vt.oprice}</span></div>
+                            <div class="p-pitemsx">剩余：{$vt.num}</div>
+                            <div class="p-pitemsl">销量：<eq name="issells" value="1">{$vt.dissells}<else/>{$vt.sells}</eq></div>
+                            </a>
+                        </div>
+                        <div class="p-clear"></div>
+                    </div>
+	                </volist> 
+	                </div>
+	                <notempty name="nextpage">
+	                	<div style="width: 100%;">
+	                	<button id="J-getmore" class="p-loadmore" data-page = "{$nextpage}">加载更多商品</button>
+	                	</div>
+	                </notempty>
+			</div>
+			<!-- 底部导航 -->
+			<include file="./Tpl/Wap/shop_footer.html" />
+			<!-- /底部导航 -->
+		</div>
+		<!--左侧导航-->
+			<include file="./Tpl/Wap/shop_leftnav.html" />
+		<!--/左侧导航-->
+		<!--轮播封装-->
+		<script type="text/javascript">
+			Zepto(function($) {
+				$('#Joel-slider').swipeSlide({
+					autoSwipe : true,
+	        		lazyLoad : false,
+	        		speed : 3000
+	    			},function(i){
+	        		$('#Joel-slider .dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+	    		});
+	    	});
+		</script>
+		<!--Wap框架JS封装-->
+		<script type="text/javascript">
+			Zepto(function($) {
+				var JH=$('#J-wrap-header');
+				var JM=$('#J-menu');
+				//初始化菜单
+				$('#J-wrap-left').panel({
+					contentWrap: $('#Joel-wrap-main'),
+					beforeopen: function() {
+						var y=$(JH).offset().top;
+						$(JM).css('margin-top',y+'px');
+					}
+				});
+				//菜单呼出
+				$('#J-leftnav-switch').on('click', function() {
+					$('#J-wrap-left').panel('toggle', 'push', 'left');
+					return false;
+				});
+				$("#menu-item").on('click', function() {
+					$('#J-wrap-left').panel('toggle', 'push', 'left');
+					return false;
+				});
+				//获取更多特效
+				$('#J-getmore').on('click',function(){
+					$(this).html('正在努力为您加载...').prop('disabled',true);
+					var nowpage=$(this).data('page');
+					var nextpage=nowpage+1;
+					$.ajax({
+						type:"post",
+						url:"{:U('Wap/Shop/indexMore')}",
+						dataType:'json',
+						data:{'page':nowpage},
+						success:function(info){
+							if(info.status){
+								$('#J-getmore').data('page',nextpage).html('加载更多商品').prop('disabled',false);
+								$('.p-prolist').append(info.result);
+							}else{
+								$('#J-getmore').hide();
+								Joel_gmuMsg(info.msg);
+							}
+						},
+						error:function(xh,obj){
+							$('#J-getmore').data('page',nextpage).html('加载更多商品').prop('disabled',false);
+							Joel_gmuMsg('通讯失败,请重新尝试！');
+						}
+					});
+					return false;
+				});
+			});
+		</script>
+		<include file="./Tpl/Wap/shop_share.html" />
+	</body>
+
+</html>

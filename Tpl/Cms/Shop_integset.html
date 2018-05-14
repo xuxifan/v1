@@ -1,0 +1,136 @@
+<!--百度编辑器-->
+<!--<script src="__PUBLIC__/Cms/ueditor/ueditor.config.js"></script>
+<script src="__PUBLIC__/Cms/ueditor/ueditor.all.min.js"></script>-->
+
+<div class="row">
+  <div class="col-xs-12 col-xs-12">
+    <div class="widget radius-bordered">
+      <div class="widget-header bg-blue"> <i class="widget-icon fa fa-arrow-down"></i> <span class="widget-caption">积分商城设置</span>
+        <div class="widget-buttons"> <a href="#" data-toggle="maximize"> <i class="fa fa-expand"></i> </a> <a href="#" data-toggle="collapse"> <i class="fa fa-minus"></i> </a> <a href="#" data-toggle="dispose"> <i class="fa fa-times"></i> </a> </div>
+      </div>
+      <div class="widget-body">
+        <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+
+
+          
+          <!--积分商城-->
+          <!-- 作者：郑伊凡 2016-1-25 功能：积分商城开关 -->
+          <div class="form-group">
+              <label class="col-lg-2 control-label">积分商城团购</label>
+              <div class="col-lg-4">
+                <label>
+                    <input type="hidden" name="isteg" value="{$cache.isteg}" id="isteg">
+                        <input class="checkbox-slider slider-icon colored-primary" type="checkbox" id="istegbtn" <eq name="cache.isteg" value="1">checked="checked"</eq>>
+                        <span class="text darkorange">&nbsp;&nbsp;&larr;重要：打开后商品可以开启积分商城模式。</span>
+                  </label>
+              </div>
+          </div>
+          <!-- 作者：郑伊凡 2016-1-25 功能：积分商城开关 -->
+          <div class="form-group">
+              <label class="col-lg-2 control-label">大转盘选择</label>
+              <div class="col-lg-4">
+                <select class="form-control" name="dzpid">
+                  <option value="0" >无活动</option>
+                  <foreach name="dzp" item="vo">
+                    <option value="{$vo.id}"<eq name="cache['dzpid']" value="$vo['id']">selected="selected"</eq>>{$vo.id}.{$vo.name}</option>
+                  </foreach>
+                </select>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-2 control-label">砸金蛋选择</label>
+              <div class="col-lg-4">
+                <select class="form-control" name="zjdid">
+                  <option value="0" >无活动</option>
+                  <foreach name="zjd" item="vo">
+                    <option value="{$vo.id}"<eq name="cache['zjdid']" value="$vo['id']">selected="selected"</eq>>{$vo.id}.{$vo.name}</option>
+                  </foreach>
+                </select>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="col-lg-2 control-label">刮刮卡选择</label>
+              <div class="col-lg-4">
+                <select class="form-control" name="ggkid">
+                  <option value="0" >无活动</option>
+                  <foreach name="ggk" item="vo">
+                    <option value="{$vo.id}"<eq name="cache['ggkid']" value="$vo['id']">selected="selected"</eq>>{$vo.id}.{$vo.name}</option>
+                  </foreach>
+                </select>
+              </div>
+          </div>
+          <div class="form-group">
+                <label class="col-lg-2 control-label">积分商城名称[分享]<sup>*</sup></label>
+                <div class="col-lg-4">
+                <input type="text" class="form-control" name="integname" placeholder="必填"
+                                                       data-bv-notempty="true"
+                                                       data-bv-notempty-message="不能为空" value="{$cache.integname}">
+                </div>
+           </div>
+           <div class="form-group">
+                <label class="col-lg-2 control-label">积分商城宣言[分享]</label>
+                <div class="col-lg-4">
+                <textarea class="form-control" name="integmsg" rows="5">{$cache.integmsg}</textarea>
+                </div>
+           </div>
+           <!--积分商城-->
+
+          <!-- <div class="form-group">
+                        <label class="col-lg-2 control-label">商城详情</label>
+                        <div class="col-lg-4">
+                        	//必须插入空input避免验证冲突
+                        	<input type="hidden">
+                        	<script type="text/plain" id="J-ueditor">
+								{$cache.content|htmlspecialchars_decode}
+							</script>
+                        </div>
+                  </div>-->
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-4">
+              <button class="btn btn-primary btn-lg" type="submit">保存</button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script> 
+<!--/面包屑导航封装--> 
+<!--编辑器封装--> 
+<script type="text/javascript">
+	var ue = UE.getEditor('J-ueditor', {
+		textarea:'content'//提交字段名，必须填写，数据库必须有此字段		
+	});	
+</script> 
+<!--/编辑器封装--> 
+<!--表单验证与提交封装--> 
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+           	var tourl="{:U('Cms/Shop/jysset')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+</script> 
+<!--/表单验证与提交封装--> 
+<script type="text/javascript">
+// 作者：郑伊凡 2016-1-20 功能：身份认证开关依赖js
+$('#istegbtn').on('click',function(){
+    var value=$(this).prop('checked')?1:0;
+    $('#isteg').val(value);
+  });
+// 作者：郑伊凡 2016-1-20 功能：身份认证开关依赖js
+</script>

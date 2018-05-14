@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+	</head>
+
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+		<div class="s_page">
+			<div class="s_pccontent1">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_pcright4 fr font12">
+					<div class="pcright_top">
+						<div class="top_left fl">
+							<span class="touxiang2 fl"><img src="{$vipinfo.headimgurl}" width="94px" height="94px"/></span>
+							<span class="vip2"><img src="__PUBLIC__/home/img/bigvip_03.png" width="34px" height="34px"/></span>
+							<div class="pcinfo font12">
+								<p class="fontweight fontfamily font14 color2">{$vipinfo.nickname}</p>
+								<p class="color17">会员等级：V{$vipinfo.levelid}</p>
+								<!--<p class="fl color17">账户安全：</p>
+								<div class="level fl"></div>
+								<div class="levelhalf2 fl"></div>
+								<span class="fl color13">高</span>-->
+							</div>
+						</div>
+						<div class="top_right fl font12 color17">
+							<a href="#">
+								<p><img src="__PUBLIC__/home/img/daifukuan_03.jpg" />
+									<span>代付款</span>
+									<span class="fontweight color2">{$dfk}</span></p>
+							</a>
+							<a href="#">
+								<p><img src="__PUBLIC__/home/img/daishouhuo_03.jpg" />
+									<span>代收货</span>
+									<span class="fontweight color2">{$dsh}</span></p>
+							</a>
+							<div class="right-right1 fr">
+								<span>历史佣金：
+									<span class="span2">{$vipinfo.total_xxyj}</span>
+								</span>
+								<span class="yuan">元</span>
+								<a href="{:u('home/vip/yj')}" class="color13 check">查看</a>
+							</div>
+							<div class="right-right2 fr">
+								<span>账户余额：
+									<span class="span2">{$vipinfo.money}</span>
+								</span>
+								<span class="yuan">元</span>
+								<p>
+								</p>
+								<p style="margin-top: 31px;">
+									<button onclick="showczqrcode()">充值</button>
+								</p>
+								<a href="{:u('home/vip/money')}" class="color13 check2">查看</a>
+							</div>
+						</div>
+					</div>
+					<div class="pcright_left fl">
+						<div class="left-top color17 font12">
+							<div class="ordertitl">
+								<span class="myordertitl1 fontweight">我的订单</span>
+								<a href="{:u('vip/order')}" class="font12 fr">查看全部订单</a>
+							</div>
+							<if condition='$cache eq null'>
+								<div style="text-align: center;">
+									<img src="__PUBLIC__/home/img/empty_order.png" style="display: block;margin: 0 auto;margin-top: 40px;" />
+									<span style="display: block;margin: 0 auto;margin-top: 10px;">没有订单哦~</span>
+								</div>
+								<else/>
+								<volist name='cache' id='vo' length='2' offset="0">
+									<ul>
+										<li><img src="{$vo['items'][0]['pic']}" width="69px" height="78px" /></li>
+										<li><span>{$vo['items'][0]['name']|msubstr=0,5}</span></li>
+										<li>
+											<if condition='$vo.payprice neq null'>
+												<p class="fontfamily">￥{$vo.payprice}</p>
+											</if>
+											<p>
+												<switch name="vo.paytype">
+													<case value="wxpay">微信支付</case>
+													<case value="money">余额支付</case>
+													<case value="alipaywap">余额支付</case>
+													<default />未支付
+												</switch>
+											</p>
+										</li>
+										<li class="color1 fontfamily">
+											<p class="date">{$vo.ctime|date='Y-m-d',###}</p>
+											<p>{$vo.ctime|date='H:i:s',###}</p>
+										</li>
+										<li>
+											<span class="complete color1">
+										<switch name="vo.status">
+											<case value="0">已取消</case>
+											<case value="1">待付款</case>
+											<case value="2">待发货</case>
+											<case value="3">待收货</case>
+											<case value="4">退货中</case>
+											<case value="5">已完成</case>
+											<case value="6">已关闭</case>
+											<case value="7">退货完成</case>
+										</switch>
+										</span>
+										</li>
+										<li><a href="{:u('home/index/orderDetail',array('orderid'=>$vo['id']))}">查看</a></li>
+									</ul>
+								</volist>
+							</if>
+
+						</div>
+						<div class="left-bottom font12">
+							<div class="ordertitl">
+								<span class="myordertitl1 fontweight">我的佣金</span>
+								<a href="{:u('home/vip/yj')}" class="checkallorder font12 fr">查看全部</a>
+							</div>
+							<div class="row">
+									<span>贡献会员昵称</span>
+									<span>分销金额[实付价格]</span>
+									<span>获得佣金</span>
+									<span>发放状态</span>
+									<span>记录时间</span>
+									<br class="clear"/>
+								</div>
+							<volist name='yjdata' id='vo'>
+								<div class="row">
+									<span>{$vo.fromname}</span>
+									<span>{$vo.fxprice}</span>
+									<span>{$vo.fxyj}</span>
+									<span>
+										<switch name="vo.status">
+											<case value="1">完成</case>
+											<default />未发放
+										</switch>
+									</span>
+									<span>{$vo.ctime|date='Y-m-d',###}</span>
+									<br class="clear"/>
+								</div>
+							</volist>
+						</div>
+					</div>
+					<div class="pcright_right fr">
+						<div class="right-top">
+							<div class="sign">
+								<span>签&nbsp;到</span>
+								<button id="home-qd"></button>
+							</div>
+							<div class="commissiondate font14">
+								<div class="dateleft fl">
+									<p class="fontweight font24 fontfamily">{$time|date='d',###}</p>
+									<p style="margin-top: 3px;">{:getweekzh($time)}</p>
+									<p style="margin-top: 2px;">{$time|date='Y.m',###}</p>
+								</div>
+								<div class="dateright fl">
+									<p class="font24 fontfamily fontweight">{$maxsigntime}</p>
+									<p>Days</p>
+								</div>
+							</div>
+						</div>
+						<div class="right-bottom color17 font12">
+							<div class="recommend">
+								<span class="myordertitl1 fontweight">我的推广</span>
+							</div>
+							<div class="recommendproj">
+								<p class="font14">我的专属二维码</p>
+								<p style="padding-bottom: 1em;"><img src="{:u('home/vip/getmyqrcode')}" width="200" height="200" /></p>
+							</div>
+							<p>&nbsp;</p>
+							<div class="recommend">
+								<span class="myordertitl1 fontweight">网站推广链接</span>
+							</div>
+							<p>{$homeshare}</p>
+						</div>
+					</div>
+				</div>
+				<br style="clear: both;" />
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+		<script>
+			var showczqrcode=function(){
+				var imghtml="<img src='{:u(\"home/vip/getczqrcode\")}'/><br/><div style='text-align: center;'>扫二维码进行重置操作!</div>"
+				alert_msg(imghtml);
+			}
+			$('#home-qd').click(function(){
+				$.ajax({
+					type:"post",
+					url:"{:u('home/vip/sign')}",
+					async:true,
+					success:function(e){
+						if(e.status==1){
+							alert_msg(e.msg,function(){location.href=location.href})
+						}else{
+							alert_msg(e.msg);
+						}
+					}
+				});
+			})
+		</script>
+	</body>
+
+</html>

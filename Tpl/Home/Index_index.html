@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>鹤乡农都</title>
+		<include file="./Tpl/home/index_head.html" />
+	</head>
+
+	<body style="background: #f5f5f5;">
+		<include file="./Tpl/home/index_header.html" />
+		<!--导航条-->
+		<include file="./Tpl/home/index_nav.html" />
+		<!--轮播-->
+		<div class="swiper-container" >
+			<div class="swiper-wrapper">
+				<volist name='adsdata' id='vo'>
+					<div class="swiper-slide"><img src="{$vo.pic.imgurl}" style="height: 500px;" /></div>
+				</volist>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next">〉</div>
+			<div class="swiper-button-prev">〈</div>
+		</div> 
+		<!--限时、新品、优惠、广告-->
+		<div class="wapper">
+			<div class="active-box fl">
+				<ul class="limittitle f_wei">
+					<volist name='labelsgoods' id='vo'>
+						<li>
+							<p class="limitbg" data-id='{$vo.id}'>{$vo.name}<span></span></p>
+							<!--<p class="daosanjiao"><img src="__PUBLIC__/home/img/daosanjiao_03.png" /></p>-->
+						</li>
+					</volist>
+					<br style="clear: both;" />
+				</ul>
+				<volist name='labelsgoods' id='vo'>
+					<ul class="limitgood f_wei labelgoods{$vo.id}">
+						<volist name="vo['goods']" id='vt'>
+							<li>
+								<a href="{:u('home/index/goods',array('id'=>$vt['id']))}" target="_blank">
+									<img src="{:getPicUrl($vt['pic'])}" width="194px" height="194px" />
+									<div>
+										<p class="smalllimitbg"></p>
+										<p class="f16 cor08 shenlue">{$vt.name}</p>
+										<p class="cor01 f14 jiage"><span>¥{$vt.price}</span> /市场价：¥{$vt.oprice}</p>
+									</div>
+								</a>
+							</li>
+						</volist>
+						<br style="clear: both;" />
+					</ul>
+				</volist>
+			</div>
+			<div class="notice-box fl">
+				<div class="title"><em>农都快报</em><a href="{:u('home/vip/news')}" target="_blank" class="fr">更多></a></div>
+				<ul>
+					<volist name='newdata' id='vo'>
+						<li><a href="{:u('home/vip/news')}"  target="_blank">{$i}.{$vo.name}</a></li>
+					</volist>
+				</ul>
+				
+			</div>
+		</div>
+		<!--产品-->
+		<div class="wapper">
+			<volist name='menu' id='vo'>
+				<if condition="$cate[$key]['goods'] neq null">
+					<a class="goodtitle" style="display: block;" href="{:u('home/index/catelist',array('id'=>$vo['id']))}" target="_blank">
+						<span>{$vo.name}</span>
+						<p class="f20 f_wei">{$vo.summary}</p>
+					</a>
+					<ul class="liangyou">
+						<volist name="cate[$key]['goods']" id='v' offset="0" length='20'>
+							<li>
+								<a href="{:u('home/index/goods',array('id'=>$v['id']))}" target="_blank">
+									<img src="{$v.picurl}" width="194" height="194" />
+									<p class="f16 cor08 shenlue" style="margin-top: 16px;">{$v.name}</p>
+									<p class="cor01 f14 jiage2"><span>¥{$v.price}</span> /市场价：¥{$v.oprice}</p>
+								</a>
+							</li>
+						</volist>
+						<br style="clear: both;" />
+					</ul>
+				</if>
+			</volist>
+			<br style="clear: both;" />
+			</ul>
+		</div>
+
+		<include file="./Tpl/home/index_footer.html" />
+		<script>
+			 //轮播
+			var swiper = new Swiper('.swiper-container', {
+				pagination: '.swiper-pagination',
+				paginationClickable: true,
+				nextButton: '.swiper-button-next',
+				prevButton: '.swiper-button-prev',
+				autoplay: 2500,
+				spaceBetween: 30
+			});
+			 //滚动新闻
+			$("div.new_txt").myScroll({
+				speed: 60,
+				rowHeight: 27
+			});
+			 //标签tab
+			$('.limitbg').click(function() {
+				$('.limitbg').removeClass('active');
+				$(this).addClass('active');
+				$('.limitgood').hide();
+				//			alert('.labelgoods'+$(this).data('id'));
+				$('.labelgoods' + $(this).data('id')).show();
+			});
+			$('.limitbg').eq(0).click();
+		</script>
+		<script>
+			(function($) {
+			    $.fn.snow = function(options) {
+			        var $flake = $('<i class="iconfont" id="flake" />').css({
+			            'position': 'absolute',
+			            'top': '-50px'
+			        }).html('&#xe6e0'),//10052
+			        documentHeight = $(document).height(),
+			        documentWidth = $(document).width(),
+			        defaults = {
+			            minSize: 10,
+			            maxSize: 20,
+			            newOn: 500,
+			            flakeColor: "#CCCCCC"
+			        },
+			        options = $.extend({}, defaults, options);
+			        var interval = setInterval(function() {
+			            var startPositionLeft = Math.random() * documentWidth - 100,
+			            startOpacity = 0.5 + Math.random(),
+			            sizeFlake = options.minSize + Math.random() * options.maxSize,
+			            endPositionTop = documentHeight - 40,
+			            endPositionLeft = startPositionLeft - 100 + Math.random() * 200,
+			            durationFall = documentHeight * 10 + Math.random() * 5000;
+			            $flake.clone().appendTo('body').css({
+			                left: startPositionLeft,
+			                opacity: startOpacity,
+			                'font-size': sizeFlake,
+			                color: options.flakeColor
+			            }).animate({
+			                top: endPositionTop,
+			                left: endPositionLeft,
+			                opacity: 0.5
+			            },
+			            durationFall, 'linear',
+			            function() {
+			                $(this).remove()
+			            });
+			        },
+			        options.newOn);
+			    };
+			})(jQuery);
+			$.fn.snow({
+			    minSize: 5,
+			    maxSize: 50,
+			    newOn: 1000,
+			    flakeColor: '#FFF'
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,146 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">商城订单</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="table-toolbar">
+					<a href="#" class="btn btn-danger" disabled="disabled">
+						<button href="javascript:void(0)" class="btn btn-primary" id="exportOrder"><i class="fa fa-save"></i>导出订单</button>
+					</a>
+					<div class="pull-right">
+						<form id="Joel-search">
+							<label style="margin-bottom: 0px;">
+								<input name="name" type="search" class="form-control input-sm" placeholder="按会员ID搜索"> 
+							</label>
+							<a href="{:U('S/Shop/order/')}" class="btn btn-success" data-loader="Joel-loader" data-loadername="我的订单" data-search="Joel-search">
+								<i class="fa fa-search"></i>搜索
+							</a>
+						</form>
+					</div>
+				</div>
+
+				<table id="Joel-table" class="table table-bordered table-hover">
+					<thead class="bordered-darkorange">
+						<tr role="row">
+							<th width="30px"><div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+									<label style="padding-left: 4px;"> <input type="checkbox" class="Joel-checkall colored-blue">
+                                     <span class="text"></span>
+									</label>                                    
+                                </div></th>
+							<th>ID</th>
+							<th>订单号</th>
+							<empty name="status">
+							<th>订单状态</th>
+							</empty>
+							<th>订单总额</th>
+							<th>会员ID</th>
+							<th>收货姓名</th>
+							<th>收货电话</th>
+							<th>收货地址</th>							
+							<th>邮费合计</th>
+							<th>支付金额</th>
+							<th>支付方式</th>
+							<th>支付时间</th>
+							<th>创建时间</th>
+							<th>代金券</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="cache" id="vo">
+							<tr id="item{$vo.id}">
+								<td>
+									<div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+										<label style="padding-left: 4px;"> <input name="checkvalue" type="checkbox" class="colored-blue Joel-check" value="{$vo.id}">
+	                                     <span class="text"></span>
+										</label>                                    
+	                                </div>
+								</td>
+								<td class=" sorting_1">{$vo.id}</td>
+								<td class=" ">{$vo.oid}</td>
+								<empty name="status">
+								<td class=" "><switch name="vo.status">
+					<case value="0">已取消</case>
+					<case value="1">未付款</case>
+					<case value="2">已付款</case>
+					<case value="3">已发货</case>
+					<case value="4">退货中</case>
+					<case value="5">已完成</case>
+					<case value="6">已关闭</case>
+					<case value="7">已退货</case>
+				</switch></td>
+								</empty>
+								<td class=" ">{$vo.totalprice}</td>
+								<td class=" ">{$vo.vipid}</td>
+								<td class=" ">{$vo.vipname}</td>
+								<td class=" ">{$vo.vipmobile}</td>
+								<td class=" ">{$vo.vipaddress}</td>
+								<td class=" ">{$vo.yf}</td>
+								<td class=" ">{$vo.payprice}</td>
+								<td class=" "><switch name="vo.paytype">
+									<case value="money">余额</case>
+									<case value="alipaywap">支付宝WAP</case>
+								</switch></td>
+								<td class=" "><notempty name='vo.paytime'>{$vo.paytime|date='Y/m/d H:i',###}<else/>未支付</notempty></td>
+								<td class=" ">{$vo.ctime|date='Y/m/d H:i',###}</td>
+								<td class=" "><neq name="vo.djqid" value="">{$vo.djqid}<else/>未使用</neq></td>
+								<td class="center ">
+									<a href="{:U('S/Shop/orderDetail/',array('id'=>$vo['id'],'status'=>$status))}" class="btn btn-primary btn-xs" data-loader="Joel-loader" data-loadername="订单详情"><i class="fa fa-eye"></i> 详情</a>
+								</td>
+							</tr>
+						</volist>
+												
+					</tbody>
+				</table>
+				<div class="row DTTTFooter">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--全选特效封装/全部删除-->
+<script type="text/javascript">
+	//全选
+	var checkall=$('#Joel-table .Joel-checkall');
+	var checks=$('#Joel-table .Joel-check');
+	var trs=$('#Joel-table tbody tr');
+	$(checkall).on('click',function(){
+		if($(this).is(":checked")){			
+			$(checks).prop("checked","checked");
+		}else{
+			$(checks).removeAttr("checked");
+		}		
+	});
+	$(trs).on('click',function(){
+		var c=$(this).find("input[type=checkbox]");
+		if($(c).is(":checked")){
+			$(c).removeAttr("checked");
+		}else{
+			$(c).prop("checked","checked");
+		}		
+	});
+</script>
+<!--/全选特效封装-->
+
+

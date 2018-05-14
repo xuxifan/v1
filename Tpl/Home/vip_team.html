@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+		<script type="text/javascript">
+			$(function(){
+				$('.drop').click(function(){
+					$('#'+$(this).data('sonid')).toggle(100);
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+		<div class="s_page">
+			<div class="s_MTcontent">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_mtright fl font13">
+					<div class="mtright-top">
+						<div class="fl">
+							<span class="persontou fl"><img src="{$vipinfo.headimgurl}" width="94px" height="94px" style="border-radius: 50%;"/></span>
+							<span class="mtvip fl"><img src="__PUBLIC__/home/img/bigvip_03.png" width="34px" height="34px"/></span>
+							<div class="mtinfo fl font12">
+								<p class="font14 fontfamily color2 fontweight">{$vipinfo.nickname}</p>
+								<p>ID号：{$vipinfo.id}</p>
+								<p>总佣金：<span class="color13">{$data.money}元</span></p>
+							</div>	
+						</div>
+						<div class="total marginleft31 fontfamily">
+							<p class="color13 font18 ">{$count}人</p>
+							<p class="font12">成为下线</p>
+						</div>
+						<div class="total fontfamily">
+							<p class="color13 font18 ">{$countsub}人</p>
+							<p class="font12">成功关注</p>
+						</div>
+						<div class="total2 fontfamily">
+							<p class="color13 font18 ">{$countbuy}人</p>
+							<p class=" font12">成功购买</p>
+						</div>
+					</div>
+					<div class="mtright-bottom">
+						<ul class="fontfamily">
+							<li class="color2 drop" data-sonid='moneybox'>
+								<span>余额：¥{$data.money}</span>
+								<span class="arrow1">&gt;</span>
+								<span class="arrow2">&or;</span>
+							</li>
+							<ul id="moneybox">
+								<li style="border: none;"><span>我的佣金:￥{$data.money}</span></li>
+								<!--<li style="border: none;"><span>待收佣金:￥{$data.fxmoney}</span></li>-->
+								<li style="border: none;"><span>在审提现:￥{$data.txmoney}</span></li>
+							</ul>
+								<!--<span>我的专属推广二维码</span>-->
+							<li class="color2 drop" data-sonid='xiaxian'>
+								<span>我的下线({$count}人)</span>
+								<span class="arrow1">&gt;</span>
+								<span class="arrow2">&or;</span>
+							</li>
+							<ul id='xiaxian'>
+								<li  class="drop" data-sonid='yjxx'><span>一级下线({$countfirst}人)</span></li>
+								<li style="border: none;height: auto;text-indent: 4em;display: none;" id="yjxx">
+									<volist name='datafirst' id='vo'>
+										<p>{$vo.nickname}</p>
+									</volist>
+								</li>
+								<li class="drop" data-sonid="ejxx"><span>二级下线({$countsecond}人)</span></li>
+								<li style="border: none;height: auto;text-indent: 4em; display: none;" id="ejxx">
+									<volist name='datasecond' id='vo'>
+										<p>{$vo.nickname}</p>
+									</volist>
+								</li>
+							</ul>
+							<li class="color2 drop" data-sonid='myqrcode'>
+								<span>我的二维码</span>
+								<span class="arrow1">&gt;</span>
+								<span class="arrow2">&or;</span>
+							</li>
+							<ul id='myqrcode'>
+								<li style="border: none;height: 400px;">
+									<div style="text-align: center;">
+										<p>我的专属二维码</p>
+										<img src="{:u('home/vip/getmyqrcode')}" />
+									</div>
+								</li>
+							</ul>
+							<!--<li class="color2 drop" id="drop1">
+								<span>待收日志</span>
+								<span class="arrow1">&gt;</span>
+								<span class="arrow2">&or;</span>
+							</li>
+							<ul>
+								<li><span>日志1</span></li>
+								<li><span>日志2</span></li>
+								<li><span>日志3</span></li>
+							</ul>
+							<li class="color2 drop" id="drop1">
+								<span>金豆日志</span>
+								<span class="arrow1">&gt;</span>
+								<span class="arrow2">&or;</span>
+							</li>
+							<ul>
+								<li><span>日志1</span></li>
+								<li><span>日志2</span></li>
+								<li><span>日志3</span></li>
+							</ul>
+							<li class="color2 drop" id="drop1">
+								<span>推广日志</span>
+								<span class="arrow1">&gt;</span>
+								<span class="arrow2">&or;</span>
+							</li>
+							<ul>
+								<li><span>日志1</span></li>
+								<li><span>日志2</span></li>
+								<li><span>日志3</span></li>
+							</ul>
+							<li class="color2 drop" id="drop1">
+								<span>推广政策</span>
+								<span class="arrow1">&gt;</span>
+								<span class="arrow2">&or;</span>
+							</li>
+							<ul>
+								<li><span>政策1</span></li>
+								<li><span>政策2</span></li>
+								<li><span>政策3</span></li>
+							</ul>-->
+						</ul>
+					</div>
+				</div>
+				<br class="clear"/>
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+	
+	</body>
+</html>

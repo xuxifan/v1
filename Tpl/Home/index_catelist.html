@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>{$pagetitle}</title>
+		<include file="./Tpl/home/index_head.html" />
+		<style>
+			.xwcms {
+				-moz-transform: rotate(-180deg);
+				-webkit-transform: rotate(-180deg);
+				filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=6);
+			}
+		</style>
+	</head>
+
+	<body style="background: #f5f5f5;">
+		<include file="./Tpl/home/index_header.html" />
+		<include file="./Tpl/home/index_navbar.html" />
+		<!--列表页主内容-->
+		<div class="wapper">
+			<include file="./Tpl/home/index_leftnav.html" />
+			<div class="fl list_right">
+				<div class="fen_tit flw bg_corb f_sont">
+					<span class="fl f_strong">
+						<a>所有分类</a>
+						<em>&gt;</em>
+						<if condition="cate neq null">
+						<a>{$cate.name} </a>
+						</if>
+					</span>
+					<div class="search_list fl flw" style="margin-left: 1em;">
+						<input class="f_sont" type="text" placeholder="输入商品名称进行搜索" id="search-box" value="{$s}" style="outline: none;">
+						<a href="#" class="search-btn"><img src="__PUBLIC__/home/img/sear.png"></a>
+					</div>
+				</div>
+				<div class="shanx flw">
+					<span class="fl flw">
+						<!--<a class="hover" href="#">综合排序</a>-->
+						<if condition="$b eq 1">
+							<a href="javascript:void(0);" class="btn-px hover" data-t="1">销量<img src="__PUBLIC__/home/img/ar_top.png" <if condition="$o eq 1">class="xwcms"</if>></a>
+							<else/>
+							<a href="javascript:void(0);" class="btn-px" data-t="1">销量</a>
+						</if>
+						<if condition="$b eq 2">
+							<a href="javascript:void(0);" class="btn-px hover" data-t="2">新品<img src="__PUBLIC__/home/img/ar_top.png" <if condition="$o eq 1">class="xwcms"</if>></a>
+							<else/>
+							<a href="javascript:void(0);" class="btn-px" data-t="2">新品</a>
+						</if>
+						<if condition="$b eq 3">
+							<a href="javascript:void(0);" class="btn-px hover" data-t="3">价格<img src="__PUBLIC__/home/img/ar_top.png" <if condition="$o eq 1">class="xwcms"</if>></a>
+							<else/>
+							<a href="javascript:void(0);" class="btn-px" data-t="3">价格</a>
+						</if>
+					</span>
+				</div>
+				<ul class="list_pro_box flw">
+					<volist name='goods' id='vo'>
+						<li>
+							<a href="{:u('index/goods',array('id'=>$vo['id']))}"  target="_blank">
+								<img src="{:getPicUrl($vo['pic'])}" width="195" height="195">
+								<em class="f_arial f_strong f14 cor03">￥{$vo.price}</em>
+								<p>{$vo.name}</p>
+								<span>总销量：<i class="f_strong f_arial">{$vo.sells}</i></span>
+							</a>
+						</li>
+					</volist>
+				</ul>
+				<if condition='$count neq 1'>
+					<div class="list_page fr f_strong f_sont mar_b30">
+						<a <if condition='$p neq 1'>href="{:u('index/catelist',array('id'=>$cate['id'],'p'=>$p-1,'s'=>$s))}"</if> >上一页</a>
+						<for start='1' end='$count' name="i">
+							<if condition="($p eq $i)">
+								<a class="hover">{$i}</a>
+								<else/>
+								<a href="{:u('index/catelist',array('id'=>$cate['id'],'p'=>$i,'s'=>$s))}">{$i}</a>
+							</if>
+						</for>
+
+						<a <if condition='$hasnext neq 1'>href="{:u('index/catelist',array('id'=>$cate['id'],'p'=>$p+1,'s'=>$s))}"</if>>下一页</a>
+					</div>
+				</if>
+
+			</div>
+		</div>
+		<include file="./Tpl/home/index_footer.html" />
+		<include file="./Tpl/home/index_rightnav.html" />
+		<script>
+			var s = '{$s}';
+			var o = '{$o}';
+			var b = 1;
+			var p = '{$p}';
+			var id = '{$cate.id}'
+			$('.btn-px').click(function() {
+				b = $(this).data('t');
+				if (o == 1) {
+					o = 2;
+				} else {
+					o = 1;
+				}
+				thispagereload();
+			})
+			 $('#search-box').keyup(function(event) {
+				if (event.keyCode == 13) {
+					$('.search-btn').click();
+				}
+			});
+			$('.search-btn').click(function() {
+				s = $('#search-box').val();
+				thispagereload();
+			});
+			var thispagereload = function() {
+				url = "{:u('index/catelist')}";
+				if (id) {
+					url = url + "/id/" + id;
+				}
+				if (p) {
+					url = url + "/p/" + p;
+				}
+				if (b) {
+					url = url + "/b/" + b;
+				}
+				if (o) {
+					url = url + "/o/" + o;
+				}
+				if (s) {
+					url = url + "/s/" + s;
+				}
+				location.href = url;
+			}
+		</script>
+	</body>
+
+</html>

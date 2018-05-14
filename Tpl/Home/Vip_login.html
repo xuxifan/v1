@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>登录-{$_SESSION['SET']['homename']}</title>
+		<meta content="{$_SESSION['SET']['homekeyword']}" name="keywords">
+		<meta content="{$_SESSION['SET']['homesummary']}" name="description">
+		<link rel="stylesheet" href="__PUBLIC__/home/css/fenxiao.css" />
+		<script src="__PUBLIC__/home/js/jquery-1.11.3.min.js"></script>
+	</head>
+
+	<body>
+		<div class="bg_corb login_top">
+			<div class="wapper">
+				<!--logo和某某-->
+				<div class="fl logo">
+					<a href="/Home/index/"><img src="__PUBLIC__/home/img/logo.png"></a>
+				</div>
+				
+			</div>
+		</div>
+		<!--login中间部分-->
+		<div class="wapper" style="margin-bottom: 5em;">
+			<div class="mainlogin" style="text-align: center; padding: 20px;">
+				<img src="/Home/Vip/getqrcode/" />
+				<p style="color:#B00000; font-size: 30px;">请使用微信扫描上方二维码实现自动登录！</p>
+				<p>&nbsp;</p>
+				<p>( 状态：<span id="loginmsg">等待用户扫描...</span> )</p>
+			</div>
+			<div style="text-align: center;"><input type="checkbox" checked="checked"/>你已阅读并同意<a href="{:u('home/vip/agreement')}"></啊>《用户协议》</a></div>
+		</div>
+		<!--login底部-->
+		<include file="./Tpl/home/vip_footer.html" />
+		<script>
+			var msg=$('#loginmsg');
+			var times=70;
+			var num=1;
+			var intval;
+			var intval2;
+			if(times >=60){
+				intval=setInterval(firstfun,1000);
+			}
+			
+			function firstfun(){
+				if ((times-1)<60) {
+					window.clearInterval(intval);
+					$(msg).text('开始数据同步...');
+					intval2=setInterval(intfun,2000);
+				} else {
+					$(msg).text("等待用户扫描...剩余 ("+(times-1)+")");
+					times--;
+				}
+			}
+			
+			function intfun(){
+				if ((times-1)<0) {
+					window.clearInterval(intval2);
+					$(msg).text('自动同步结束，请扫描后手动刷新此页!');
+				} else {
+					$(msg).text("开始数据同步...剩余 ("+(times-1)+")");
+					$.ajax({
+						type: "GET",
+	             		url: "/Home/Vip/remotewclogin",
+	             		data: 'wclogin',
+	             		dataType: "json",
+	             		success:function(e){
+					        if(e.status==1){
+					        	window.clearInterval(intval2);
+								$(msg).text('您已登录!');
+								window.location.href="/Home/Vip/index/";
+					        }
+	             		}
+					});
+					
+					times--;
+					num++;
+				}
+			}
+		</script>
+	</body>
+
+</html>

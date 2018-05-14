@@ -1,0 +1,454 @@
+ <!--百度编辑器-->
+<link href="__PUBLIC__/Cms/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Cms/umeditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Cms/umeditor/umeditor.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Cms/umeditor/lang/zh-cn/zh-cn.js"></script>
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">商品设置</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                  <input type="hidden" name="id" value="{$cache.id}">
+                  <div class="form-title">
+                        <a href="{:U('Cms/Shop/goods/',array('p'=>$p))}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="商品分组">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">选择分类</label>
+                        <div class="col-lg-4">
+                             <select class="form-control" name="cid" >
+                                  <option value="0">顶级分类</option>
+                                  <volist name="cate" id="vo">
+                                  	<option value="{$vo.id}" <eq name="vo.id" value="$cache.cid">selected</eq>>{$vo.name}</option>
+                                  		<volist name="vo['_child']" id="vo2">
+											<option value="{$vo2.id}" <eq name="vo2.id" value="$cache.cid">selected</eq>>&nbsp;&nbsp;└{$vo2.name}</option>
+												<foreach name="vo2['_child']" item="vo3">
+													<option value="{$vo3.id}" <eq name="vo3.id" value="$cache.cid">selected</eq>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└{$vo3.name}</option>
+													<foreach name="vo3['_child']" item="vo4">
+														<option value="{$vo4.id}" <eq name="vo4.id" value="$cache.cid">selected</eq>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└{$vo4.name}</option>
+														<foreach name="vo4['_child']" item="vo5">
+															<option value="{$vo5.id}" <eq name="vo5.id" value="$cache.cid">selected</eq>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└{$vo5.name}</option>														
+														</foreach>
+													</foreach>
+												</foreach>
+										</volist>
+                                  </volist>
+                             </select>
+
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品名称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="name" placeholder="必填 字数25以内"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.name}">
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品介绍<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="introduction" placeholder="必填"
+                                                               data-bv-notempty="false"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.introduction}">
+                        </div>
+                   </div>
+				   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品排序</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="sorts" placeholder="" value="{$cache.sorts}">
+                        </div>
+                   </div>
+                   <!--<div class="form-group">
+                        <label class="col-lg-2 control-label">首页大图片</label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" class="form-control" name="indexpic" value="{$cache.indexpic}" id="Joel-indexpic" placeholder="尺寸：675*320px">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-indexpic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-indexpic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                   </div>-->
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">活动专区图片</label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" class="form-control" name="listpic" value="{$cache.listpic}" id="Joel-listpic"  placeholder="尺寸：300*300px">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-listpic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-listpic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                        <label class="col-lg-0 control-label">&nbsp;尺寸：300*300px</label>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品图片</label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" class="form-control" name="pic" value="{$cache.pic}" id="Joel-pic" placeholder="尺寸：300*300px">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-pic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-pic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        	    </span>                        		
+                        	</div>
+                        </div>
+                        <label class="col-lg-0 control-label">&nbsp;尺寸：300*300px</label>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品图集</label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" class="form-control" name="album" value="{$cache.album}" id="Joel-album">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-album')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-album',true)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                        <label class="col-lg-0 control-label">&nbsp;尺寸：320*240px</label>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品单位<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="unit" placeholder="" value="{$cache.unit}">
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品价格<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="price" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.price}">
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品原价<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="oprice" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.oprice}">
+                        </div>
+                   </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">快递重量<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="heavy" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.heavy}">
+                        </div>
+                         <label class="col-lg-0 control-label">&nbsp;单位:千克(公斤),如果等于0,按首重计邮费</label>
+                   </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">商品库存<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="num" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.num}">
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">启用SKU</label>
+                        <div class="col-lg-4">
+                        	<label>
+                        		  <input type="hidden" name="issku" value="{$cache.issku}" id="issku">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="isskubtn" <eq name="cache.issku" value="1">checked="checked"</eq>>
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：启用后将采用商品SKU模式管理库存，价格与销量。</span>
+                            </label>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">是否免邮费</label>
+                        <div class="col-lg-4">
+                        	<label>
+                        		  <input type="hidden" name="ismy" value="{$cache.ismy}" id="ismy">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="ismybtn" <eq name="cache.ismy" value="1">checked="checked"</eq>>
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：启用后纯免邮商品免邮费。</span>
+                            </label>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">开启自定义销量</label>
+                        <div class="col-lg-4">
+                        	<label>
+                        		  <input type="hidden" name="issells" value="{$cache.issells}" id="issells">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="issellsbtn" <eq name="cache.issells" value="1">checked="checked"</eq>>
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后前端显示自定义销量。</span>
+                            </label>
+                        </div>
+                   </div>
+                   <div class="form-group" id="dissells">
+                        <label class="col-lg-2 control-label">自定义销量</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="dissells" placeholder="填写自定义销量，此销量也会自动增长" value="{$cache.dissells}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group" <eq name="isdfx" value="0">style="display:none"</eq>>
+                        <label class="col-lg-2 control-label">会员分销佣金</label>
+				        <div class="col-lg-2">
+	          				<div class="input-group input-group-xs">
+	               			<span class="input-group-btn">
+	                  			 <button class="btn btn-darkorange" type="button">一级(%)：</button>
+	               			</span>
+	               			<input name="vipfx1rate" type="text" class="form-control" value="{$cache.vipfx1rate}" >
+	          				</div>
+       					</div>
+				        <div class="col-lg-2">
+					         <div class="input-group input-group-xs">
+					               <span class="input-group-btn">
+					                   <button class="btn btn-darkorange" type="button">二级(%)：</button>
+					               </span>
+					               <input name="vipfx2rate" type="text" class="form-control" value="{$cache.vipfx2rate}" >
+					          </div>  
+				        </div>   
+						<div class="col-lg-2">
+					         <div class="input-group input-group-xs">
+					               <span class="input-group-btn">
+					                   <button class="btn btn-darkorange" type="button">三级(%)：</button>
+					               </span>
+					               <input name="vipfx3rate" type="text" class="form-control" value="{$cache.vipfx3rate}" >
+					          </div>  
+				        </div> 						
+                   </div>
+        			
+        			<!--聚友杀  拼团购-->
+       				  <!-- 作者：郑伊凡 2016-1-25 母版本 功能：聚友杀总控判断 -->
+       				  <!--<eq name="isjys" value="1">
+       				     <div class="form-group">
+                        <label class="col-lg-2 control-label">开启砍价模式</label>
+                        <div class="col-lg-4">
+                        	<label>
+                        		  <input type="hidden" name="iscut" value="{$cache.iscut}" id="iscut">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="iscutbtn" <eq name="cache.iscut" value="1">checked="checked"</eq>>
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后包含此商品的订单拥有聚友杀功能。</span>
+                            </label>
+                        </div>
+                   </div>
+                   <div id="discut">
+	                   <div class="form-group" id="discut">
+	                        <label class="col-lg-2 control-label">最多被砍价格[元]</label>
+	                        <div class="col-lg-4">
+	                        <input type="text" class="form-control" name="cutmax" placeholder="此商品最多被砍多少钱,如10.38" value="{$cache.cutmax}">
+	                        </div>
+	                   </div>
+	                   <div class="form-group" id="discut">
+	                        <label class="col-lg-2 control-label">每刀最低价格[元]</label>
+	                        <div class="col-lg-4">
+	                        <input type="text" class="form-control" name="cutlow" placeholder="此商品每刀至少被砍多少钱,如1.16" value="{$cache.cutlow}">
+	                        </div>
+	                   </div>
+	                   <div class="form-group" id="discut">
+	                        <label class="col-lg-2 control-label">每刀最高价格[元]</label>
+	                        <div class="col-lg-4">
+	                        <input type="text" class="form-control" name="cuttop" placeholder="此商品每刀至多被砍多少钱,如3.67" value="{$cache.cuttop}">
+	                        </div>
+	                   </div>
+                   </div>
+                <else />
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">开启砍价模式</label>
+                        <div class="col-lg-4">
+                          <label>
+                              <input type="hidden" id="iscut">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" onclick="alert('请在营销模块开启此功能！');return false;">
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后包含此商品的订单拥有聚友杀功能。</span>
+                            </label>
+                        </div>
+                   </div>
+                </eq>-->
+                <!-- 作者：郑伊凡 2016-1-25 母版本 功能：聚友杀总控判断 -->
+                <!-- 作者：郑伊凡 2016-1-25 母版本 功能：拼团购总控判断 -->
+                <!--<eq name="isptg" value="1">
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">开启拼团模式</label>
+                        <div class="col-lg-4">
+                          <label>
+                              <input type="hidden" name="isgroup" value="{$cache.isgroup}" id="isgroup">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="isgroupbtn" <eq name="cache.isgroup" value="1">checked="checked"</eq>>
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后包含此商品的订单拥有拼团功能。</span>
+                            </label>
+                        </div>
+                   </div>
+                   <div id="disgroup">
+                     <div class="form-group" id="disgroup">
+                          <label class="col-lg-2 control-label">最多拼团人数[个]</label>
+                          <div class="col-lg-4">
+                          <input type="text" class="form-control" name="groupmax" placeholder="此商品最多拼团人数,如10" value="{$cache.groupmax}">
+                          </div>
+                     </div>
+                     <div class="form-group" id="disgroup">
+                          <label class="col-lg-2 control-label">拼团价格[元]</label>
+                          <div class="col-lg-4">
+                          <input type="text" class="form-control" name="groupprice" placeholder="此商品拼团所需价格,如16" value="{$cache.groupprice}">
+                          </div>
+                     </div>
+                   </div>
+                <else />
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">开启拼团模式</label>
+                        <div class="col-lg-4">
+                          <label>
+                              <input type="hidden" id="iscut">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" onclick="alert('请在营销模块开启此功能！');return false;">
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后包含此商品的订单拥有拼团功能。</span>
+                            </label>
+                        </div>
+                   </div>
+                </eq>-->
+                   <!-- 作者：郑伊凡 2016-1-25 母版本 功能：拼团购总控判断 -->
+       				<!--聚友杀  拼团购-->
+       				
+                   <div class="form-group">
+                   		<label class="col-lg-2 control-label">选择标签</label>
+                   		<div class="col-lg-4">
+                   			<volist name="label" id="vo_l">
+							<label>
+						  		<input type="radio" class="colored-blue label-check" <in name="vo_l.id" value="$cache.lid">checked="checked"</in> value="{$vo_l.id}" data-label="{$vo_l.name}">
+								<span class="text">{$vo_l.name}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+				      		</label>
+				      		</volist>
+			       		</div>
+			       		<input type="hidden" name="lid" id="lid" value="{$cache.lid}" />
+                   </div>
+       
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品简介</label>
+                        <div class="col-lg-4">
+                        <textarea class="form-control" name="summary" rows="5">{$cache.summary}</textarea>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品详情</label>
+                        <div class="col-lg-4">
+                        	<!--必须插入空input避免验证冲突--> 
+                        	<input type="hidden">
+                    		<script type="text/plain" id="J-ueditor" name="content" style="width:800px;height:400px;">{$cache.content|htmlspecialchars_decode}</script>
+                        </div>
+                   </div>
+						<div class="form-group">
+                             <div class="col-lg-offset-2 col-lg-4">
+                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                        </div>
+                    </div>
+                   </form>
+                </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--编辑器封装-->
+<script type="text/javascript">
+	 var um = UM.getEditor('J-ueditor');
+</script>
+<!--/编辑器封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	if($('#issellsbtn').prop('checked')){
+		$('#dissells').slideDown();
+	}else{
+		$('#dissells').slideUp();
+	}
+	if($('#iscutbtn').prop('checked')){
+		$('#discut').slideDown();
+	}else{
+		$('#discut').slideUp();
+	}
+	
+    if($('#isgroupbtn').prop('checked')){
+      $('#disgroup').slideDown();
+    }else{
+      $('#disgroup').slideUp();
+    }
+    
+    var checks=$('.label-check');
+    $(checks).click(function(){
+    	$('#lid').val($(this).val());
+    	$(this).parent().siblings().find('.label-check').removeAttr('checked');
+    })
+  
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+			/*var lid='';
+			var checks=$('.label-check');
+			$(checks).each(function(){
+				if($(this).is(":checked")){
+					lid+=$(this).val();
+				}
+			});
+			$('#lid').val(lid);*/
+           	var tourl="{:U('Cms/Shop/goodsSet')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+	$('#isskubtn').on('click',function(){
+		var value=$(this).prop('checked')?1:0;
+		$('#issku').val(value);
+	});
+	$('#ismybtn').on('click',function(){
+		var value=$(this).prop('checked')?1:0;
+		$('#ismy').val(value);
+	});
+	$('#issellsbtn').on('click',function(){
+		var value;
+		if($(this).prop('checked')){
+			value=1;
+			$('#dissells').slideDown();
+		}else{
+			value=0;
+			$('#dissells').slideUp();
+		}
+		$('#issells').val(value);
+	});
+	$('#iscutbtn').on('click',function(){
+		var value;
+		if($(this).prop('checked')){
+			value=1;
+			$('#discut').slideDown();
+		}else{
+			value=0;
+			$('#discut').slideUp();
+		}
+		$('#iscut').val(value);
+	});
+
+	$('#isgroupbtn').on('click',function(){
+    var value;
+    if($(this).prop('checked')){
+      value=1;
+      $('#disgroup').slideDown();
+    }else{
+      value=0;
+      $('#disgroup').slideUp();
+    }
+    $('#isgroup').val(value);
+  });
+</script>
+<!--/表单验证与提交封装-->

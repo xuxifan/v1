@@ -1,0 +1,257 @@
+ <!--百度编辑器-->
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">一元夺宝设置</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                  <input type="hidden" name="id" value="{$cache.id}">
+                  <div class="form-title">
+                        <a href="{:U('Cms/Shop/yydblist/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+                   
+                   <div class="form-group" <notempty name="cache.gname"> style="display: none;"</notempty>>
+                        <label class="col-lg-2 control-label">产品查询</label>
+                        <div class="col-lg-3">
+                        <input type="text" class="form-control" name="nname" placeholder="必填" value="{$cache.name}">
+                        </div>
+                        <div>
+                          <div class="col-lg-4">
+                             <a class="btn btn-primary btn-lg" id="searchGoods">搜索</a>
+                          </div>
+                        </div>
+                   </div>
+                   <input type="hidden" name="id" id="id" value="{$cache.id}">
+					<input type="hidden" name="goodsid" id="goodsid" value="{$cache.goodsid}">
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">商品名称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	<select class="form-control" name="gname" id="gname" placeholder="必填"
+                                                               data-bv-notempty="true" value=""
+                                                               data-bv-notempty-message="不能为空" <notempty name="cache.gname"> disabled</notempty>>
+                                <empty name="cache['gname']">
+                                  <option value="" >请选择</option>
+                                <else />
+                                  <option value="{$cache['gname']}" >{$cache['gname']}</option>
+                                </empty>
+                          </select>
+                        </div>
+                   </div>
+                  <input type="hidden" name="vipid" value="{$cache.vipid}" id="vipid">
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">设置中奖会员</label>
+                        <div class="col-lg-4">
+                        	<label>
+                        		  <input type="hidden" name="isvip" value="{$cache.isvip}" id="isvip">
+                                  <input class="checkbox-slider slider-icon colored-darkorange" type="checkbox" id="isvipbtn" <eq name="cache.isvip" value="1">checked="checked"</eq>>
+                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后前端指定中奖人,此会员要在前台参与夺宝活动才会中奖。</span>
+                            </label>
+                        </div>
+                   </div>
+                   <div id="disvip">
+	                   <div class="form-group">
+	                        <label class="col-lg-2 control-label">昵称查询</label>
+	                        <div class="col-lg-3">
+	                        <input type="text" class="form-control" name="vipname" placeholder="必填" value="{$cache.vipname}">
+	                        </div>
+	                        <div>
+	                          <div class="col-lg-4">
+	                             <a class="btn btn-primary btn-lg" id="searchNickname">搜索</a>
+	                          </div>
+	                        </div>
+	                   </div>
+	                   <div class="form-group">
+	                        <label class="col-lg-2 control-label">员工昵称<sup>*</sup></label>
+	                        <div class="col-lg-4">
+	                        	<select class="form-control" name="nickname" id="nickname" placeholder="必填"
+	                                                               data-bv-notempty="true"
+	                                                               data-bv-notempty-message="不能为空" >
+	                                <empty name="cache['nickname']">
+	                                  <option value="" >请选择</option>
+	                                <else />
+	                                  <option value="{$cache['nickname']}" >{$cache['nickname']}</option>
+	                                </empty>
+	                          </select>
+	                        </div>
+	                   </div>
+                   </div>
+              
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">活动专区图片</label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" class="form-control" name="listpic" value="{$cache.listpic}" id="Joel-listpic"  placeholder="尺寸：300*300px">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-listpic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-listpic',false)"><i class="glyphicon glyphicon-picture" <eq name="type" value="search">disabled</eq>></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                        <label class="col-lg-0 control-label">&nbsp;尺寸：640*300px</label>
+                   </div>
+                   
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">商品总售价<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="price" id="price" placeholder="必填" value="{$cache.price}"  data-bv-notempty="true" data-bv-notempty-message="不能为空" >  <span class="text darkorange">* 商品总价格请不要填写100，2300,5000这样的整数，整数价格计算出的云购码可能就为10000001，建议基于原价格上下浮动</span>
+                        </div>
+                   </div>
+                   
+                   <div class="form-group" id="discut">
+                        <label class="col-lg-2 control-label">单次价格[元]<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="yprice" placeholder="此商品参与一元夺宝的价格，比如1.00" value="{$cache.yprice}" placeholder="必填" data-bv-notempty="true" data-bv-notempty-message="不能为空">
+                        </div>
+                   </div>
+
+                    <div class="form-group" id="yybbtn">
+                        <div class="col-lg-offset-2 col-lg-4">
+                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                        </div>
+                    </div>
+               </form>
+            </div>
+        </div>
+	</div>
+     
+</div>
+<script>
+
+  
+//查询商品
+  $("#searchGoods").click(function(){
+    $(this).text("请稍等").attr("disabled","disabled");
+     $(".btn-primary").attr("disabled","disabled");
+    $(".btn-palegreen").attr("disabled","disabled");
+    var nname=$("input[name=nname]").val();
+    if(nname==''){
+    	alert("请填写搜索信息");
+    	$("#searchGoods").text("搜索").removeAttr("disabled");
+    	return false;
+    }
+    $.ajax({
+      type:"post",
+      url:"{:U('Cms/Shop/searchGoods')}",
+      data:{nname:nname},
+      success: function(data){
+        if(data){
+          var html = "";
+          for(var i in data){
+            html += "<option value='"+data[i]['name']+"' ids='"+data[i]['id']+"' price='"+data[i]['price']+"'>"+data[i]['name']+"</option>";
+          }
+          $("#gname").html(html);
+          $("#goodsid").val($("#gname option").eq(0).attr('ids'));
+          $("#price").val($("#gname option").eq(0).attr('price'));
+          $("#gname").change(function(){
+            $("#goodsid").val($(this).find('option:selected').attr('ids'));
+            $("#price").val($(this).find('option:selected').attr('price'));
+          })
+        }else{
+          alert("无搜索结果");
+        }
+         $("#searchGoods").text("搜索").removeAttr("disabled");
+          $(".btn-primary").removeAttr("disabled");
+   	 	 $(".btn-palegreen").removeAttr("disabled");
+      }
+    })
+  })
+  //搜索会员
+  $("#searchNickname").click(function(){
+    $(this).text("请稍等..").attr("disabled","disabled");
+    $(".btn-primary").attr("disabled","disabled");
+    $(".btn-palegreen").attr("disabled","disabled");
+    var vipname=$("input[name=vipname]").val();
+    $.ajax({
+      type:"post",
+      url:"{:U('Cms/Shop/searchNickname')}",
+      data:{nname:vipname},
+      success: function(data){
+        if(data){
+          var html = "";
+          for(var i in data){
+            html += "<option value='"+data[i]['nickname']+"' ids='"+data[i]['id']+"'>"+data[i]['nickname']+"</option>";
+          }
+          $("#nickname").html(html);
+          $("#vipid").val($("#nickname option").eq(0).attr('ids'));
+          $("#nickname").change(function(){
+            $("#vipid").val($(this).find('option:selected').attr('ids'))
+          })
+        }else{
+          alert("无搜索结果");
+        }
+         $("#searchNickname").text("搜索").removeAttr("disabled");
+         $(".btn-primary").removeAttr("disabled");
+   	 	 $(".btn-palegreen").removeAttr("disabled");
+      }
+    })
+  })
+</script>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+$('#isvipbtn').on('click',function(){
+	var value;
+	if($(this).prop('checked')){
+		value=1;
+		$('#disvip').slideDown();
+	}else{
+		value=0;
+		$('#disvip').slideUp();
+	}
+	$('#isvip').val(value);
+});
+
+$('#isstatusbtn').on('click',function(){
+    var value;
+    if($(this).prop('checked')){
+      value=1;
+    }else{
+      value=0;
+    }
+    $('#status').val(value);
+  });
+  
+if($('#isvipbtn').prop('checked')){
+	$('#disvip').slideDown();
+}else{
+	$('#disvip').slideUp();
+}
+  $('#JoelForm').bootstrapValidator({
+    submitHandler: function (validator, form, submitButton) {
+    	var status=$('#status').val();
+    	if(status == '1'){
+    		$('#yybbtn').hide();
+    	}
+        var tourl="{:U('Cms/Shop/yydblisttset')}";
+        var data=$('#JoelForm').serialize();
+        $.Joel.ajax('post',tourl,data,null);
+            return false;
+        },
+  });
+</script>
+<!--/表单验证与提交封装-->

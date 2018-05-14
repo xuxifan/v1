@@ -1,0 +1,136 @@
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">我要代言</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                  
+                  
+                   <input type="hidden" name="id" value="{$cache.id}" />
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">背景图片<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	<div class="input-group input-group-sm">
+                        		<input type="text" class="form-control" name="img" value="{$cache.img}"  data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" id="Joel-pic">
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-default shiny" type="button" onclick="joelImgviewer('Joel-pic')"><i class="fa fa-camera-retro"></i>预览</button><button class="btn btn-default shiny" type="button" onclick="joelImguploader('Joel-pic',false)"><i class="glyphicon glyphicon-picture"></i>上传</button>
+                        		</span>
+                        	</div>
+                        </div>
+                        <label class="col-lg-0 control-label">&nbsp;尺寸：720 × 1136px</label>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">头像位置-top<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="uimgtop" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.uimgtop}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">头像位置-left<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="uimgleft" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.uimgleft}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">微信昵称位置-top<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="utop" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.utop}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">微信昵称位置-left<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="uleft" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.uleft}">
+                        </div>
+                   </div>
+                   
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">二微码位置-top<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="mtop" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.mtop}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">二微码位置-left<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="mleft" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.mleft}">
+                        </div>
+                   </div>
+                   
+                   
+                   
+						<div class="form-group">
+                             <div class="col-lg-offset-2 col-lg-4">
+                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                        </div>
+                        <br/> <br/> <br/> <br/>
+                    </div>
+                   </form>
+                   
+                   <div class=" " style="width: 300px; position: absolute; top: 42px; right: 90px;">
+                   	
+                   	<img src="{:U('/Cms/Represent/tgimg')}" width="280px">
+                   	
+                   </div>
+                   
+                </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+           var tourl="{:U('Represent/dyset')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			$(JoelLoaderReloader).trigger('click');
+			return false;
+        },
+	});
+</script>
+<!--/表单验证与提交封装-->

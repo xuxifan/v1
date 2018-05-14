@@ -1,0 +1,242 @@
+<style>
+	.left15{float:left !important;padding-left: 15px!important;}
+</style>
+<!--Bootstrap Date Picker-->
+<script src="__PUBLIC__/Cms/js/datetime/bootstrap-datepicker.js"></script>
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">手动派奖</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                   
+                    <div class="form-title">
+                        <a href="{:U('Cms/Active/sdpj/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="手动派奖">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+                   
+                   <input type="hidden" name="id" value="{$cache.id}">  
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">活动分类<sup>*</sup></label>
+                        <div class="col-lg-4">
+                            <select class="form-control" name="dzpid" id="dzpcid" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空">
+                                	<option value="">请选择</option>
+                                <volist name="pzds" id="vo">
+                                  	<option value="{$vo.id}" <if condition="$cache['dzpid'] eq $vo['id']"> selected="selected" </if>>{$vo.name}</option>
+                                </volist>
+                            </select>
+
+                        </div>
+                   
+                   </div>
+                   <input type="hidden" name="prival" id="prival">
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">奖项设置<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	
+                            <select class="form-control" name="prizeid" id="prizes">
+                                <option value="">请选择</option>
+                                
+                                <volist name="prize" id="vo">
+                                  	<option value="{$vo.id}" <if condition="$cache['prizeid'] eq $vo['id']"> selected="selected" </if>>{$vo.lname}</option>
+                                </volist>
+                            </select>
+
+                        </div>
+                   
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">昵称查询</label>
+                        <div class="col-lg-3">
+                        <input type="text" class="form-control" name="nname" placeholder="必填" value="{$cache.name}">
+                        </div>
+                        <div>
+                          <div class="col-lg-4">
+                             <a class="btn btn-primary btn-lg" id="searchNickname">搜索</a>
+                          </div>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">员工昵称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	<select class="form-control" name="nickname" id="nickname" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空">
+                                <empty name="cache['nickname']">
+                                  <option value="" >请选择</option>
+                                <else />
+                                  <option value="{$cache['nickname']}" >{$cache['nickname']}</option>
+                                </empty>
+                          </select>
+                        </div>
+                   </div>
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">openid<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        	<input class="form-control" readonly="true" name="openid" id="openid" placeholder="必填" value="{$cache.openid}" 
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空">
+                        </div>
+                   </div>
+                   
+                  
+                   <if condition="($cache['status'] eq '1') or ($cache['status'] eq '0')">
+                   	
+                   		<div class="form-group">
+	                        <label class="col-lg-2 control-label">状态</label>
+	                        <div class="col-lg-4">
+	                        	<label>
+	                        		  <input type="hidden"  name="status" value="{$cache.status}" id="status">
+	                                  <input disabled="disabled" class="checkbox-slider slider-icon colored-darkorange" id="isstatusbtn" type="checkbox" <if condition="($cache['status'] eq '1') or ($cache['status'] eq '0')">checked="checked"</if>>
+	                                  <span class="text darkorange">&nbsp;&nbsp;&larr;状态已开启，不能修改</span>
+	                            </label>
+	                        </div>
+	                    </div>
+
+                    <else />
+                    
+	                    <div class="form-group">
+	                        <label class="col-lg-2 control-label">状态</label>
+	                        <div class="col-lg-4">
+	                        	<label>
+	                        		  <input type="hidden"  name="status" value="{$cache.status}" id="status">
+	                                  <input class="checkbox-slider slider-icon colored-darkorange" id="isstatusbtn" type="checkbox" >
+	                                  <span class="text darkorange">&nbsp;&nbsp;&larr;重要：开启后不能修改</span>
+	                            </label>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                        <div class="col-lg-offset-2 col-lg-4">
+	                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+	                        </div>
+	                    </div>
+                    </if>
+                   </form>
+                </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+
+<script type="text/javascript">
+	//二级联动 活动ID以及奖项的设置
+	$("#dzpcid").change(function(){
+		var cid=$("#dzpcid").val();
+		$("#prizes option").remove();
+		$.ajax({
+			type:"post",
+			url:"{:U('Cms/Active/getprize')}",
+			data:{'cid':cid},
+			async:true,
+			success: function(data){
+				var item;
+				$.each(data,function(i,result){
+					
+					item+="<option value='"+result['id']+"' price='"+result['id']+"'>"+result['lname']+"</option>";
+				}); 
+				$("#prizes").append(item);
+				
+   			}
+   		});
+   	})
+
+  $("#searchNickname").click(function(){
+    $(this).text("请稍等..").attr("disabled","disabled");
+    $(".btn-primary").attr("disabled","disabled");
+    $(".btn-palegreen").attr("disabled","disabled");
+    var nname=$("input[name=nname]").val();
+    $.ajax({
+      type:"post",
+      url:"{:U('Cms/Active/searchNickname')}",
+      data:{nname:nname},
+      success: function(data){
+        if(data){
+          var html = "";
+          for(var i in data){
+            html += "<option name='"+data[i]['nickname']+"' openid='"+data[i]['openid']+"'>"+data[i]['nickname']+"</option>";
+          }
+          $("#nickname").html(html);
+          $("#openid").val($("#nickname option").eq(0).attr('openid'));
+          $("#nickname").change(function(){
+            $("#openid").val($(this).find('option:selected').attr('openid'))
+          })
+        }else{
+          alert("无搜索结果");
+        }
+         $("#searchNickname").text("搜索").removeAttr("disabled");
+         $(".btn-primary").removeAttr("disabled");
+   	 	 $(".btn-palegreen").removeAttr("disabled");
+      }
+    })
+  })
+</script>
+                   
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--编辑器封装-->
+<script type="text/javascript">
+	var ue = UE.getEditor('J-ueditor', {
+		textarea:'content'//提交字段名，必须填写，数据库必须有此字段		
+	});	
+</script>
+<!--/编辑器封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+
+           	var tourl="{:U('Cms/Active/sdpjset')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+	//--Bootstrap Date Picker--
+    $('.date-picker').datepicker();
+    
+    $('#isstatusbtn').on('click',function(){
+    var value;
+    if($(this).prop('checked')){
+      value=0;
+    }else{
+      value=2;
+    }
+    $('#status').val(value);
+  });
+  
+</script>
+<!--/表单验证与提交封装-->
+<script type="text/javascript">
+$('#isyfbtn').on('click',function(){
+		var value=$(this).prop('checked')?1:0;
+		$('#isyf').val(value);
+	});
+</script>

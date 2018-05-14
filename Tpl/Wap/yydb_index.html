@@ -1,0 +1,369 @@
+<!doctype html>
+<html>
+
+	<head>
+		<title>{$_SESSION['WAP']['shopset']['name']}</title>
+		<meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<!--Wap前端GMU样式-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/s-common.css">
+	    <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/y-index.css">
+	    <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/yydbcss.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/gmu/gmu.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/fxstyle.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/Joel-frame.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/joelslider.css" />
+		<!--组件依赖js begin-->
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/zepto.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/js/swipe.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/js/joelslider.min.js"></script>
+		<!--组件依赖js end-->
+		
+		 <!--进度条-->
+		<link href="__PUBLIC__/wap/prog/css/ProgressBarWars.css" rel="stylesheet" />
+		<script src="__PUBLIC__/wap/prog/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+		<script src="__PUBLIC__/wap/prog/js/ProgressBarWars.js"></script>
+		<!--进度条-->
+
+	</head>
+
+	<body>
+		<div id="J-wrap">
+			<!--顶部导航-->
+			<include file="./Tpl/Wap/shop_header.html" />
+
+			<div id="Joel-wrap-main">
+				<div id="Joel-slider">
+					<ul>
+						<foreach name="indexalbum" item="vo">
+							<li>
+								<a href="{$vo.url}"><img src="{$vo.imgurl}"></a>
+							</li>
+						</foreach>
+					</ul>
+					<div class="dot">
+						<foreach name="indexalbum" item="vo">
+							<span></span>
+						</foreach>
+					</div>
+				</div>
+
+				<div id='slider' class='swipe' style="margin-top: 10px;">
+					<div class='swipe-wrap'>
+						<div class="btn">
+							<a href="#" id="J-menu-start">
+								<p><img src="__PUBLIC__/wap/img/btn_03.png" width="50%" /></p>
+								<p class="f15">更多商品</p>
+							</a>
+							<volist name="indexcache" id="v" offset="0" length='3'>
+								<a href="{:u('Shop/label',array('id'=>$v['id']))}">
+									<p><img src="{$v.limgurl}" width="50%" /></p>
+									<p class="f15">{$v.name}</p>
+								</a>
+							</volist>
+							<br style="clear: both;" />
+						</div>
+						<div class="btn">
+							<volist name="indexcache" id="v" offset="3" length='2'>
+								<a href="{:u('Shop/label',array('id'=>$v['id']))}">
+									<p><img src="{$v.limgurl}" width="50%" /></p>
+									<p class="f15">{$v.name}</p>
+								</a>
+							</volist>
+							<a href="/wap/vip/card">
+								<p><img src="__PUBLIC__/wap/img/btn_01.png" width="50%" /></p>
+								<p class="f15">优惠券</p>
+							</a>
+							<a href="{:U('Vip/favlist')}">
+								<p><img src="__PUBLIC__/wap/img/btn_02.png" width="50%" /></p>
+								<p class="f15">收藏夹</p>
+							</a>							
+							<br style="clear: both;" />
+						</div>
+					</div>
+				</div>
+				<nav>
+				    <ul id="position">
+				      <li class="on"></li>
+				      <li class=""></li>
+				    </ul>
+				</nav>
+				 <div class="list" style="margin-bottom: 5px;">
+            	<p class="goodtitle">一元夺宝<span></span></p>
+                <volist name="cache" id="vo">
+	                <a href="{:U('wap/yydb/goods',array('id'=>$vo['id']))}">
+	                    <div class="list_per_index">
+	                        <div class="img_box3" style="position: relative;margin: 10px auto;">
+	                            <img class="mod_img" src="{$vo.imgurl}" alt="{$vo.name}">
+	                            <span class="pricss">价值：{$vo.price}</span>
+	                        </div>
+							<div class="progress" id="vaderTime{$key}" style="margin: 0 10px 0;
+    zoom: 1;">
+							</div>
+							<ul class="Pro-bar-li" style="margin: -6px 10px 0;">
+								<li class="P-bar01"><em>{$vo.sells}</em>已参与</li>
+								<li class="P-bar02"><em>{$vo.num}</em>总需人次</li>
+								<li class="P-bar03"><em>{$vo.have}</em>剩余</li>
+							</ul>
+							<script>
+						        var selnum="{$vo.selnum}";
+						        var num="{$vo.num}";
+						        //ProgressBarWars 
+						        $("#vaderTime{$key}").ProgressBarWars({porcentaje:selnum,estilo:"vader",tiempo:1000,tamanio:"60%"});
+							</script>
+							
+	                    </div>
+	                </a>
+                </volist>
+            </div>  
+				<!--J-wrapmain-->
+			</div>
+			<!-- 底部导航 -->
+			<eq name="_SESSION['WAP']['vip']['sid']" value="1">
+				<include file="./Tpl/Wap/fxshop_footer.html" />
+			<else />
+				<include file="./Tpl/Wap/shop_footer.html" />
+			</eq>
+			<!-- /底部导航 -->
+		</div>
+		<!--左侧导航-->
+			<eq name="_SESSION['WAP']['vip']['sid']" value="0">
+				<include file="./Tpl/Wap/shop_leftnav.html" />
+			<else />
+				<include file="./Tpl/Wap/fxshop_leftnav.html" />
+			</eq>
+		<!--左侧导航-->
+		<!--轮播封装-->
+		<script type="text/javascript">
+			Zepto(function($) {
+				$('#Joel-slider').swipeSlide({
+					autoSwipe: true,
+					lazyLoad: false,
+					speed: 3000
+				}, function(i) {
+					$('#Joel-slider .dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+				});
+				//				var JH=$('#J-wrap-header');
+				//				var JM=$('#J-menu');
+				//初始化菜单
+				$('#J-wrap-left').panel({
+					contentWrap: $('#Joel-wrap-main'),
+					beforeopen: function() {
+						//var y=$(JH).offset().top;
+						//$(JM).css('margin-top',y+'px');
+					}
+				});
+				//菜单呼出
+				$('#J-leftnav-switch').on('click', function() {
+					$('#J-wrap-left').panel('toggle', 'push', 'left');
+					return false;
+				});
+				$("#J-menu-start").on('click', function() {
+					//$('#J-leftnav-switch').trigger('click');
+					$('#J-wrap-left').panel('toggle', 'push', 'left');
+					return false;
+				});
+				$("#searchbtn").on('tap', function() {
+					if (!$('#searchkey').val()) {
+						alert('请输入关键词！');
+						return false;
+					}
+					$("#searchform").submit();
+					return false;
+				});
+			});
+			window.mySwipe = new Swipe(document.getElementById('slider'), {
+				/*startSlide: 0,*/
+				speed: 400,
+				auto: false,
+				continuous: false,
+				disableScroll: false,
+				stopPropagation: true,
+				/*callback: function(index, elem) {},*/
+				callback: function(pos) {
+			      var i = bullets.length;
+			      while (i--) {
+			        bullets[i].className = ' ';
+			      }
+			      bullets[pos].className = 'on';			
+			  },
+				transitionEnd: function(index, elem) {}
+			});
+			var bullets = document.getElementById('position').getElementsByTagName('li');
+			function tiao(id)
+			{
+				location.href="goods/id/"+id;
+			}
+		</script>
+		<!--Wap框架JS封装-->
+		<!--<script type="text/javascript">
+			Zepto(function($) {
+				$('#J-getmore').on('click', function() {
+					$(this).html('正在努力为您加载...').prop('disabled', true);
+					var nowpage = $(this).data('page');
+					var nextpage = nowpage + 1;
+					$.ajax({
+						type: "post",
+						url: "{:U('Wap/Shop/indexMore')}",
+						dataType: 'json',
+						data: {
+							'page': nowpage
+						},
+						success: function(info) {
+							if (info.status) {
+								$('#J-getmore').data('page', nextpage).html('加载更多商品').prop('disabled', false);
+								$('.p-prolist').append(info.result);
+							} else {
+								$('#J-getmore').hide();
+								Joel_gmuMsg(info.msg);
+							}
+						},
+						error: function(xh, obj) {
+							$('#J-getmore').data('page', nextpage).html('加载更多商品').prop('disabled', false);
+							Joel_gmuMsg('通讯失败,请重新尝试！');
+						}
+					});
+					return false;
+				});
+			});
+		</script>-->
+
+		<!--<include file="./Tpl/Wap/shop_share.html" />-->
+		<!--新版分享特效-->
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script>
+			var share_url = "{$_SESSION['WAP']['shopset']['url']}/Wap/yydb/index/ppid/{$_SESSION['WAP']['vipid']}/";
+			var share_title="{$_SESSION['WAP']['shopset']['yydbname']}";
+			var share_content="{$_SESSION['WAP']['shopset']['yydbmsg']}";
+			var share_img="{$_SESSION['WAP']['shopset']['url']}{$_SESSION['WAP']['shopset']['sharepic']}";
+			
+		  wx.config({
+		      debug: false,
+		      appId: "{$jsapi['appId']}",
+			  timestamp: "{$jsapi['timestamp']}",
+			  nonceStr: "{$jsapi['nonceStr']}",
+			  signature: "{$jsapi['signature']}",
+		      jsApiList: [
+		        'checkJsApi',
+		        'onMenuShareTimeline',
+		        'onMenuShareAppMessage',
+		        'onMenuShareQQ',
+		        'onMenuShareWeibo',
+		        'hideMenuItems',
+		        'showMenuItems',
+		        'hideAllNonBaseMenuItem',
+		        'showAllNonBaseMenuItem',
+		//      'translateVoice',
+		//      'startRecord',
+		//      'stopRecord',
+		//      'onRecordEnd',
+		//      'playVoice',
+		//      'pauseVoice',
+		//      'stopVoice',
+		//      'uploadVoice',
+		//      'downloadVoice',
+		//      'chooseImage',
+		//      'previewImage',
+		//      'uploadImage',
+		//      'downloadImage',
+		//      'getNetworkType',
+		//      'openLocation',
+		//      'getLocation',
+		//      'hideOptionMenu',
+		//      'showOptionMenu',
+		//      'closeWindow',
+		//      'scanQRCode',
+		//      'chooseWXPay',
+		//      'openProductSpecificView',
+		//      'addCard',
+		//      'chooseCard',
+		//      'openCard'
+		      ]
+		  });
+		  
+		  wx.ready(function () {
+			  	//开启菜单
+			  	wx.showOptionMenu();
+			  	//隐藏菜单
+			  	//wx.hideOptionMenu();
+			    //分享给朋友
+			    wx.onMenuShareAppMessage({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击发送给朋友');
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到朋友圈
+			    wx.onMenuShareTimeline({
+			      title: share_title,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到朋友圈');
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+			    //分享到QQ
+			    wx.onMenuShareQQ({
+			      title: share_title,
+			      desc: share_content,
+			      link: share_url,
+			      imgUrl: share_img,
+			      trigger: function (res) {
+			        //alert('用户点击分享到QQ');
+			      },
+			      complete: function (res) {
+			        //alert(JSON.stringify(res));
+			      },
+			      success: function (res) {
+			        //alert('已分享');
+			      },
+			      cancel: function (res) {
+			        //alert('已取消');
+			      },
+			      fail: function (res) {
+			        //alert(JSON.stringify(res));
+			      }
+			    });
+		  });
+		</script>
+	</body>
+
+</html>

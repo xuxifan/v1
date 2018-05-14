@@ -1,0 +1,289 @@
+<style>
+	.moban{width: 320px; height: 400px; border: 1px solid #eee; position: absolute; top:120px; right: 100px;}
+	.neirong{margin: 10px;}
+</style>
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">自定义微信模板</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+            <div class="widget-body">
+               	
+               	<div class="moban">
+              	  	<div class="neirong" style="background:{$cache.topcolor}">
+              	  		<h3>{$cache.title}</h3>
+              	  		<p><php>echo date('m月d日',time());</php></p>
+              	  		 <volist name="tmp_data" id="vo">
+              	  			<p style="color: {$vo.data_color};">{$vo.data_value}</p>
+              	  		 </volist> 
+              	  	</div>
+              	</div>
+              	
+               	 <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                                                  
+                  <input type="hidden" name="id" value="{$cache.id}">
+                  <div class="form-title">
+                        <a href="{:U('Cms/Template/index/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="门店自定义菜单">
+						<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+               		
+               	   <div class="form-group">
+                        <label class="col-lg-2 control-label">模板名称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="title" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.title}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">调用名称<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="name" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.name}">
+                        </div>
+                   </div>
+               		
+               	  <div class="form-group">
+                        <label class="col-lg-2 control-label">模板id<sup>*</sup></label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="template_id" placeholder="必填"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="不能为空" value="{$cache.template_id}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">详情URl</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="url" placeholder="url" value="{$cache.url}">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">背景颜色</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control color" name="topcolor" placeholder="背景颜色" value="{$cache.topcolor}">
+                        </div>
+                   </div>
+                   
+                   <hr>
+                   
+                   <if condition="$tmp_data">
+                   	
+                   <foreach name="tmp_data" item="vo" key="k" >
+                   	
+                   		<if condition="$vo['data_key']=='first'"> 头部 </if>
+                   		
+                   		<if condition="$vo['data_key']=='remark'"> 尾部 </if>
+                   	
+                   	   <input type="hidden" name="data[id][]" value="{$vo.id}" />
+	                   <div class="form-group" style="display:none">
+	                        <label class="col-lg-2 control-label">key</label>
+	                        <div class="col-lg-4">
+	                        <input type="text" class="form-control" name="data[key][]" placeholder="key" value="{$vo.data_key}">
+	                        </div>
+	                   </div>
+	                  
+	                   <div class="form-group">
+	                        <label class="col-lg-2 control-label">value</label>
+	                        <div class="col-lg-4">
+	                        <input type="text" class="form-control" name="data[value][]" placeholder="value" value="{$vo.data_value}">
+	                        </div>
+	                   </div>
+	                   <div class="form-group">
+	                        <label class="col-lg-2 control-label">color</label>
+	                        <div class="col-lg-4">
+	                        <input type="text" class="form-control color" name="data[color][]" placeholder="color" value="{$vo.data_color}">
+	                        </div>
+	                   </div>
+                   		
+                   		<hr/>
+                   		 
+                   </foreach> 
+                   	
+                   	<div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-4">
+                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                        </div>
+                    </div>
+                   	
+                   <else/>
+
+                   <!--****************************-->
+                   头部
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">key</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="data[key][]" readonly="readonly" value="first">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">value</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="data[value][]"  value="">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">color</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control color" name="data[color][]"  value="#EEE">
+                        </div>
+                   </div>
+                   <hr>
+                   
+                   <div class="addttmlbox" id='addttmlbox'>
+					
+					
+                   </div>
+                   
+                   <hr>
+                   尾部
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">key</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="data[key][]" readonly="readonly" value="remark">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">value</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control" name="data[value][]" value="">
+                        </div>
+                   </div>
+                   
+                   <div class="form-group">
+                        <label class="col-lg-2 control-label">color</label>
+                        <div class="col-lg-4">
+                        <input type="text" class="form-control color" name="data[color][]" value="">                
+                        </div>
+                   </div>
+                   
+                   <!--****************************-->
+                    
+                   <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-4">
+                        		 <a class="btn" id="adddata">增加</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                        </div>
+                    </div>
+                    
+                    </if>
+                     
+                   </form>
+            </div>
+        </div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+	
+	if ($('#isverify').val()==1) {
+		$('#verifyCheck').attr("checked","checked");
+	}
+	
+	$('#verifyCheck').on('click', function () {
+		var isverify=$('#isverify').val();
+		$('#isverify').val(1-isverify*1);
+	});
+	
+	$('#adddata').click(function() {
+		var html='<hr/><div class="form-group">\
+                        <label class="col-lg-2 control-label">key</label>\
+                        <div class="col-lg-4">\
+                        <input type="text" class="form-control" name="data[key][]" data-bv-field="data[key][]" placeholder="key" >\
+                        <i class="form-control-feedback" data-bv-field="data[key][]" style="display: none;"></i>\
+                        </div>\
+                   </div>\
+                   <div class="form-group">\
+                        <label class="col-lg-2 control-label">value</label>\
+                        <div class="col-lg-4">\
+                        <input type="text" class="form-control" name="data[value][]" data-bv-field="data[value][]" placeholder="value">\
+                        <i class="form-control-feedback" data-bv-field="data[value][]" style="display: none;"></i>\
+                        </div>\
+                   </div>\
+                   <div class="form-group">\
+                        <label class="col-lg-2 control-label">color</label>\
+                        <div class="col-lg-4">\
+                        <input type="text" class="form-control color" name="data[color][]" data-bv-field="data[color][]" placeholder="color">\
+                        <i class="form-control-feedback" data-bv-field="data[color][]" style="display: none;"></i>\
+                        </div>\
+                   </div>';
+		
+		$('#addttmlbox').append(html);
+	});
+</script>
+<!--/面包屑导航封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function (validator, form, submitButton) {
+           	var tourl="{:U('Cms/Template/set')}";
+			var data=$('#JoelForm').serialize();
+			$.Joel.ajax('post',tourl,data,null);
+			return false;
+        },
+	});
+</script>
+<!--/表单验证与提交封装-->
+
+<!--颜色选择-->
+<link href="__PUBLIC__/Cms/js/colorpicker/jquery.minicolors.css" rel="stylesheet" />
+<script src="__PUBLIC__/Cms/js/colorpicker/jquery.minicolors.js"></script>
+<script>
+	$('.color').each( function() {
+		$(this).minicolors({
+			control: 'hue',
+			defaultValue: $(this).attr('data-defaultValue') || '',
+			letterCase: 'lowercase',
+
+		});
+	});
+	
+/*	
+$.minicolors = {
+    defaults: {
+        animationSpeed: 50,
+        animationEasing: 'swing',
+        change: null,
+        changeDelay: 0,
+        control: 'hue',
+        defaultValue: '',
+        hide: null,
+        hideSpeed: 100,
+        inline: false,
+        letterCase: 'lowercase',
+        opacity: false,
+        position: 'bottom left',
+        show: null,
+        showSpeed: 100,
+        theme: 'default'
+    }
+};*/
+</script>

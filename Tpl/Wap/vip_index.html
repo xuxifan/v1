@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>个人中心</title>
+		<meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/style.css" />
+		<script type="text/javascript" src="__PUBLIC__/wap/js/zepto.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/js/countUp.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+		<!--复写css-->
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/cxstyle.css" />
+		<!--复写css-->
+	</head>
+
+	<body class="back1">
+		<div class="home-hd">
+			<div class="home-hdc ovflw">
+				<div class="fl home-info">
+					<p>昵称：{$data.nickname}</p>
+					<p>等级：<span class="home-jf" id="levelname">{$data.levelname}</span></p>
+				</div>
+				<div class=" fr home-dj">
+					<a href="#" class="home-qd ovflw text-c color3" id="home-qd">
+						<div class="qd-img">
+							<img src="__PUBLIC__/wap/img/qd.png" />
+						</div>
+						<p class="home-dt">签到</p>
+						<div class="home-yq" <eq name="data.issign" value="0">style="display:none"</eq>><i class="iconfont">&#xe645</i></div>
+					</a>
+				</div>
+				<div class="clr"></div>
+				<div class="home-panel ovflw">
+					<div class="fl home-item"><a href="javascript:void(0)" class="home-br text-c"><span id="home-jf">{$data.score}</span><span class="home-add" id="add-jf"></span><p>我的积分</p></a></div>
+					<div class="fl home-item"><a href="javascript:void(0)" class="home-br text-c"><span id="home-jy">{$data.cur_exp}</span><span class="home-add" id="add-jy"></span><p>我的经验</p></a></div>
+					<div class="fl home-item"><a href="/wap/vip/card" class="text-c"><span>{$data.cardnum}</span><p>我的卡券</p></a></div>
+				</div>
+			</div>
+		</div>
+		<div class="home-cc">
+			<div class="home-lst border-b1 border-t1 ovflw back2">
+				<span class="iconfont fl icon text-c icon-bc1">&#xe6e0</span>
+				<span class="home-tt color6">余额：￥{$data.money}</span>
+				<!-- <a href="javascript:void(0)" style="margin-left: 10px;" class="fr"><span class="home-cz btn-jfdh">兑换</span></a> -->
+				<a href="/wap/vip/txOrder" style="margin-left: 10px;" class="fr"><span class="home-cz">提现</a></span>
+				<eq name="_SESSION['WAP']['vipset']['iscz']" value="1">
+					<a href="/wap/vip/cz" class="fr"><span class="home-cz">充值</a></span>
+					</a>
+				</eq>
+			</div>
+			<div class="home-lst2 border-b1 border-t1 back2 ovflw">
+				<a id="fttd" class="ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc7">&#xe67c;</span>
+					<span class="home-tt color6">团队中心</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+			</div>
+			<div class="home-lst2 border-b1 border-t1 back2 ovflw">
+			<notempty name="dzp">
+			<a class="border-b1 ovflw home-li father">
+				<span class="iconfont1 fl icon text-c icon-bc2">&#xe601;</span>
+				<span class="home-tt color6">大转盘</span>
+				<span class="iconfont fr icon-r">&#xe6a3</span>
+			</a>
+			<div style="display: none">
+			<foreach name="dzp" item="vo1">
+				<a href="{:U('Wap/Dzp/index',array('id'=>$vo1['id']))}" class="border-b1 ovflw home-li">
+					<span class="iconfont1 fl icon text-c icon-bc2">&#xe601;</span>
+					<span class="home-tt color6">{$vo1.name}</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+			</foreach>
+			</div>
+			</notempty>
+			<notempty name="zjd">
+			<a class="border-b1 ovflw home-li father">
+				<span class="iconfont1 fl icon text-c icon-bc2">&#xe602;</span>
+				<span class="home-tt color6">砸金蛋</span>
+				<span class="iconfont fr icon-r">&#xe6a3</span>
+			</a>
+			<div style="display: none">
+			<foreach name="zjd" item="vo1">
+				<a href="{:U('Wap/Zjd/index',array('id'=>$vo1['id']))}" class="border-b1 ovflw home-li">
+					<span class="iconfont1 fl icon text-c icon-bc2">&#xe602;</span>
+					<span class="home-tt color6">{$vo1.name}</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+			</foreach>
+			</div>
+			</notempty>
+			<notempty name="ggk">
+			<a class="border-b1 ovflw home-li father">
+				<span class="iconfont1 fl icon text-c icon-bc2">&#xe603;</span>
+				<span class="home-tt color6">刮刮卡</span>
+				<span class="iconfont fr icon-r">&#xe6a3</span>
+			</a>
+			<div style="display: none">
+			<foreach name="ggk" item="vo1">
+				<a href="{:U('Wap/Ggk/index',array('id'=>$vo1['id']))}" class="border-b1 ovflw home-li">
+					<span class="iconfont1 fl icon text-c icon-bc2">&#xe603;</span>
+					<span class="home-tt color6">{$vo1.name}</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+			</foreach>
+			</div>
+			</notempty>
+				<a  href="/wap/vip/tx" class="border-b1 ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc1">&#xe6e0</span>
+					<span class="home-tt color6">提现资料</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+				<a href="{:U('Vip/favlist')}" class="border-b1 ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc6">&#xe644</span>
+					<span class="home-tt color6">我的收藏</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+				<!--1.25 zxg 添加新闻列表页面-->
+				<a href="{:U('News/newslist',array('istg'=>0))}" class="border-b1 ovflw home-li">
+					<span class="iconfont1 fl icon text-c icon-bc6">&#xe604</span>
+					<span class="home-tt color6">我的新闻稿</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+				<!--1.25 zxg 添加新闻列表页面-->
+				<!--2016-2-1 作者：郑伊凡 母版本 功能：推广页面-->
+				<eq name="isstaff" value="1">
+				<a href="{:U('News/newslist',array('istg'=>1))}" class="border-b1 ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc6">&#xe6eb</span>
+					<span class="home-tt color6">员工推广</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+				</eq>
+				<!--2016-2-1 作者：郑伊凡 母版本 功能：推广页面-->
+				<a href="/wap/vip/info" class="border-b1 ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc2">&#xe649</span>
+					<span class="home-tt color6">会员信息</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+				<a href="/wap/vip/address" class="border-b1 ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc3">&#xe651</span>
+					<span class="home-tt color6">收货人信息</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+				<a href="/wap/vip/message" class="ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc4">&#xe6bc</span>
+					<span class="home-tt color6 fl">消息中心&nbsp;&nbsp;</span>
+					<if condition="$data.unread gt 0"><b>{$data.unread}</b></if>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+			</div>
+			<div class="home-lst2 border-b1 border-t1 back2 ovflw mr-b">
+				<a href="tel:{$_SESSION['WAP']['shopset']['phone']}" class="border-b1 ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc5">&#xe652</span>
+					<span class="home-tt color6">客服热线 {$_SESSION['WAP']['shopset']['phone']}</span>
+				</a>
+				<a href="{$_SESSION['SET']['wxsuburl']}" class="border-b1 ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc6">&#xe6cc</span>
+					<span class="home-tt color6">关于我们</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+				<a  href="/wap/fx/myqrcode/id/{$data.id}" class="ovflw home-li">
+					<span class="iconfont fl icon text-c icon-bc3">&#xe6b0;</span>
+					<span class="home-tt color6">我的专属推广二维码</span>
+					<span class="iconfont fr icon-r">&#xe6a3</span>
+				</a>
+			</div>
+		</div>
+		<!-- 底部导航 -->
+
+		<eq name="data.sid" value="0">
+			<include file="./Tpl/Wap/shop_footer.html" />
+			<else/>
+			<include file="./Tpl/Wap/fxshop_footer.html" />
+		</eq>
+		<script>
+			$('#home-qd').click(function(){
+					$.getJSON("{:U('Wap/Vip/sign')}",{},function(e){
+						if(e.status=='1'){
+							if (e.data.score>0) {
+								var jf = parseInt($('#home-jf').text());
+								var add_if = parseInt(e.data.score);
+								
+								$('#add-jf').html("+"+add_if);
+			    				$('#add-jf').animate({opacity: 0}, 2000,'ease-out',function(){$('#add-jf').html("")});
+			    				
+								var jf_obj = new countUp("home-jf", jf+add_if);
+								jf_obj.start();
+							}
+							if (e.data.exp>0) {
+								var jy = parseInt($('#home-jy').text());
+								var add_jy = parseInt(e.data.exp);
+								
+								$('#add-jy').html("+"+add_jy);
+			    				$('#add-jy').animate({opacity: 0}, 2000,'ease-out',function(){$('#add-jy').html("")});
+			    				
+								var jy_obj = new countUp("home-jy", jy+add_jy);
+								jy_obj.start();
+							}
+							$('.home-yq').show();
+							$('#levelname').text(e.data.levelname);
+						} else {
+							zbb_msg(e.msg);
+						}
+					});
+			    });
+			   $('.btn-jfdh').click(function(){
+			   	var sc=parseFloat('{$data.score}');
+			   	zbb_confirm("是否把"+sc+"积分兑换成"+(sc/10)+"元余额?",function(){
+			   		this.destroy();
+			   		$.ajax({
+			   			type:"post",
+			   			url:"{:u('wap/vip/scoretomoney')}",
+			   			async:true,
+			   			success:function(e){
+			   				if(e.status==1){
+			   					zbb_alert(e.msg);
+			   					location.href=location.href;
+			   				}else{
+			   					zbb_alert(e.msg);
+			   				}
+			   			}
+			   		});
+			   	},false);
+			   });
+
+			   $(".father").click(function(){
+			   	if($(this).next("div").css("display")=="none"){
+			   		$(this).find(".icon-r").html("&#xe661")
+			   	}else{
+			   		$(this).find(".icon-r").html("&#xe6a3")
+			   	}
+			   	$(this).next("div").toggle();
+			   })
+			   
+			 var subbtn=$('.home-lst2 a');
+			 var vipfxneed=parseInt("{$_SESSION['WAP']['shopset']['vipfxneed']}");
+			 var total_buy=parseInt("{$_SESSION['WAP']['vip']['total_buy']}");
+			 $(subbtn).click(function(){
+			 	var id =$(this).attr('id');
+			 	if(id =='fttd'){
+			 		if(total_buy >= vipfxneed){
+			 			location.href="/wap/fx";
+			 		}else{
+			 			var msg="亲,只有购买"+vipfxneed+"元商品才能申请为分销商,立即行动吧！";
+			 			Joel_gmuMsg(msg);
+			 			return false;
+			 		}
+			 	}
+			 })
+		</script>
+		<!--通用分享-->
+		<include file="./Tpl/Wap/shop_share.html" />
+	</body>
+
+</html>

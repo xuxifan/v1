@@ -1,0 +1,8 @@
+<foreach name="new" item="vv">
+								<li>
+									<p class="marbottom10 gpic"><img src="{$vv.imgurl}" width="71.5%" /></p>
+									<p class="f13 cor1 gname">{$vv.name}</p>
+									<p class="cor2 f15">RMB&nbsp;{$vv.price}</p>
+									<a href="{:U('Wap/Fxshop/goods',array('id'=>$vv['id']))}">立即抢购</a>
+								</li>
+</foreach>

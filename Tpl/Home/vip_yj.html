@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+		<script type="text/javascript">
+			$(function() {
+				$(".pagebtn2").click(function() {
+					var page = $(".pagebtn2").size();
+					for (var i = 0; i < page; i++) {
+						if ($(".pagebtn2").eq(i).attr("id") == $(this).attr("id")) {
+							$(this).css("color", "#999999");
+							$(this).css("background", "#efefef");
+						} else {
+							$(".pagebtn2").eq(i).css("color", "#2953a6");
+							$(".pagebtn2").eq(i).css("background", "#FFFFFF");
+						}
+					}
+				})
+			})
+		</script>
+	</head>
+
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+		<div class="s_page">
+			<div class="s_MTcontent">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="mycommission_right  fr font12 fontfamily">
+					<div class="commission_rt">
+						<p class="font14 fontfamily" style="color: #606060;">我的历史佣金</p>
+						<p class="margintop4 font12 fontfamily">
+							<span class="font24">{:arrayEx($vipinfo['total_xxyj'],'.',0)}</span>
+							<span class=" font16">.{:arrayEx($vipinfo['total_xxyj'],'.',1)}</span>
+							<span>&nbsp;元</span>
+							<!--<button>提&nbsp;现</button>-->
+							<!--<a href="#" class="marginright15" style="color: #0088cc;">查看</a>-->
+							<!--<span style="color: #666666;font-family: "simsun";">（还未绑定银行卡，<a href="#" style="color: #f37800;">立即绑定</a>）</span>-->
+						</p>
+					</div>
+					<div class="commission_rb fontfamily">
+						<div class="tradingtitl">
+							<a href="#">资产动态</a>
+							<span class="fl" style="margin-right: 1em;">&nbsp;({$stime|date='m.d',###} - {$time|date='m.d',###})</span>
+							<span><img src="__PUBLIC__/home/img/tradingtitle_03.png" /></span>
+							<br class="clear" />
+						</div>
+						<if condition='$list eq null'>
+							<div class="tradingproj">
+							<span style="margin-left: 0;" class="fl">最近没有交易</span>
+							<br class="clear" />
+						</div>
+							<else/>
+							<div class="tradingproj">
+								<span style="margin-left: 0;" class="fl">最近交易记录</span>
+								<span style="margin-left: 361px;" class="fl">佣金</span>
+								<span style="margin-left: 179px;" class="fl">商品价格</span>
+								<br class="clear" />
+							</div>
+						</if>
+						
+						<volist name='list' id='vo'>
+							<div class="trading7">
+								<span>{$vo.ctime|date='Y.m.d',###}</span>
+								<span style="margin-left: 136px;">{$vo.fromname}</span>
+								<span class="mcmoney" style="width:100px; display: block;margin-right: 50px;">{$vo.fxprice}</span>
+								<span class="add400" style="margin-left: 20px;margin-right: 190px;">+{$vo.fxyj}</span>
+							</div>
+						</volist>
+
+						<div class="tppage">
+							{$page}
+							<br class="clear" />
+						</div>
+					</div>
+				</div>
+				<br class="clear" />
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+	</body>
+
+</html>

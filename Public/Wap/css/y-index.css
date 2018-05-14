@@ -1,0 +1,427 @@
+body,html {
+	background-color: #f0f0f0
+}
+
+img {
+	display: block
+}
+
+.wheel {
+	position: relative;
+	float: left;
+	overflow: hidden;
+	width: 100%
+}
+
+.wheel a {
+	display: block;
+	width: 100%
+}
+
+.wheel ul {
+	display: -webkit-box;
+	border-bottom: 1px #e6e6e6 solid
+}
+
+.wheel ul li {
+	overflow: hidden;
+	width: 100%;
+	-webkit-box-flex: 1
+}
+
+.wheel ul li img {
+	width: 100%
+}
+
+.indicator {
+	position: absolute;
+	bottom: 10px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	font-size: 0
+}
+
+.indicator span {
+	display: inline-block;
+	margin: 0 3px;
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background: #dfe2e0
+}
+
+.indicator span.on {
+	background: #fff
+}
+
+.menu {
+	overflow: hidden;
+	width: 100%
+}
+
+.count {
+	float: left;
+	-webkit-box-sizing: border-box;
+	width: 49.8%;
+	height: 37px;
+	background-color: #fff;
+	text-align: center;
+	font-size: 1em;
+}
+
+.count:active {
+	background-color: #f7f7f7
+}
+
+.count span {
+	display: inline-block;
+	font-size: 0.75em;
+	line-height: 37px
+}
+
+.count span:nth-child(1) {
+	color: #666
+}
+
+.count span:nth-child(2) {
+	margin-left: 4px;
+	color: #ff8903
+}
+
+.my_record {
+	padding-left: 25px;
+	background: url(http://static.xiaojukeji.com/activity/img-mall/my_record.png) left center no-repeat;
+	background-size: 17px
+}
+
+.my_count {
+	padding-left: 25px;
+	background: url(http://static.xiaojukeji.com/activity/img-mall/count.png) left center no-repeat;
+	background-size: 17px
+}
+
+.list {
+	overflow: hidden;
+	width: 100%;
+	background-color: #fff;
+	color: #666
+}
+
+.list_per,.list_per_index {
+	float: left;
+	display: inline-block;
+	-webkit-box-sizing: border-box;
+	width: 50%;
+	border-right: 1px #f0f0f0 solid;
+	border-bottom: 1px #f0f0f0 solid;
+	color: #666;
+	text-decoration: none
+}
+
+.gold_area {
+	position: relative;
+	overflow: hidden;
+	margin-top: 9px;
+	width: 100%;
+	background-color: #fff
+}
+
+.gold_area a {
+	display: inline-block
+}
+
+.gold {
+	float: left;
+	-webkit-box-sizing: border-box;
+	width: 50%;
+	background-color: #fff
+}
+
+.gold:nth-child(1) {
+	width: 44%
+}
+
+.gold:nth-child(2) {
+	width: 56%
+}
+
+#gold_left {
+	border-right: 1px solid #f0f0f0
+}
+
+.gold_padding {
+	padding-bottom: 15.5%
+}
+
+.gold_txt {
+	padding-top: 10px;
+	padding-left: 10px
+}
+
+.mod_txt {
+	padding-top: 5%;
+	padding-left: 6%
+}
+
+.gold_txt p,.mod_txt p {
+	overflow: hidden;
+	height: 16px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 0.75em;
+	line-height: 16px
+}
+
+.gold_txt p:nth-child(1),.mod_txt p:nth-child(1) {
+	color: #989898;
+	font-size: 0.75em;
+}
+
+.gold_txt p:nth-child(2) {
+	color: #333;
+	font-size: 0.75em;
+}
+
+.gold_txt p:nth-child(3),.mod_txt p:nth-child(3) {
+	color: #ff8903;
+	font-size: 0.75em;
+}
+
+.per_count {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	width: 11px;
+	height: 10px;
+	background: url(http://static.xiaojukeji.com/activity/img-mall/per_count.png) right bottom no-repeat;
+	background-size: 8px 10px
+}
+
+.card {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	width: 33px;
+	height: 12px
+}
+
+.card_black {
+	background: url(http://static.xiaojukeji.com/activity/img-mall/card_black.png) right bottom no-repeat;
+	background-size: 32px 12px
+}
+
+.card_gold {
+	background: url(http://static.xiaojukeji.com/activity/img-mall/card_gold.png) right bottom no-repeat;
+	background-size: 32px 12px
+}
+
+.state {
+	display: inline-block;
+	padding: 0 3px;
+	height: 14px;
+	border-radius: 2px;
+	color: #fff;
+	font-size: 0.75em;
+	line-height: 14px
+}
+
+.state_grey {
+	background-color: #ccc
+}
+
+.state_org {
+	background-color: #ff8903
+}
+
+.state_none {
+	display: inline-block;
+	height: 14px;
+	line-height: 14px
+}
+
+.gold_img {
+	overflow: hidden;
+	margin: auto;
+	padding: 58% 0 6%;
+	width: 90%
+}
+
+.gold_chunk {
+	position: absolute;
+	top: 0;
+	right: 0;
+	-webkit-box-sizing: border-box;
+	width: 56%;
+	height: 50%;
+	background-color: #fff
+}
+
+.gold_sizing {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	-webkit-box-sizing: border-box;
+	width: 56%;
+	height: 50%;
+	background-color: #fff
+}
+
+.gold_chunk div:nth-child(1),.gold_sizing div:nth-child(1) {
+	overflow: hidden
+}
+
+.gold_row {
+	float: left;
+	width: 47%
+}
+
+#gold_right {
+	border-left: 1px solid #e6e6e6
+}
+
+.img_box1 {
+	width: 100%
+}
+
+.img_box2 {
+	float: right;
+	width: 46.9%
+}
+
+.gold_img_row {
+	margin: auto;
+	padding: 22% 5% 0 0;
+	width: 95%
+}
+
+.gold_pic_l img,.gold_pic_r img {
+	width: 100%
+}
+
+.gold_col {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 41%
+}
+
+.classify {
+	margin-top: 9px;
+	width: 100%;
+	height: 138px;
+	background-color: #fff
+}
+
+.classify div {
+	float: left;
+	width: 25%
+}
+
+.classify div:active {
+	background-color: #f7f7f7
+}
+
+.classify div:nth-child(1),.classify div:nth-child(2),.classify div:nth-child(3),.classify div:nth-child(4) {
+	padding-top: 5px
+}
+
+.classify div:nth-child(5),.classify div:nth-child(6),.classify div:nth-child(7),.classify div:nth-child(8) {
+	padding-bottom: 5px
+}
+
+.classify p {
+	color: #666;
+	text-align: center;
+	font-size: 0.75em;
+}
+
+.classify img {
+	margin: auto;
+	padding-top: 5px;
+	padding-bottom: 3px;
+	width: 39px;
+	height: 39px
+}
+
+.classify_txt {
+	padding-bottom: 5px;
+	height: 12px;
+	line-height: 12px
+}
+
+.modules {
+	height: 31px
+}
+
+.mod_title {
+	margin: auto;
+	width: 100%;
+	height: 14px;
+	border-bottom: 1px solid #e5e5e5;
+	text-align: center
+}
+
+.mod_title span {
+	position: relative;
+	top: 8px;
+	display: inline-block;
+	padding: 0 5px;
+	background-color: #f0f0f0;
+	color: #666;
+	font-size: 0.75em;
+}
+
+.mod_state {
+	margin-right: 3px
+}
+
+.img_box3 {
+	width: 100%
+}
+
+.mod_img {
+	overflow: hidden;
+	margin: auto;
+	padding: 4.5px 0;
+	width: 129px;
+	height: 87px
+}
+
+.mod_third img {
+	width: 100%;
+	height: 138px
+}
+
+.line {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	z-index: 1;
+	width: 56%;
+	height: 1px;
+	background: #e6e6e6
+}
+
+.footer {
+	padding-bottom: 5px;
+	width: 100%;
+	height: 20px;
+	background-color: #f0f0f0;
+	color: #999;
+	text-align: center;
+	font-size: 0.75em;
+	line-height: 20px
+}
+
+.law span {
+	display: inline-block;
+	width: 9px;
+	height: 8px;
+	background: url(http://static.xiaojukeji.com/activity/img-mall/shop_law.png) center right no-repeat;
+	background-size: 4px 6px
+}
+
+.law-pad {
+	padding: 11px 0
+}

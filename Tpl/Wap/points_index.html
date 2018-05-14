@@ -1,0 +1,197 @@
+<html>
+	<head>
+	    <title>积分商城</title>
+        <meta charset="utf-8" />
+        <!--页面优化-->
+        <meta name="MobileOptimized" content="320">
+        <!--默认宽度320-->
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <!--viewport 等比 不缩放-->
+        <meta http-equiv="cleartype" content="on">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!--删除苹果菜单-->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <!--默认颜色-->
+        <meta name="apple-mobile-web-app-title" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <!--加载全部后 显示-->
+        <meta content="telephone=no" name="format-detection" />
+        <!--不识别电话-->
+        <meta content="email=no" name="format-detection" />
+	    <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/s-common.css">
+	    <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/s-index.css">
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/joelslider.css" />
+	    <link rel="stylesheet" href="__PUBLIC__/wap/css/jifen.style.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/css/Joel-frame.css" />
+        <link rel="stylesheet" type="text/css" href="__PUBLIC__/wap/gmu/gmu.css" />
+	    <!--组件依赖js end-->
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/zepto.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/gmu.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/js/swipe.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/gmu/Joel-basegmu.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/wap/js/joelslider.min.js"></script>
+	    <style>
+	        .coupon-banner{
+	            padding-top:9px;
+	        }
+	        .coupon-banner img{
+	            display:block;
+	            width:100%;
+	        }
+	        a:active {
+	            text-decoration: none;
+	        }
+            .img_box4 img{
+                height:100%;
+            }
+	    </style>
+	    <style>
+            .mask{
+                display:none;
+                z-index:1200;
+                position:fixed;
+                top:0;
+                left:0;
+                width: 100%;
+                height: 100%;
+                background:#000;
+                opacity:0.8;
+            }
+            .active{
+                z-index:-10;
+                text-align: center;
+                font-size: 20px;
+                position:fixed;
+                left:100px;
+                top:100px;
+                border:1px solid #000;
+                border-bottom:none;
+            }
+            .active-list{
+                border-bottom:1px solid #000;
+                background:#fff;
+                padding:5px;
+            }
+            .clr{clear:both}
+        </style>
+<body>
+    <div id="Joel-slider" style="height:auto;">
+        <ul>
+            <foreach name="indexalbum" item="vo">
+                <li>
+                    <a href="{$vo.url}"><img src="{$vo.imgurl}"></a>
+                </li>
+            </foreach>
+        </ul>
+        <div class="dot">
+            <foreach name="indexalbum" item="vo">
+                <span></span>
+            </foreach>
+        </div>
+    </div>
+
+
+    <div class="menu">
+        <a href="{:U('wap/points/jilu')}">
+        <div class="count" id="count">
+            <span class="my_count">积分</span>
+            <span id="myCount">{$score}</span>
+        </div>
+        </a>
+        <a href="{:U('wap/points/exchange')}">
+        <div class="count" id="record">
+            <span class="my_record">兑换记录</span>
+        </div>
+        </a>
+    </div>
+
+    <div id="goods">
+        <div class="gold_area" id="gold">
+            <div class="gold" id="gold_left">
+                <a href="{:U('wap/dzp/index',array('id'=>$active['dzpid']))}" style="display: block;">
+		        <div id="dzp" class="gold_pic_l" >
+    		            <img src="__PUBLIC__/wap/img/2.jpg" width="100%">
+		        </div>
+                </a>
+	        </div>
+            <div class="gold" id="gold_right">
+            	<div class="line"></div>
+            	<div class="gold_chunk">
+                    <a href="{:U('wap/ggk/index',array('id'=>$active['ggkid']))}" style="display: block;">
+	                <div id="ggk" class="img_box4" style="padding-left: 15%">
+	                    <img src="__PUBLIC__/wap/img/3.png"  width="130px">
+	                </div>
+                    </a>
+            	</div>
+            	<div class="line"></div>
+        		<div class="gold_sizing">
+                    <a href="{:U('wap/zjd/index',array('id'=>$active['zjdid']))}" style="display: block;">
+                    <div id="zjd" class="img_box4" style="padding-left: 15%">
+                        <img src="__PUBLIC__/wap/img/4.png" width="160px">
+                    </div>
+                    </a>
+            	</div>
+           	</div>
+        </div>
+		<div style="background: #F4F2F2;">   <!--中间图片去-->
+        	<div id="coupon">
+	        	<div class="coupon-banner" style="padding-bottom: 9px;width:50%;float:left;">
+	            	<a href=""><img src="__PUBLIC__/wap/img/01(1).jpg" width="100%"></a>
+		        </div>
+	        </div>
+	        <div id="coupon">
+	        	<div class="coupon-banner" style="padding-bottom: 9px;width:50%;float:left;">
+		            <a href=""><img src="__PUBLIC__/wap/img/02(1).jpg" width="100%"></a>
+		        </div>                                         <!--左右两幅图文高度请保持一致-->    					
+	        </div>
+	        
+	        <div style="clear:both"></div>
+		</div>
+
+	        <!--<div id="modules"></div>-->
+            <div class="list" style="margin-bottom: 5px;">
+                <volist name="cache" id="vo">
+                <a href="{:U('wap/points/goods',array('id'=>$vo['id']))}">
+                    <div class="list_per_index" href="">
+                        <div class="mod_txt">
+                            <p class="mod_state">
+                                <span>{$vo.name}</span>
+                            </p>
+                            <p>{$vo.summary}</p>
+                            <p>{$vo.integpay}<span class="per_count"></span></p>
+                        </div>
+                        <div class="img_box3">
+                            <img class="mod_img" src="{$vo.imgurl}" alt="{$vo.name}">
+                        </div>
+                    </div>
+                </a>
+                </volist>
+            </div>  
+	    </div>
+	</div>
+
+            <eq name="sid">
+                <!-- 底部导航 -->
+                <include file="./Tpl/Wap/shop_footer.html" />
+                <!--通用分享-->
+                <include file="./Tpl/Wap/shop_share.html" />
+            <else />
+                <!-- 底部导航 -->
+                <include file="./Tpl/Wap/fxshop_footer.html" />
+                <!--通用分享-->
+                <include file="./Tpl/Wap/fxshop_share.html" />
+            </eq>
+
+		<script type="text/javascript">
+            Zepto(function($) {
+                $('#Joel-slider').swipeSlide({
+                    autoSwipe: true,
+                    lazyLoad: false,
+                    speed: 3000
+                }, function(i) {
+                    $('#Joel-slider .dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+                });
+            });
+    </script>
+</body>
+</html>

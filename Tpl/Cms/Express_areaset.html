@@ -1,0 +1,173 @@
+<div class="row">
+	<div class="col-xs-12 col-xs-12">
+		<div class="widget radius-bordered">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">区域设置</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<form id="JoelForm" action="" method="post" class="form-horizontal" data-bv-message="" data-bv-feedbackicons-valid="glyphicon glyphicon-ok" data-bv-feedbackicons-invalid="glyphicon glyphicon-remove" data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+					<input type="hidden" name="id" value="{$cache.id}">
+					<input type="hidden" name="heavylist" value="{$cache.heavylist}" id="heavylist">
+					<input type="hidden" name="moneylist" value="{$cache.moneylist}" id="moneylist">
+					<div class="form-title">
+						<a href="{:U('Cms/express/area')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="区域邮费">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">区域名称<sup>*</sup></label>
+						<div class="col-lg-4">
+							<input type="text" name="name" class="form-control" value="{$cache.name}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">省份选择:<sup>*</sup></label>
+						<div class="checkbox col-lg-4">
+							<input type="hidden" name="provids" id="provids">
+							<volist name='prov' id='vo'>
+								<label>
+									<input type="checkbox" class="colored-success prov" data-id='{$vo.id}'>
+									<span class="text">{$vo.name}</span>
+								</label>
+							</volist>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">超过此价格免邮</label>
+						<div class="col-lg-4">
+							<input type="text" name="topmoney" class="form-control" value="{$cache.topmoney}" placeholder="不免邮请务必不要填写">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">重量价格设置</label>
+						<div class="col-lg-4">
+							<div class="table-toolbar">
+								<div class="alert alert-info fade in">
+                                    <i class="fa-fw fa fa-info"></i>
+                                    <strong>提示!</strong> 提供5个重量区间价格,没有可不填写,重量和价格从上倒下依次递增.
+                                </div>
+							</div>
+							<table class="table table-striped table-hover table-bordered" id="editabledatatable">
+								<thead>
+									<tr role="row">
+										<th>
+											重量(KG)
+										</th>
+										<th>
+											超出部分价格
+										</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<for start="0" end="4" step="1" name="i" >
+										<tr>
+											<td class="col-lg-6 col-sm-6 col-xs-6">
+												<div class="input-group ">
+	                                                <span class="input-group-addon">≤</span>
+	                                                <input type="number" class="form-control heavy" value="{$cache['heavylist'][$i]}" min="0">
+	                                            </div>
+											</td>
+											<td>
+												<div class="input-group ">
+	                                                <input type="number" class="form-control money" value="{$cache['moneylist'][$i]}" min="0">
+	                                                <span class="input-group-addon">元/1KG</span>
+	                                            </div>
+											</td>
+											
+										</tr>
+									</for>
+									<tr>
+										<td class="col-lg-6 col-sm-6 col-xs-6" style="text-align: center;">
+											<button class="btn btn-default" type="button">超出部分</button>
+										</td>
+										<td>
+											<div class="input-group ">
+                                                <input type="number" class="form-control money" value="{$cache['moneylist'][$i]}" min="0">
+                                                <span class="input-group-addon">元/1KG</span>
+                                            </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-4">
+							<button class="btn btn-primary btn-lg" type="submit">保存</button>&nbsp;&nbsp;&nbsp;&nbsp;
+							<button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	//初始化区域
+	var prids = '{$cache.provids}';
+	prids = prids.split('|');
+	$('.prov').each(function() {
+		if (prids.indexOf($(this).data('id').toString()) != -1) {
+			$(this).attr('checked', 'checked');
+		}
+	});
+	//锁定已选区域
+	var disids = '{$disids}';
+	disids = disids.split('|');
+	$('.prov').each(function() {
+		if (disids.indexOf($(this).data('id').toString()) != -1) {
+			$(this).attr('disabled', 'disabled');
+		}
+	});
+	//提交表单
+	$('#JoelForm').bootstrapValidator({
+		submitHandler: function(validator, form, submitButton) {
+			var heavy='';
+			$('.heavy').each(function(){
+				if($(this).val()){
+					heavy=heavy+$(this).val()+",";
+				}
+			});
+			$('#heavylist').val(heavy);
+			var money='';
+			$('.money').each(function(){
+				if($(this).val()){
+					money=money+$(this).val()+",";
+				}
+			});
+			$('#moneylist').val(money);
+			var provids = '|';
+			$('.prov:checked').each(function() {
+				provids = provids + $(this).data('id') + '|';
+			})
+			$('#provids').val(provids);
+			var data = $('#JoelForm').serialize();
+			var tourl = "{:U('Cms/express/areaset')}";
+			$.Joel.ajax('post', tourl, data, null);
+			return false;
+		},
+	});
+</script>
+<!--/表单验证与提交封装-->

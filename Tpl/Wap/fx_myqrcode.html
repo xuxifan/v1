@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>我的专属推广二维码</title>
+	    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/style.css" />
+	</head>
+	<body class="back1">
+		<p>&nbsp;</p>
+		<div class="abt-ew">
+			<img src="/Wap/Fx/getqrcode/id/{$data.id}" width="100%"  />
+		</div>
+		<p class="text-c">扫描二维码即可</p>
+		<div class="dtl-ft ovflw">
+			<div class=" fl dtl-icon dtl-bck ovflw">
+				<a href="/wap/fx">
+					<i class="iconfont">&#xe679</i>
+				</a>
+			</div>
+		</div>
+		<!--通用分享-->
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript">
+			function onBridgeReady(){
+		 		WeixinJSBridge.call('hideOptionMenu');
+			}
+		
+			if (typeof WeixinJSBridge == "undefined"){
+			    if( document.addEventListener ){
+			        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+			    }else if (document.attachEvent){
+			        document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+			        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+			    }
+			}else{
+			    onBridgeReady();
+			}	
+		</script>
+	</body>
+</html>

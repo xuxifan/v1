@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>积分记录</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--框架CSS加载-->
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/sm.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/sm-extend.min.css">
+		<!--项目独立CSS加载-->
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/jifen.style.css">
+		<!-- 强制定义CSS 非特殊情况不允许使用-->
+		<script type='text/javascript' src='__PUBLIC__/wap/js/zepto.min.js' charset='utf-8'></script>
+		<style>
+			span, p, a,menu, nav, section  {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				list-style: none;
+				-webkit-user-select: none;
+				-webkit-touch-callout: none;
+				-webkit-tap-highlight-color: transparent
+			}
+			.content{
+				background: white;
+			}
+			ol, ul,li {list-style: none;margin:0;padding: 0;}
+			.FL{float: left;}
+			.FR{float: right;}
+			.clr{clear: both;}
+			.swiper-pagination-bullet-active{background: #999999;}
+			.bar-tab .tab-item.active{color: #FFFFFF; background-color: #44BFD1;}
+			.page p{margin: 0px;}
+			.cor1{color:#FFFFFF}
+			
+			.lt-ca{width:100%;}
+			.lt-ca-box{width:100%;padding:2%;float:left;background-color: #ffffff;}
+			.lt-ca-box ul li{border-bottom: 1px solid #D0D0D0;} 
+			.lt-ca-jt{width:10%;float:right;margin-top:3%;}
+			.lt-ca-bu{width:100%;line-height:1.2em;float:left;padding:1% 0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+			.lt-ca-bu .F1{color:#C1C1C1;}
+			.lt-ca-uli{width:90%;float:left;}
+			.jf-shu{width:0px;height:0px;opacity:0;position:relative;top:50px;background: #FF8F00;border-radius: 50%;margin:10px auto;text-align: center;overflow: hidden;}
+			.jf-shu-box{width:100px;height:100px;margin:10px auto;}
+			.jf-shu p{color:white}
+			.jf-box{border:1px solid #D0D0D0;border-radius: 3px;font-size: 10px;padding:2px 5px;text-align:center;}
+			.jf-box p{margin:0 auto;}
+			.jf-logo{width:20%;}
+			.jf-mrr{margin-left:30px;}
+			.jfxm{width:100%;margin-top:20px}
+			.jfxm fieldset {border-bottom: 0;border-left: 0;border-right: 0;border-top:1px solid #cccccc;}
+		</style>
+	</head>
+	<body>
+			<div class="content">
+				<!-- 这里是页面内容区 -->
+				<div class="jf-shu-box">
+				<div class="jf-shu">
+					<p style="padding-top:18px;font-size:0px;">积分</p>
+					<p style="font-size:0px;">{$score}</p>
+				</div>
+				</div>
+				<div style="width:198px;margin:0 auto;">
+					<div class="jf-box FL jf-mrl">
+						<a href="{:U('wap/points/index')}">
+						<p><span style="color:#FF8F00;" class="iconfont">&#xe6af</span>&nbsp;&nbsp;积分商城</p>
+						</a>
+					</div>
+					<div class="jf-box FL jf-mrr">
+						<a href="{:U('wap/points/exchange')}">
+						<p><span style="color:#FF8F00;" class="iconfont">&#xe700</span>&nbsp;&nbsp;兑换记录</p>
+						</a>
+					</div>
+					<div class="clr"></div>
+				</div>
+				<div class="jfxm">
+					<fieldset style="border-color: #D0D0D0">
+					    <legend style="margin:0 auto;color: #D0D0D0">&nbsp;&nbsp;积分记录&nbsp;&nbsp;</legend>
+				    <div class="lt-ca-box">
+				        <ul>
+				          <foreach name="cache" item="vo">
+				          <li>
+				          	<div class="clr"></div>
+				            <div class="lt-ca-uli">
+				            	<div class="lt-ca-bu">
+				        			<span class="F2 FB">{$vo.event}</span>
+				            	</div>
+				           		<div class="lt-ca-bu">
+				            		<span class="F1">{$vo.ctime|date="Y.m.d H:i:s",###}</span>
+				            	</div>
+				            </div>
+				            <a href="#" class="lt-ca-jt">
+				            	+{$vo.score}
+				            	<!--<img src="__PUBLIC__/wap/img/jt.png" width="50%" class="FR">-->
+				            </a>
+				            <div class="clr"></div>
+				          </li>
+				          </foreach>
+				        </ul>
+				      </div>
+
+				    <!-- <div class="lt-ca-box">
+				        <ul>
+				          <li>
+				            <div class="lt-ca-uli">
+				            	<div class="lt-ca-bu">
+				        			<span class="F2 FB">觉察到底意味着什么？</span>
+				            	</div>
+				           		<div class="lt-ca-bu">
+				            		<span class="F1">用我们的眼睛看、我们用感官来感知</span>
+				            	</div>
+				            </div>
+				            <a href="#" class="lt-ca-jt">
+				            	<img src="__PUBLIC__/wap/img/jt.png" width="50%" class="FR">
+				            </a>
+				          </li>
+				        </ul>
+				      </div> -->
+					  </fieldset>
+				</div>
+				<!--页面内容区域结束-->
+			</div>
+
+		
+	</body>
+	<script>
+	$(function(){
+		$(".jf-shu").animate({'width':'100px','height':'100px','top':0,'opacity':1},200);
+		$(".jf-shu p").eq(0).animate({"font-size":'15px'},200);
+		$(".jf-shu p").eq(1).animate({"font-size":'25px'},200);
+		setTimeout(function(){
+			$(".jf-shu").animate({'width':'110px','height':'110px','top':'-5px','left':'-5px'},150);
+		},200)
+		setTimeout(function(){
+			$(".jf-shu").animate({'width':'100px','height':'100px','top':0,'left':0},150)
+		},350)
+	})
+	</script>
+</html>

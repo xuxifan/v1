@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+		<script type="text/javascript">
+			$(function() {
+				$(".checkdetail").click(function() {
+					$(this).parent().parent().find('.newsp2').toggle(100)
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+
+		<div class="s_page">
+			<div class="s_content">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_addressright news-box fr">
+					<if condition="$news eq null">
+						<div class="" style="margin: 19px 0;text-align: center;line-height: 5em;">
+							<img src="__PUBLIC__/home/img/empty_order.png"/>
+							<br/>
+							暂时没有消息.
+						</div>
+					</if>
+					<volist name='news' id='vo'>
+					<div class="news1" style="margin: 19px 0;">
+						<p class="new1">{$vo.name}</p>
+						<p class="color1 font12 fontfamily">{$vo.ctime|date='Y-m-d H:i:s',###}</p>
+						<p class="newsp">{$vo.summary}</p>
+						<p style="text-align: right;">
+							<a href="javascript:void(0)" class="checkdetail" id="detail2">查看详情
+								<img src="__PUBLIC__/home/img/godown2_03.png" class="godown"/>
+							</a>
+						</p>
+						<div class="newsp2">
+							<img src="{$vo['pic']['imgurl']}" style="max-width: 100%;"/>
+							{:htmlspecialchars_decode($vo['content'])}
+						</div>
+					</div>
+					</volist>
+				</div>
+				<br class="clear" />
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+	</body>
+</html>

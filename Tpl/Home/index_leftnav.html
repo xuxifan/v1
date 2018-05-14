@@ -1,0 +1,40 @@
+<div class="fl list_left">
+	<div class="mar_b10 bor_box">
+		<div class="ser_tit"><span class="f16">客服中心</span><span class="f10 f_arial">/service</span></div>
+		<div class="er_box bg_corb f_sont">
+			<span>
+							<em>售前咨询:</em>
+							<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq1')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq1')}:41" alt="售前一号" title="鹤乡农都网站"/></a>
+							<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq2')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq2')}:41" alt="售前二号" title="鹤乡农都网站"/></a>
+							<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq3')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq3')}:41" alt="售前三号" title="鹤乡农都网站"/></a>
+						</span>
+			<span>
+							<em>售后咨询:</em>
+							<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq4')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq4')}:41" alt="售后一号" title="鹤乡农都网站"/></a>
+							<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq5')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq5')}:41" alt="售后二号" title="鹤乡农都网站"/></a>
+							<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={:sysconfig('kefuqq6')}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{:sysconfig('kefuqq6')}:41" alt="售后三号" title="鹤乡农都网站"/></a>
+						</span>
+			<span style="border-bottom: none;">
+							<em>工作时间:</em>
+							<a>早上8:30-晚上17:00</a>
+						</span>
+		</div>
+	</div>
+	<div class="fenlei_box f_sont bor_box">
+		<volist name='menu' id='vo'>
+			<a href="{:u('index/catelist',array('id'=>$vo['id']))}"><span class="f14 bg_cora f_strong">{$vo.name}</span></a>
+			<ul class="bg_corb">
+				<volist name='vo["items"]' id='vt'>
+					<li>
+						<if condition="$cate['id'] eq $vt['id']">
+							<a class="hover" href="{:u('index/catelist',array('id'=>$vt['id']))}">&gt;&nbsp;{$vt.name}</a>
+							<else/>
+							<a href="{:u('index/catelist',array('id'=>$vt['id']))}">&gt;&nbsp;{$vt.name}</a>
+						</if>
+					</li>
+				</volist>
+			</ul>
+		</volist>
+	</div>
+	<div class="more_but f_sont"><a href="{:u('index/catelist',array('id'=>0))}">查看更多产品</a></div>
+</div>

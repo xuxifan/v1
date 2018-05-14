@@ -1,0 +1,200 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">商品管理</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="table-toolbar">
+					<a href="{:U('Cms/Shop/goodsSet/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="设置商品">
+						<i class="fa fa-plus"></i>新增商品
+					</a>
+					<a href="#" class="btn btn-danger" id="Joel-delall">
+						<i class="fa fa-delicious"></i>全部删除
+					</a>
+					<a href="#" class="btn btn-piliang" id="Joel-piliang">
+						<i class="fa fa-piliang"></i>批量上架
+					</a>
+					<div class="pull-right">
+						<form id="Joel-search">
+							<label style="margin-bottom: 0px;">
+								<input name="name" type="search" class="form-control input-sm" placeholder="按商品名搜索" value="{$name}">
+							</label>
+							<a href="{:U('Cms/Shop/goods/')}" class="btn btn-success" data-loader="Joel-loader" data-loadername="门店商品" data-search="Joel-search">
+								<i class="fa fa-search"></i>搜索
+							</a>
+						</form>
+					</div>
+				</div>
+
+				<table id="Joel-table" class="table table-bordered table-hover">
+					<thead class="bordered-darkorange">
+						<tr role="row">
+							<th width="30px"><div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+									<label style="padding-left: 4px;"> <input type="checkbox" class="Joel-checkall colored-blue">
+                                     <span class="text"></span>
+									</label>                                    
+                                </div></th>
+							<th>ID</th>
+							<th>SPU</th>
+							<th>分类名称</th>
+							<th>商品名称</th>
+							<th>商品单位</th>
+							<th>商品库存</th>
+							<th>商品单价</th>
+							<th>商品原价</th>
+							<th>商品点击</th>
+							<th>商品销量</th>
+							<th>商品排序</th>
+							<th>SKU管理</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="cache" id="vo">
+							<tr id="item{$vo.id}">
+								<td>
+									<div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+										<label style="padding-left: 4px;"> <input name="checkvalue" type="checkbox" class="colored-blue Joel-check" value="{$vo.id}">
+	                                     <span class="text"></span>
+										</label>                                    
+	                                </div>
+								</td>
+								<td class=" sorting_1">{$vo.id}</td>
+								<td class=" ">{$vo.spu}</td>
+								<td class=" ">{$vo.cid}</td>
+								<td class=" ">{$vo.name}</td>
+								<td class=" ">{$vo.unit}</td>
+								<td class=" ">{$vo.num}</td>
+								<td class=" ">{$vo.price}</td>
+								<td class=" ">{$vo.oprice}</td>
+								<td class=" ">{$vo.clicks}</td>
+								<td class=" ">{$vo.sells}</td>
+								<td class=" ">{$vo.sorts}</td>
+								<td class=" "><eq name="vo.issku" value="1"><a href="{:U('Cms/Shop/sku/',array('id'=>$vo['id'],'p'=>$p))}" class="btn btn-azure btn-xs" data-loader="Joel-loader" data-loadername="SKU管理"><i class="fa fa-edit"></i> 管理</a><else/>未启用SKU</eq></td>
+								<td class="center "><a href="{:U('Cms/Shop/goodsSet/',array('id'=>$vo['id'],'p'=>$p))}" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="设置商品"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;<a href="{:U('Cms/Shop/goods/')}" class="btn btn-danger btn-xs" data-type = "del" data-ajax="{:U('Cms/Shop/goodsDel/',array('id'=>$vo['id']))}" ><i class="fa fa-trash-o"></i> 删除</a>
+									<if condition="$vo['status']==1">
+										<a href="#" class="btn btn-danger btn-xs"  data-id="{$vo.id}" data-types="x"  id="bb-delallsj"><i class="fa fa-edit"></i> 下架 </a>
+									<else />
+										<a href="#" class="btn btn-success btn-xs"  data-id="{$vo.id}" data-types="s" id="bb-delallxj"><i class="fa fa-edit"></i> 上架 </a>
+									</if></td>
+							</tr>
+						</volist>
+												
+					</tbody>
+				</table>
+				<div class="row DTTTFooter">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--全选特效封装/全部删除-->
+<script type="text/javascript">
+	//全选
+	var checkall=$('#Joel-table .Joel-checkall');
+	var checks=$('#Joel-table .Joel-check');
+	var trs=$('#Joel-table tbody tr');
+	$(checkall).on('click',function(){
+		if($(this).is(":checked")){			
+			$(checks).prop("checked","checked");
+		}else{
+			$(checks).removeAttr("checked");
+		}		
+	});
+	$(trs).on('click',function(){
+		var c=$(this).find("input[type=checkbox]");
+		if($(c).is(":checked")){
+			$(c).removeAttr("checked");
+		}else{
+			$(c).prop("checked","checked");
+		}		
+	});
+	//全删
+	$('#Joel-delall').on('click',function(){
+		var checks=$(".Joel-check:checked");
+		var chk='';
+		$(checks).each(function(){
+			chk+=$(this).val()+',';
+		});
+		if(!chk){
+			$.Joel.alert('danger','请选择要删除的项目！');
+			return false;
+		}
+		var toajax="{:U('Cms/Shop/goodsDel')}"+"/id/"+chk;
+		var funok=function(){
+			var callok=function(){
+				//成功删除后刷新
+				$('#refresh-toggler').trigger('click');
+				return false;
+			};
+			var callerr=function(){
+				//拦截错误
+				return false;
+			};
+			$.Joel.ajax('post',toajax,'nodata',callok,callerr);
+		}						
+		$.Joel.confirm("确认要删除吗？",funok);
+	});
+	//批量上架
+		$('#Joel-piliang').on('click',function(){
+		var checks=$(".Joel-check:checked");
+		var chk='';
+		$(checks).each(function(){
+			chk+=$(this).val()+',';
+		});
+		if(!chk){
+			$.Joel.alert('danger','请选择要上架的项目！');
+			return false;
+		}
+		else
+		{
+		chk=chk.substring(0,chk.length-1);
+		}
+		var toajax="{:U('Cms/Shop/goodson')}"+"/id/"+chk;
+		var funok=function(){
+			var callok=function(){
+				//成功删除后刷新
+				$('#refresh-toggler').trigger('click');
+				return false;
+			};
+			var callerr=function(){
+				//拦截错误
+				return false;
+			};
+			$.Joel.ajax('post',toajax,'nodata',callok,callerr);
+		}						
+		$.Joel.confirm("确认要上架吗？",funok);
+	});
+	
+	
+	$('#bb-delallsj,#bb-delallxj').on('click',function(){
+		var id=$(this).data('id');
+		var type=$(this).data('types');
+		var data={'id':id,"type":type} 
+		var urlajax="{:U('Cms/Shop/shelvesset/')}";
+		$.Joel.ajax('post',urlajax,data,'','');
+		$('#refresh-toggler').trigger('click');
+		return false;
+	});
+</script>
+<!--/全选特效封装-->

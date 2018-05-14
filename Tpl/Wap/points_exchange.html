@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>兑换记录</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--框架CSS加载-->
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/style.css">
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/sm.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/wap/css/sm-extend.min.css">
+		<!--项目独立CSS加载-->
+		<!-- 强制定义CSS 非特殊情况不允许使用-->
+		<style>
+		a{text-decoration: none;color:#3d4145;}
+		a :active{color:#3d4145;}
+		b,em,i{font-style: normal;}
+		.F1{font-size: 0.7em;}
+		.F2{font-size: 1em;}
+		.F3{font-size: 1.2em;}
+		.F4{font-size: 1.3em;}
+		.FB{font-weight: bold;}
+			.swiper-pagination-bullet-active{background: #999999;}
+			.bar-tab .tab-item.active{color: #FFFFFF; background-color: #44BFD1;}
+			.page p{margin: 0px;}
+			.cor1{color:#FFFFFF}
+			.l-card{width:100%;background: -webkit-linear-gradient(top,#ffffff 0,#EAEAEA 100%);float:left;}
+			.l-card-cont{width:92%;margin:2% 4%;float:left;}
+			.l-card-media{float:left;width:80px;height:80px;float:left;}
+			.l-card-wo{width:65%;float:left;float:left;border:}
+			.l-card-title{width:96%;float:left;font-size: 0.8rem;font-weight: bold;line-height: 1.8em;padding-left:3%;overflow: hidden;text-overflow: ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;float:left;}			
+			.l-card-inner{width:96%;float:left;font-size: 0.6rem;line-height: 1.8em;padding-left:3%;float:left;}
+			.l-card-jt{width:6%;float:right;margin-top:8%;}
+			.l-card-title span em{color:#CC5200}
+			.l-card-inner span em{color:#CC5200}
+			.empty span{display:block;width:300px;margin:0 auto;font-size:300px;}
+			.empty p{text-align: center;font-weight: 700;color:#3d4145;}
+		</style>
+	</head>
+	<body>	
+		<script type='text/javascript' src='__PUBLIC__/wap/js/zepto.min.js' charset='utf-8'></script>
+			<div class="content">
+				<!-- 这里是页面内容区 -->
+				<notempty name="cache">
+				<foreach name="cache" item="vo">
+				  	<div class="l-card clear">
+				  		<switch name="vo['type']">
+					  		<case value="dzp">
+					  			<a href="{:U('wap/dzp/index',array('id'=>$vo['goodsid']))}">
+					  		</case>
+					  		<case value="zjd">
+					  			<a href="{:U('wap/zjd/index',array('id'=>$vo['goodsid']))}">
+					  		</case>
+					  		<case value="ggk">
+					  			<a href="{:U('wap/ggk/index',array('id'=>$vo['goodsid']))}">
+					  		</case>
+					  		<default />
+					  			<a href="{:U('wap/points/goods',array('id'=>$vo['goodsid']))}">
+					  	</switch>
+			          	<div class="l-card-cont">
+				            <div class="l-card-media">
+				              <img src="{$vo.pic}" width="100%">
+				            </div>
+				            <div class="l-card-wo">
+				            	<div class="l-card-title">
+				        			<span class="F3">{$vo.name}</span>
+				            	</div>
+			            	<div class="l-card-title">
+			        			<span>所需积分：<em>{$vo.integpay}</em></span>
+			            	</div>
+				           		<div class="l-card-inner">
+				            		<span>兑换时间：<em>{$vo['ctime']|date="Y-m-d H:i:s",###}</em></span>
+				            	</div>
+				            </div>
+				            <a href="#" class="l-card-jt">
+				            	<img src="__PUBLIC__/wap/img/jt.png" width="100%">
+				            </a>
+			         	</div>
+			         	</a>
+				    </div>
+				</foreach>
+				<else />
+					<div class="empty">
+						<span class="iconfont">&#xe6af</span>
+						<p>您还没有兑换过任何商品哦~</p>
+					</div>
+				</notempty>
+				<!--页面内容区域结束-->
+			</div>
+
+	</body>
+
+</html>

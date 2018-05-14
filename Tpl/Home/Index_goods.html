@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>{$pagetitle}</title>
+		<include file="./Tpl/home/index_head.html" />
+	</head>
+
+	<body>
+		<include file="./Tpl/home/index_header.html" />
+		<!--导航条-->
+		<include file="./Tpl/home/index_nav.html" />
+		<!--大图和选项卡-->
+		<div class="wapper" style="margin-top: 20px;">
+			<div class="fl pro_img">
+				<div class="big_img"><img src="{$goods.pic.imgurl}" width="418" height="418"></div>
+				<ul class="small_img flw">
+					<li><a href="javascript:void(0);" class="hover"><img src="{$goods.pic.imgurl}" width="60" height="60"></a></li>
+					<volist name="goods['album']" id='vo'>
+						<li><a href="javascript:void(0);"><img src="{$vo.imgurl}" width="60" height="60"></a></li>
+					</volist>
+				</ul>
+			</div>
+			<div class="fr buy_choose">
+				<h3 class="f16">{$goods.name}</h3>
+				<p class="f14">{$goods.summary}</p>
+				<div class="pro_price f_sont cor02">
+					<span><em>价格</em><u>￥{$goods.oprice}</u></span>
+					<span style=" line-height: 36px;"><em>促销价</em><i class="f_arial f18">￥<b class="f_strong f30" id="goods-price">{$goods.price}</b></i></span>
+					<eq name="_SESSION['SHOPSET']['isyf']" value="1">
+					<if condition="$goods.ismy eq 1">
+						单品包邮
+						<else/>
+						<if condition="$_SESSION['SHOPSET']['yftop'] neq 0">
+							<span><em>本店活动</em><i>满{$_SESSION['SHOPSET']['yftop']}元,包邮</i></span>
+						</if>
+					</if>
+					</eq>
+					<span id="finalsku" data-sku="" data-skuattr="" style="display: none;"></span>
+				</div>
+				<div class="pro_xl flw"><!-- $goods['ismy'] -->
+				<eq name="_SESSION['SHOPSET']['isyf']" value="1">
+					<neq name="_SESSION['SHOPSET']['yf']" value="0">
+					<span><em>运费</em><i><if condition="$_SESSION['SHOPSET']['isyf'] eq 0">包邮<else/>{$_SESSION.SHOPSET.yf}元</if></i></span>
+					</neq>
+				</eq>
+					<span style="border-right: none;"><em>月销量</em><i class="f_arial f_strong cor03"><if condition="$goods['issells'] eq 0">{$goods.sells}<else/>{$goods.dissells}</if></i></span>
+					<!--<span style="border-right: none;"><em>送积分</em><i class="f_arial f_strong cor05">59</i></span>-->
+				</div>
+
+				<div class="pro_sl">
+					<if condition="$goods['issku'] eq 1">
+						<eq name="goods.issku" value="1">
+							<div class="dtl-prt back2 mr-b fonts9 border-b1 border-t1">
+								<div id="sku-wrap">
+									<foreach name="skuinfo" item="vo">
+										<div class="sku" data-attr="">
+											<p class="dtl-pty fl">{$vo.attrlabel}：</p>
+											<div class="dtl-col ovflw fl">
+												<foreach name="vo.allitems" item="vo2">
+													<notempty name="vo2.checked">
+														<span data-attr="{$vo2.path}" class="fl">{$vo2.name}</span>
+													</notempty>
+												</foreach>
+											</div>
+										</div>
+										<br class="clear" />
+									</foreach>
+								</div>
+							</div>
+						</eq>
+						<!--<volist name='skuinfo' id='vo'>
+							<span class="sku-box">
+								<em>{$vo.attrlabel}</em>
+								<i class="attr">
+									<volist name="vo['allitems']" id='vt'>
+										<a href="javascript:void(0);" data-path='{$vt.path}' class="skubtn">{$vt.name}</a>
+									</volist>
+								</i>
+							</span>
+						</volist>-->
+					</if>
+					<span><em style="margin-left: 2em;">数量</em>
+						<u>
+						<input type="text" title="请输入购买量" value="1" class="buynum" id="goods-total"/>
+							<p class="f10">
+								<a href="javascript:void(0);" class="btn-plus">&and;</a>
+								<a href="javascript:void(0);" class="btn-minus">&or;</a>
+							</p>
+							<b>库存<em id="goods-num" style="float: none;">{$goods.num}</em>件</b>
+						</u>
+					</span>
+					<div class="pro_but f16"><a class="buy_pro" href="javascript:void(0);" id="fastbuy">立即购买</article><a class="car_pro" href="javascript:void(0);" id="addtocart"><img src="__PUBLIC__/home/img/gwc.jpg">加入购物车</a></div>
+					<span><em>服务承诺</em><i>手机售后无忧&nbsp;&nbsp;按时发货</i></span>
+				</div>
+			</div>
+		</div>
+		<!--分类和产品描述-->
+		<div class="wapper mar_b30">
+			<include file="./Tpl/home/index_leftnav.html" />
+			<div class="fl detail_r">
+				<div class="detail_tit">
+					<span class="fl textc">商品详情</span>
+					<i class="fl"><a href="javascript:void(0);" class="buyonphone">手机购买<img src="__PUBLIC__/home/img/s_w.jpg"></a></i>
+					<u class="qrbuyonphone"><img src="__PUBLIC__/home/img/erwei01.jpg" width="140" height="140"></u>
+					<!--二维码，默认隐藏，鼠标滑过显示-->
+				</div>
+				<!--<div class="pro_info cor01 flw">
+					<h4>产品参数</h4>
+					<ul>
+						<li>厂名：上海健佳信息科技有限公司</li>
+						<li>厂址：张家港市人民87号</li>
+						<li>联系方式：0512-58888888</li>
+						<li>保质期：5天</li>
+						<li>净含量：200g</li>
+						<li>包装方式：包装</li>
+						<li>品牌：一锅生鲜</li>
+						<li>产地：美国</li>
+					</ul>
+				</div>
+				<div class="pro_time cor04"><img src="__PUBLIC__/home/img/sj.jpg">生产日期：2015/10/20-2015/10/25</div>-->
+				<div class="pro_main flw">{$goods.content}</div>
+			</div>
+		</div>
+		<!--浮动看了又看-->
+		<div class="see_again">
+			<span><em>看了又看</em></span>
+			<ul>
+				<volist name="historydata" id='vo'>
+					<li>
+						<a href="{:u('index/goods',array('id'=>$vo['id']))}">
+							<img src="{:getPicUrl($vo['pic'])}" width="140" height="140">
+							<b>￥{$vo.price}</b>
+							<p>{$vo.name}</p>
+						</a>
+					</li>
+				</volist>
+			</ul>
+		</div>
+		<include file="./Tpl/home/index_footer.html" />
+		<include file="./Tpl/home/index_rightnav.html" />
+		<script>
+			$('.small_img li a').click(function(){
+				$('.small_img li a').removeClass('hover');
+				$(this).addClass('hover');
+				$('.big_img img').attr('src',$(this).find('img').attr('src'));
+			})
+			//
+			var goodsid = "{$goods.id}";
+			var issku = "{$goods.issku}";
+			var vipid = "{$_SESSION['HOME']['vipid']}";
+			var loginback = "{:u('vip/login')}";
+			 //sku
+			$('.buyonphone').on({
+				'mouseover': function() {
+					$('.qrbuyonphone').show(10);
+				},
+				'mouseout': function() {
+					$('.qrbuyonphone').hide();
+				}
+			});
+			$('.qrbuyonphone').hide();
+			 //减少数量
+			$('.btn-minus').click(function() {
+				var num=parseInt($('.buynum').val())
+				if (num>1) {
+					num--;
+					$('.buynum').val(num);
+					$('.buynum').keyup();
+				}
+			});
+			 //数量加一
+			$('.btn-plus').click(function() {
+				$('.buynum').val(parseInt($('.buynum').val()) + 1);
+				$('.buynum').keyup();
+			});
+			$('.buynum').keyup(function() {
+					var n = $('.buynum').val();
+					if (parseInt(n) != n) {
+						$(this).val(1);
+					}
+				})
+				//sku
+			var goodsid = "{$goods.id}";
+			var skujson = $.parseJSON('{$skujson}' == '' ? '{}' : '{$skujson}');
+			var skuwrap = $('.sku-box');
+			var allsku = $('.sku');
+			var allskuattr = $('.sku span');
+			var finalsku = $('#finalsku');
+			var goodsprice = $('#goods-price');
+			var goodsnum = $('#goods-num');
+			$(allskuattr).on('click', function() {
+				var fasku = $(this).parent().parent('.sku');
+				var fa = $(this).parent();
+				var son = $(fa).find('span');
+				$(fasku).data('attr', $(this).data('attr'));
+				$(son).css({
+					'color': '#636363',
+					'border': '1px solid #b8b7bd'
+				});
+				$(this).css({
+					'color': '#C40000',
+					'border': '1px solid #C40000'
+				});
+				var str = '';
+				var totalsku = 0;
+				var totalattr = 0;
+				$(allsku).each(function() {
+					var dt = $(this).data('attr');
+					if (dt) {
+						str = str + dt + '-';
+						totalattr = totalattr + 1;
+					}
+					totalsku = totalsku + 1;
+				});
+				str = str.substring(0, str.length - 1);
+				if (totalsku == totalattr) {
+					str = goodsid + '-' + str;
+					$tmpsku = skujson[str];
+					$(finalsku).data('sku', $tmpsku['sku']);
+					$(finalsku).data('skuattr', $tmpsku['skuattr']);
+					$(goodsnum).html($tmpsku['num']);
+					$(goodsprice).html($tmpsku['price']);
+				}
+			});
+			 //加入购物车
+			var goodsnum = $('#goods-num');
+			var goodsdec = $('#goods-dec');
+			var goodsadd = $('#goods-add');
+			var goodstotal = $('#goods-total');
+			var goodsprice = $('#goods-price');
+			var addtocart = $('#addtocart');
+			var fastbuy = $('#fastbuy');
+			var basketnum = $('#basketnum');
+			$(goodsadd).on('click', function() {
+				var num = Number($(goodstotal).val());
+				var left = Number($(goodsnum).html());
+				var total = (num + 1) <= left ? (num + 1) : left;
+				$(goodstotal).val(total);
+				return false;
+			});
+			$(goodsdec).on('click', function() {
+				var num = Number($(goodstotal).val());
+				var total = (num - 1) >= 0 ? (num - 1) : 0;
+				$(goodstotal).val(total);
+				return false;
+			});
+			$(addtocart).on('click', function() {
+				var goodsnum = Number($('#goods-num').html());
+				var num = Number($(goodstotal).val());
+				var finalsku = $('#finalsku');
+				//sku模式
+				if ("{$goods['issku']}" == '1') {
+					if (goodsnum - num < 0) {
+						alert_msg('该属性产品库存不足！请调整购买数量或选择其他属性！')
+						return false;
+					}
+					if (!$(finalsku).data('sku')) {
+						alert_msg('请选择产品属性！');
+						return false;
+					}
+				} else {
+					if (goodsnum - num < 0) {
+						alert_msg('该产品库存不足！请调整购买量或选择其他产品！');
+						return false;
+					}
+				}
+				if (!vipid) {
+					window.location.href = loginback;
+					return false;
+				}
+				var sku = $(finalsku).data('sku');
+				var skuattr = $(finalsku).data('skuattr');
+				var price = $(goodsprice).html();
+				var num = $(goodstotal).val();
+				var dt = {
+					'sid': 0,
+					'goodsid': goodsid,
+					'vipid': vipid,
+					'sku': sku,
+					'num': num
+				};
+				$.ajax({
+					type: "post",
+					url: "{:U('index/addtobasket')}",
+					dataType: 'json',
+					data: dt,
+					success: function(info) {
+						if (info['status']) {
+							alert_msg(info['msg']);
+							$(basketnum).html(info['total'])
+						} else {
+							alert_msg('发生未知错误,请重新尝试！');
+						}
+						return false;
+					},
+					error: function(xh, obj) {
+						alert_msg('通讯失败，请重试！');
+					}
+				});
+				return false;
+			});
+			 //立刻购买特效
+			$(fastbuy).on('click', function() {
+				var goodsnum = Number($('#goods-num').html());
+				var num = Number($(goodstotal).val());
+				var finalsku = $('#finalsku');
+				//sku模式
+				if ("{$goods['issku']}" == '1') {
+					if (goodsnum - num < 0) {
+						alert_msg('该属性产品库存不足！！');
+						return false;
+					}
+					if (!$(finalsku).data('sku')) {
+						alert_msg('请选择产品属性！');
+						return false;
+					}
+				} else {
+					if (goodsnum - num < 0) {
+						alert_msg('该产品库存不足！请调整购买量或选择其他属性！');
+						return false;
+					}
+				}
+				if (!vipid) {
+					window.location.href = loginback;
+					return false;
+				}
+				var sku = $(finalsku).data('sku');
+				var skuattr = $(finalsku).data('skuattr');
+				var price = $(goodsprice).html();
+				var num = $(goodstotal).val();
+				var dt = {
+					'sid': 0,
+					'goodsid': goodsid,
+					'vipid': vipid,
+					'sku': sku,
+					'num': num
+				};
+				//保证订单生成页的返回
+				var orderurl = "{:U('index/orderMake',array('sid'=>0,'lasturl'=>$lasturl))}";
+				var fun = function() {
+					window.location.href = orderurl;
+				}
+				$.ajax({
+					type: "post",
+					url: "{:U('index/fastbuy')}",
+					dataType: 'json',
+					data: dt,
+					success: function(info) {
+						if (info['status']) {
+							fun();
+						} else {
+							alert_msg('发生未知错误,请重新尝试！');
+						}
+						return false;
+					},
+					error: function(xh, obj) {
+						alert_msg('通讯失败，请重试！');
+					}
+				});
+				return false;
+			});
+		</script>
+	</body>
+
+</html>

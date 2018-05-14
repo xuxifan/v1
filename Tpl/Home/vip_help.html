@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+	</head>
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+		
+		<div class="s_page">
+			<div class="s_content">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_csright fr">
+					<div class="csright_top fontfamily">
+						<p>客服电话：{$_SESSION.SHOPSET.phone}</p>
+						<p>服务时间：09:00-20:00</p>
+						<p>联系邮箱：joanna_ucanow@163.com</p>
+						<p>联系地址：{$_SESSION.SHOPSET.address}</p>
+					</div>
+				</div>
+			</div>
+				<br class="clear" />
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+	</body>
+</html>

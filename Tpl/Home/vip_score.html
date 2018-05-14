@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<include file="./Tpl/home/vip_head.html" />
+		<script type="text/javascript">
+			$(function(){
+//				$(".menu").click(function(){
+//					var menu=$(".menu").size();
+//					for(var i=0;i<menu;i++)
+//					{
+//						if($(".menu").eq(i).attr("id")==$(this).attr("id")){
+//							$(this).css("color","#379e0c");
+//							$(this).css("font-weight","bold");
+//						}
+//						else{
+//							$(".menu").eq(i).css("color","#777777");
+//							$(".menu").eq(i).css("font-weight","normal");
+//						}
+//					}
+//				})
+				$(".mypoint").click(function(){
+					var point=$(".mypoint").size();
+					for(var i=0;i<point;i++)
+					{
+						if($(".mypoint").eq(i).attr("id")==$(this).attr("id")){
+							$(this).css("background","#000000");
+							$(this).css("color","#FFFFFF");
+							$(this).css("border-color","#000000");
+						}
+						else{
+							$(".mypoint").eq(i).css("color","#000000");
+							$(".mypoint").eq(i).css("background","#FFFFFF");
+							$(".mypoint").eq(i).css("border-color","#CCCCCC");
+						}
+					}
+					
+				})
+				$(".pagebtn").click(function(){
+					var page=$(".pagebtn").size();
+					for(var i=0;i<page;i++)
+					{
+						if($(".pagebtn").eq(i).attr("id")==$(this).attr("id")){
+							$(this).css("color","#999999");
+							$(this).css("background","#efefef");
+						}
+						else{
+							$(".pagebtn").eq(i).css("color","#2953a6");
+							$(".pagebtn").eq(i).css("background","#FFFFFF");
+						}
+					}
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<include file="./Tpl/home/vip_header.html" />
+				
+		<div class="s_page">
+			<div class="s_MTcontent">
+				<include file="./Tpl/home/vip_leftnav.html" />
+				<div class="s_mpright fr font12">
+					<div class="mpright-top fontfamily2">
+						<ul>
+							<li class="mypoint" id="point1">积分明细</li>
+							<li class="mypoint" id="point2">积分收入</li>
+							<li class="mypoint" id="point3">积分支出</li>
+						</ul>
+					</div>
+					<div class="pointinfo fontfamily2">
+						<div class="info1 fl fontweight" style="width:153px;">
+							<p class="font16 ">可用的积分</p>
+							<p class="font32 color15 fontfamily">63</p>
+						</div>
+						<div class="info1 fl " style="width:202px;">
+							<p class="font16 fontweight">将要过期的积分</p>
+							<p class="font32 fontweight color15 fontfamily">0</p>
+							<p class="color1">2015年12月31日</p>
+						</div>
+						<div class="info3 fl">
+							<button>兑换超值商品与优惠券</button>
+						</div>
+					</div>
+					<div class="pointdetail font12">
+						<ul class="detailtitl">
+							<li class="useplace">来源/用途</li>
+							<li class="pointchange">积分变化</li>
+							<li class="pointdate">日期</li>
+							<li class="pointspan">备注</li>
+						</ul>
+						<div class="kongbai fl"></div>
+						<ul class="detailproj">
+							<li class="proj1">
+								<img src="__PUBLIC__/home/img/mypointimg_03.png" width="60px" height="60px" class="fl marginright10"/>
+								<p class="color2">科德士专业推剪泰毛推子用品CP-800</p><p class="color1">编号：123456789</p>
+							</li>
+							<li class="proj projcss" style="width:192px"><span>+63</span></li>
+							<li class="proj color1" style="width:197px"><span>2015年07月14日 09:14:46</span></li>
+							<li class="proj color1" style="width:200px"><span>交易获得</span></li>
+						</ul>
+						<ul class="detailproj">
+							<li class="proj1">
+								<img src="__PUBLIC__/home/img/mypointimg_03.png" width="60px" height="60px" class="fl marginright10"/>
+								<p class="color2">科德士专业推剪泰毛推子用品CP-800</p><p class="color1">编号：123456789</p>
+							</li>
+							<li class="proj projcss" style="width:192px"><span style="color: #30992e;">-346</span></li>
+							<li class="proj color1" style="width:197px"><span>2015年07月14日 09:14:46</span></li>
+							<li class="proj color1" style="width:200px"><span>交易获得</span></li>
+						</ul>
+						<ul class="detailproj">
+							<li class="proj1">
+								<img src="__PUBLIC__/home/img/mypointimg_03.png" width="60px" height="60px" class="fl marginright10"/>
+								<p class="color2">科德士专业推剪泰毛推子用品CP-800</p><p class="color1">编号：123456789</p>
+							</li>
+							<li class="proj projcss" style="width:192px"><span>+63</span></li>
+							<li class="proj color1" style="width:197px"><span>2015年07月14日 09:14:46</span></li>
+							<li class="proj color1" style="width:200px"><span>交易获得</span></li>
+						</ul>
+						<ul class="detailproj">
+							<li class="proj1">
+								<img src="__PUBLIC__/home/img/mypointimg_03.png" width="60px" height="60px" class="fl marginright10"/>
+								<p class="color2">科德士专业推剪泰毛推子用品CP-800</p><p class="color1">编号：123456789</p>
+							</li>
+							<li class="proj projcss" style="width:192px"><span>+63</span></li>
+							<li class="proj color1" style="width:197px"><span>2015年07月14日 09:14:46</span></li>
+							<li class="proj color1" style="width:200px"><span>交易获得</span></li>
+						</ul>
+						<ul class="detailproj">
+							<li class="proj1">
+								<img src="__PUBLIC__/home/img/mypointimg_03.png" width="60px" height="60px" class="fl marginright10"/>
+								<p class="color2">科德士专业推剪泰毛推子用品CP-800</p><p class="color1">编号：123456789</p>
+							</li>
+							<li class="proj projcss" style="width:192px"><span>+63</span></li>
+							<li class="proj color1" style="width:197px"><span>2015年07月14日 09:14:46</span></li>
+							<li class="proj color1" style="width:200px"><span>交易获得</span></li>
+						</ul>
+						<ul class="detailproj">
+							<li class="proj1">
+								<img src="__PUBLIC__/home/img/mypointimg_03.png" width="60px" height="60px" class="fl marginright10"/>
+								<p class="color2">科德士专业推剪泰毛推子用品CP-800</p><p class="color1">编号：123456789</p>
+							</li>
+							<li class="proj projcss" style="width:192px"><span>+63</span></li>
+							<li class="proj color1" style="width:197px"><span>2015年07月14日 09:14:46</span></li>
+							<li class="proj color1" style="width:200px"><span>交易获得</span></li>
+						</ul>
+						<div style="line-height: 56px;">
+							<button class="surebtn fr" style="margin: 17px 15px 0 10px;">确定</button>
+							<span class="fr pagespan" style="margin-left: 10px;">页</span>
+							<input type="text" value="1" class="fr pagetxt"/>
+							<span class="fr pagespan" style="margin-left: 10px;">到第</span>
+							<button class="fr next" style="margin:13px 0 0 3px">下一页</button>
+							<span class="fr pagespan" style="margin-left: 10px;">...</span>
+							<button class="pagebtn fr" id="page9">9</button>
+							<button class="pagebtn fr" id="page8">8</button>
+							<button class="pagebtn fr" id="page7">7</button>
+							<button class="pagebtn fr" id="page6">6</button>
+							<button class="pagebtn fr" id="page5">5</button>
+							<button class="pagebtn fr" id="page4">4</button>
+							<button class="pagebtn fr" id="page3">3</button>
+							<button class="pagebtn fr" id="page2">2</button>
+							<button class="pagebtn fr" id="page1">1</button>
+							<button class="fr next" style="margin:14px 0 0 8px">上一页</button>
+						</div>
+					</div>	
+				</div>
+				<br class="clear"/>
+			</div>
+		</div>
+		<include file="./Tpl/home/vip_footer.html" />
+	</body>
+</html>

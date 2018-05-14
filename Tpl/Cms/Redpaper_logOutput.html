@@ -1,0 +1,135 @@
+<style>
+	.left15{float:left !important;padding-left: 15px!important;}
+</style>
+<!--Bootstrap Date Picker-->
+<script src="__PUBLIC__/Cms/js/datetime/bootstrap-datepicker.js"></script>
+<div class="row">
+     <div class="col-xs-12 col-xs-12">
+          <div class="widget radius-bordered">
+              <div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">openid导出红包</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+              <div class="widget-body">
+                   <form id="JoelForm" action="" method="post" class="form-horizontal"
+                                                  data-bv-message=""
+                                                  data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                                                  data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                                                  data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                   
+                   <div class="form-title">
+                        <a href="{:U('Cms/redpaper/orderlist/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="红包订单列表">
+							<i class="fa fa-mail-reply"></i>返回
+						</a>
+                   </div>
+                   <!--、抽奖方式-->
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">状态</label>
+                        <div class="col-lg-4">
+                            <select class="form-control" name="status">
+                                <option value="all" >全选</option>
+                                  <option value="0" selected="true">未发送</option>
+                                  <option value="1">已发送</option>
+                                  <option value="2">已领取</option>
+                                  <option value="3">超时未领取</option>
+                                  <option value="4">发送失败</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">金额选择</label>
+                        <div class="col-lg-4">
+                            <select class="form-control" name="money" id="paytype" >
+                                <option value="all" >全选</option>
+                                <foreach name="cache.money" item="vo">
+                                  <option value="{$vo[money]}">{$vo['money']}元</option>
+                                </foreach>
+                            </select>
+                        </div>
+                   </div>
+                   
+                   
+                   
+                  <div class="form-group">
+        						<label class="col-lg-2 control-label">开始时间<sup>*</sup></label>
+        						<div class="col-lg-4">
+        							<div class="input-group">
+        								<input class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" class="stime" name="stime" value="{$cache.stime}">
+        								<span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+        							</div>
+        						</div>
+                    <span class="text darkorange">&nbsp;&nbsp;&larr;重要：时间默认为00时00分00秒。</span>
+        					</div>
+        					<div class="form-group">
+        						<label class="col-lg-2 control-label">结束时间<sup>*</sup></label>
+        						<div class="col-lg-4">
+        							<div class="input-group">
+        								<input class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" class="etime" name="etime" value="{$cache.etime}">
+        								<span class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+        							</div>
+        						</div>
+                    <span class="text darkorange">&nbsp;&nbsp;&larr;重要：时间默认为00时00分00秒。</span>
+        					</div>
+			<div class="form-group">
+                <div class="col-lg-offset-2 col-lg-6">
+                     <a class="btn btn-primary btn-lg" id="text">下载text格式</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <button class="btn btn-primary btn-lg" type="submit">发送完成</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                     <!-- <a class="btn btn-primary btn-lg" id="excel">下载excel格式</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                     <button class="btn btn-palegreen btn-lg" type="reset">重填</button>
+                </div>
+            </div>
+           </form>
+        </div>
+        </div>
+	</div>
+     
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--编辑器封装-->
+<script type="text/javascript">
+	var ue = UE.getEditor('J-ueditor', {
+		textarea:'content'//提交字段名，必须填写，数据库必须有此字段		
+	});	
+</script>
+<!--/编辑器封装-->
+<!--表单验证与提交封装-->
+<script type="text/javascript">
+	//--Bootstrap Date Picker--
+  $('.date-picker').datepicker();
+  $('#text').click(function(){
+    var status=$("select[name=status] option:selected").val();
+    var money=$("select[name=money] option:selected").val();
+    var stime=$("input[name='stime']").val();
+    var etime=$("input[name='etime']").val();
+    var url="{:U('cms/redpaper/downloadtext')}/status/"+status+"/money/"+money+"/stime/"+stime+"/etime/"+etime;
+    window.open(url);
+  })
+  $('#JoelForm').bootstrapValidator({
+    submitHandler: function (validator, form, submitButton) {
+           var tourl="{:U('Cms/redpaper/changeStatus')}";
+      var data=$('#JoelForm').serialize();
+      $.Joel.ajax('post',tourl,data,null);
+        return false;
+      },
+  });
+</script>

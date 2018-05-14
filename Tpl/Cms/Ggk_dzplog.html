@@ -1,0 +1,159 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">抽奖纪录</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="table-toolbar">
+					<!--<a href="{:U('Cms/Ggk/dzpset/')}" class="btn btn-primary" data-loader="Joel-loader" data-loadername="活动设置">
+						<i class="fa fa-plus"></i>新增活动
+					</a>
+					<a href="#" class="btn btn-danger" id="Joel-delall">
+						<i class="fa fa-delicious"></i>全部删除
+					</a>-->
+					<div class="pull-right">
+						<form id="Joel-search">
+							<label style="margin-bottom: 0px;">
+								<input name="name" type="search" class="form-control input-sm" placeholder="按会员ID搜索" value="{$name}">
+							</label>
+							<a href="{:U('Cms/Ggk/dzplog/')}" class="btn btn-success" data-loader="Joel-loader" data-loadername="抽奖纪录" data-search="Joel-search">
+								<i class="fa fa-search"></i>搜索
+							</a>
+						</form>
+					</div>
+				</div>
+
+				<table id="Joel-table" class="table table-bordered table-hover">
+					<thead class="bordered-darkorange">
+						<tr role="row">
+							<th width="30px"><div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+									<label style="padding-left: 4px;"> <input type="checkbox" class="Joel-checkall colored-blue">
+                                     <span class="text"></span>
+									</label>                                    
+                                </div></th>
+							<th>ID</th>
+							<!--<th>UID</th>-->
+							<th>活动ID</th>
+							<th>会员ID</th>
+							<th>会员Openid</th>
+							<th>时间说明</th>
+							<th>IP地址</th>
+							<th>纪录时间</th>	
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="cache" id="vo">
+							<tr id="item{$vo.id}">
+								<td>
+									<div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+										<label style="padding-left: 4px;"> <input name="checkvalue" type="checkbox" class="colored-blue Joel-check" value="{$vo.id}">
+	                                     <span class="text"></span>
+										</label>                                    
+	                                </div>
+								</td>
+								<td class=" sorting_1">{$vo.id}</td>
+								<!--<td class=" ">{$vo.uid}</td>-->
+								<td class=" ">{$vo.dzpid}</td>
+								<td class=" ">{$vo.vipid}</td>
+								<td class=" ">{$vo.openid}</td>
+								<td class=" ">{$vo.result}</td>
+								<td class=" ">{$vo.ip}</td>
+								<td class=" ">{$vo.ctime|date='Y-m-d H:i',###}</td>
+								
+								
+							</tr>
+						</volist>
+												
+					</tbody>
+				</table>
+				<div class="row DTTTFooter">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--全选特效封装/全部删除-->
+<script type="text/javascript">
+	//全选
+	var checkall=$('#Joel-table .Joel-checkall');
+	var checks=$('#Joel-table .Joel-check');
+	var trs=$('#Joel-table tbody tr');
+	$(checkall).on('click',function(){
+		if($(this).is(":checked")){			
+			$(checks).prop("checked","checked");
+		}else{
+			$(checks).removeAttr("checked");
+		}		
+	});
+	$(trs).on('click',function(){
+		var c=$(this).find("input[type=checkbox]");
+		if($(c).is(":checked")){
+			$(c).removeAttr("checked");
+		}else{
+			$(c).prop("checked","checked");
+		}		
+	});
+	//全删
+	$('#Joel-delall').on('click',function(){
+		var checks=$(".Joel-check:checked");
+		var chk='';
+		$(checks).each(function(){
+			chk+=$(this).val()+',';
+		});
+		if(!chk){
+			$.Joel.alert('danger','请选择要删除的项目！');
+			return false;
+		}
+		var toajax="{:U('Cms/Ggk/dzpDel')}"+"/id/"+chk;
+		var funok=function(){
+			var callok=function(){
+				//成功删除后刷新
+				$('#refresh-toggler').trigger('click');
+				return false;
+			};
+			var callerr=function(){
+				//拦截错误
+				return false;
+			};
+			$.Joel.ajax('post',toajax,'nodata',callok,callerr);
+		}						
+		$.Joel.confirm("确认要删除吗？",funok);
+	});
+	//上下架
+	$('.status').on('click',function(){
+		var id=$(this).data('id');
+		var status=$(this).data('status');
+		var toajax="/Cms/Shop/goodsStatus";
+		var data={'id':id,'status':status};
+		var callok=function(){
+			$('#refresh-toggler').trigger('click');
+			return false;
+		};
+		var callerr=function(){
+			//拦截错误
+			return false;
+		};
+		$.Joel.ajax('post',toajax,data,callok,callerr);
+	});
+</script>
+<!--/全选特效封装-->

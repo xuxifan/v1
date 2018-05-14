@@ -1,0 +1,19 @@
+<volist name="new" id="vt" mod="2">
+	<div class="p-pitembox">
+		<div class="p-pitemleft">
+			<a href="{:U('Wap/Shop/goods',array('id'=>$vt['id']))}"><img src="{$vt.imgurl}"></a>
+		</div>
+		<div class="p-pitemright">
+			<a href="{:U('Wap/Shop/goods',array('id'=>$vt['id']))}">
+				<div class="p-pitemname">{$vt.name}</div>
+				<div class="p-pitemprice">￥{$vt.price} <span>原价￥{$vt.oprice}</span></div>
+				<div class="p-pitemsx">剩余：{$vt.num}</div>
+				<div class="p-pitemsl">销量：
+					<eq name="vt.issells" value="1">{$vt.dissells}
+						<else/>{$vt.sells}</eq>
+				</div>
+			</a>
+		</div>
+		<div class="p-clear"></div>
+	</div>
+</volist>

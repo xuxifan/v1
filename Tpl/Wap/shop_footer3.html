@@ -1,0 +1,87 @@
+<style>
+	.insert1 {
+	    height: 50px;
+	}
+	.son-ul{
+		position:absolute;
+		bottom:51px;
+		border:1px solid #aaa;
+		border-top:none;
+		display:none;
+	}
+	.son-ul li{
+		display:block;
+		width:75px;
+		height:23px;
+		text-align: center;
+		float:none;
+		background:#ededed;
+		color:#7c7c7c;
+		border-top:1px solid #aaa;
+		padding:5px 0;
+		line-height:28px;
+		font-size: 0.75em;
+	}
+	.ui-navtt img{
+		width: 71%;
+	}
+</style>
+		<div class="insert1"></div>
+		<div class="ui-nav">
+			<ul class="ui-navul ovflw">
+				<li><a href="{:U('Wap/Shop/index')}" id="fthome"><span class="iconfont">&#xe676</span><p class="ui-navtt">首页</p></a></li>
+				<li class="father">
+					
+					<a id="sellmode"><span class="iconfont">&#xe69b</span><p class="ui-navtt">营销活动</p></a>
+					<ul class="son-ul">
+						<li><a href="{:U('wap/fxshop/labellist')}">场景电商</a></li>
+					<notempty name="_SESSION['WAP']['shopset']['isyydb']">
+						<li><a href="{:U('wap/yydb/index')}">一元夺宝</a></li>
+					</notempty>
+					<notempty name="_SESSION['WAP']['shopset']['isteg']">
+						<li><a href="{:U('wap/points/index')}">积分商城</a></li>
+					</notempty>
+					<notempty name="_SESSION['WAP']['shopset']['isptg']">
+						<li><a href="{:U('wap/ptg/ptglist')}">拼团购</a></li>
+					</notempty>
+					<notempty name="_SESSION['WAP']['shopset']['isjys']">
+						<li><a href="{:U('wap/jys/jyslist')}">聚友杀</a></li>
+					</notempty>
+					<notempty name="_SESSION['WAP']['shopset']['isredpaper']">
+						<li><a href="{:U('wap/redpaper/index')}">卡主红包</a></li>
+					</notempty>
+					</ul>
+					
+
+				</li>
+				<li><a id="J-menu-startfoot"><p class="ui-navtt"><img src="{$indexset['imgurl']}"/></p></a></li>
+				<!--添加拼团购 聚友杀订单页面   张旭光   2016.2.19-->
+				<li class="father">
+					<a id="ftorder"><span class="iconfont">&#xe699</span><p class="ui-navtt">订单</p></a>
+					<ul class="son-ul">
+						<li><a href="{:U('wap/shop/orderlist',array('sid'=>$_SESSION['WAP']['vip']['sid']))}">普通订单</a></li>
+						<li><a href="{:U('wap/points/orderlist',array('sid'=>$_SESSION['WAP']['vip']['sid']))}">积分订单</a></li>
+						<li><a href="{:U('wap/shop/ptgorderlist',array('sid'=>$_SESSION['WAP']['vip']['sid']))}">我的团</a></li>
+						<li><a href="{:U('wap/shop/jysorderlist',array('sid'=>$_SESSION['WAP']['vip']['sid']))}">我的杀</a></li>
+					</ul>
+				</li>
+				<!--添加拼团购 聚友杀订单页面   张旭光   2016.2.19-->				
+				
+				<li><a href="{:U('Wap/Vip/index')}" id="ftvip"><span class="iconfont">&#xe686</span><p class="ui-navtt">个人中心</p></a></li> <!--xe6af-->
+			</ul> <!--{:U('Wap/Shop/basket',array('sid'=>0,'lasturl'=>$footlasturl))}-->
+		</div>
+		<script type="text/javascript">
+			 var actname="{$actname}";
+			 //底部选中的菜单颜色
+			 $('#'+actname).css('color','#2bb8aa');
+			 //
+			 
+			 $('.father').click(function(){
+			 	if($(this).find(".son-ul").css("display")=="block"){
+			 		$(this).find(".son-ul").toggle()
+			 	}else{
+				 	$(".son-ul").hide();
+				 	$(this).find(".son-ul").toggle()
+			 	}
+			 })
+		</script>

@@ -1,0 +1,250 @@
+<div class="row">
+	<div class="col-xs-12 col-md-12">
+		<div class="widget">
+			<div class="widget-header bg-blue">
+				<i class="widget-icon fa fa-arrow-down"></i>
+				<span class="widget-caption">字段管理</span>
+				<div class="widget-buttons">
+					<a href="#" data-toggle="maximize">
+						<i class="fa fa-expand"></i>
+					</a>
+					<a href="#" data-toggle="collapse">
+						<i class="fa fa-minus"></i>
+					</a>
+					<a href="#" data-toggle="dispose">
+						<i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="widget-body">
+				<div class="table-toolbar">
+					<a href="{:U('Cms/Ggk/acformList/')}" class="btn btn-purple" data-loader="Joel-loader" data-loadername="活动表单列表">
+						<i class="fa fa-plus"></i>返回
+					</a>
+					<!--<button class="btn btn-primary" id="Joel-field-add">
+						<i class="fa fa-plus"></i>添加标准字段
+					</button>-->
+					<button class="btn btn-success" id="Joel-diyfield-add">
+						<i class="fa fa-delicious"></i>添加字段
+					</button>
+					
+					<a href="{:U('Cms/Ggk/acformField/')}" class="btn btn-danger" data-loader="Joel-loader" data-loadername="活动表单列表">
+						<i class="fa fa-delicious"></i></i>刷新菜单
+					</a>
+					<span style="color:#F00B0D">* 添加完字段点击刷新按钮</span>
+					
+				</div>
+
+				<table id="Joel-table" class="table table-bordered table-hover">
+					<thead class="bordered-darkorange">
+						<tr role="row">
+							<!--<th width="30px"><div class="checkbox" style="margin-bottom: 0px; margin-top: 0px;">
+									<label style="padding-left: 4px;"> <input type="checkbox" class="Joel-checkall colored-blue">
+                                     <span class="text"></span>
+									</label>                                    
+                                </div></th>-->
+							<th width="80px">ID</th>
+							<!--<th width="150px">字段类型</th>-->
+							<th width="150px">字段名称</th>
+							<th width="150px">字段键值</th>
+							<th width="150px">内容类型</th>
+							<!--<th width="150px">内容描述</th>
+							<th width="">内容值</th>-->
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody id="Joel-table-tbody">
+						<volist name="cache" id="cache">
+						<tr class="Joel-checktr" id="item{$cache.id}" data-id = "{$cache.id}" data-ftype="{$cache.ftype}" data-name="{$cache.name}" data-field="{$cache.fields}" data-type = "{$cache.type}" data-place="{$cache.place}"  data-value = "{$cache.value}">
+							<td>{$cache.id}</td>
+							<!--<td>{$cache.ftype}</td>-->
+							<td>{$cache.name}</td>
+							<td>{$cache.fields}</td>
+							<td><switch name="cache.type">
+								<case value="text">单行文本</case>
+								<!--<case value="textarea">多行文本</case>
+								<case value="radio">单选</case>
+								<case value="checkbox">多选</case>
+								<case value="select">下拉框</case>
+								<case value="date">时间</case>-->
+							</switch></td>
+							<!--<td>{$cache.place}</td>
+							<td>{$cache.value}</td>-->
+							<td class="center ">
+								
+								<!--<a id="Joel-diyfield-add" class="btn btn-success btn-xs" data-loader="Joel-loader" data-loadername="万能表单设置"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;-->
+								
+								<!--<a  class="btn btn-success btn-xs field-up" data-item = "item{$cache.id}" ><i class="fa fa-arrow-up"></i> 上移</a>
+								<a  class="btn btn-primary btn-xs field-down" data-item = "item{$cache.id}" ><i class="fa fa-arrow-down"></i> 下移</a>-->
+								<a href="{:U('Cms/Ggk/acfieldDel/')}" class="btn btn-danger btn-xs" data-type = "del" data-ajax="{:U('Cms/Ggk/acfieldDel/',array('id'=>$cache['id']))}" ><i class="fa fa-trash-o"></i> 删除</a>
+							</td>
+						</tr>
+						</volist>					
+					</tbody>
+				</table>
+				<div class="row DTTTFooter">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--面包屑导航封装-->
+<div id="tmpbread" style="display: none;">{$breadhtml}</div>
+<script type="text/javascript">
+	setBread($('#tmpbread').html());
+</script>
+<!--/面包屑导航封装-->
+<!--全选特效封装/全部删除-->
+<script type="text/javascript">
+	//全选
+	//Joel默认标准字段管理器
+//		function joelFieldloader(ids,fbid){
+//			//ids  已选择的属性
+//			//fbid 查找带回的文本框ID,全局唯一
+//			$.ajax({
+//					type:"post",
+//					url:"{:U('Cms/Ggk/formFieldLoader')}",
+//					data:{'ids':ids,'fbid':fbid},
+//					dataType: "json",
+//					//beforeSend:$.Joel.loading(),
+//					success:function(mb){
+//						//$.Joel.loading();
+//						bootbox.dialog({
+//	                	message: mb,
+//	                	title: "万能表单标准字段管理器",
+//	                	className: "modal-darkorange",
+//	                	buttons: {
+//			                    "取消": {
+//			                        className: "btn-danger",
+//			                        callback: function () { }
+//			                    }
+//		                	}
+//		            	});
+//					},
+//					error:function(xhr){
+//						$.Joel.alert('danger','通讯失败！请重试！');
+//					}
+//			});
+//			return false;
+//		}
+		
+	function joelDiyFieldloader(count,fbid){
+			//count  第几个自定义字段
+			//fbid 查找带回的文本框ID,全局唯一
+			$.ajax({
+					type:"post",
+					url:"{:U('Cms/Ggk/formDiyFieldLoader')}",
+					data:{'count':count,'fbid':fbid},
+					dataType: "json",
+					//beforeSend:$.Joel.loading(),
+					success:function(mb){
+						//$.Joel.loading();
+						bootbox.dialog({
+	                	message: mb,
+	                	title: "活动表单字段管理器",
+	                	className: "modal-darkorange",
+	                	buttons: {
+			                    "取消": {
+			                        className: "btn-danger",
+			                        callback: function () { }
+			                    }
+		                	}
+		            	});
+					},
+					error:function(xhr){
+						$.Joel.alert('danger','通讯失败！请重试！');
+					}
+			});
+			return false;
+		}
+//	
+//	$('#Joel-field-add').on('click',function(){
+//			var trs=$('#Joel-table-tbody .Joel-checktr');
+//			var fbid="Joel-table-tbody";
+//			var ids="";
+//			$(trs).each(function(){
+//				if($(this).data('ftype')=='normal'){
+//					var id=$(this).data('id');
+//					ids=ids+id+',';
+//				}
+//			});
+//			joelFieldloader(ids,fbid);
+//	});
+	
+	$('#Joel-diyfield-add').on('click',function(){
+			var trs=$('#Joel-table-tbody .Joel-checktr');
+			var fbid="Joel-table-tbody";
+			var count=0;
+//			$(trs).each(function(){
+//				if($(this).data('ftype')=='diy'){
+//					count++;
+//				}
+//			});
+//			if(count>=5){
+//				alert('最多只允许添加5个自定义字段！');
+//				return false;
+//			}else{
+				count=count+1;
+				ct='diy'+count;
+				joelDiyFieldloader(ct,fbid);
+			//}
+			
+	});
+	
+	//保存自定义字段
+//	$('#Joel-field-save').on('click',function(){
+//		    var formid="{$form.id}";
+//			var trs=$('#Joel-table-tbody .Joel-checktr');
+//			var fbid="Joel-table-tbody";
+//			var myfield=new Array;
+//			var count=0;
+//			$(trs).each(function(){
+//				var arr=new Object();
+//				arr['ftype']=$(this).data('ftype');
+//				arr['id']=$(this).data('id');
+//				arr['name']=$(this).data('name');
+//				arr['field']=$(this).data('field');
+//				arr['type']=$(this).data('type');
+//				arr['place']=$(this).data('place');
+//				arr['value']=$(this).data('value');
+//				myfield.push(arr);
+//				//myfield[count]=arr;
+//				count++;
+//			});
+//			if(count){
+//				var tourl="{:U('Cms/Form/fieldSave')}";
+//				//var dt=JSON.stringify(myfield);
+//				var dt=myfield;
+//				$.Joel.ajax('post',tourl,{'id':formid,'dt':dt},null);
+//			}else{
+//				alert('请先添加字段！');	
+//			}
+//			
+//			
+//	});
+	
+		
+	
+	//初始化上移，下移方法
+	function initFormFindback(){
+		$('.field-up').on('click',function(){
+			 $(this).parents("tr").prev().before($(this).parents("tr")); 
+			 return false;
+		});
+		$('.field-down').on('click',function(){
+			 $(this).parents("tr").next().after($(this).parents("tr")); 
+			 return false;
+		});
+		$('.field-del').on('click',function(){
+			 $(this).parents("tr").remove(); 
+			 return false;
+		});
+		
+	}
+	
+	$(document).ready(function(){
+		initFormFindback();
+	});
+</script>
+<!--/全选特效封装-->

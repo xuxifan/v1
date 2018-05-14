@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>订单详情</title>
+		<include file="./Tpl/home/index_head.html" />
+		<style>
+			.tuihuoform{
+				width: 1000px;
+				margin: 0 auto;
+				border-top: 2px solid #f6f6f6;
+				padding-top: 20px;
+				padding-bottom: 20px;
+			}
+			.tuihuoform .row{
+				line-height: 32px;
+				padding-left: 50px;
+			}
+			.tuihuoform .row label{
+				font-size: 16px;
+			}
+			.tuihuoform .row input{
+				width: 200px;
+				height: 24px;
+				margin-left: 1em;
+			}
+			.tuihuoform .order-btn{
+				border: 1px solid #dcdcdc;
+				background: #fafafa;
+				padding: 10px 20px;
+				min-width: 100px;
+				text-align: center;
+				display: block;
+				float: left;
+				margin-top: 40px;
+				margin-left: 50px;
+				border-radius: 2px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<include file="./Tpl/home/index_header.html" />
+		<!--logo和订单确认title-->
+		<div class="wapper">
+			<div class="fl logo">
+				<a href="javascript:void(0)"><img src="__PUBLIC__/home/img/logo01.jpg" width="233" height="27"></a>
+			</div>
+			<div class="fr mygwc">
+				<a>
+					<img src="__PUBLIC__/home/img/sureorder_03.png" width="24" height="26">
+					<span>订单号:{$cache.oid}</span>
+				</a>
+				<p style="text-align: right;"><span>
+						<switch name="cache.status">
+							<case value="0">已取消</case>
+							<case value="1">待付款</case>
+							<case value="2">待发货</case>
+							<case value="3">待收货</case>
+							<case value="4">退货中</case>
+							<case value="5">已完成</case>
+							<case value="6">已关闭</case>
+							<case value="7">退货完成</case>
+						</switch>
+					</span>
+				</p>
+			</div>
+		</div>
+		<!--主内容-->
+		<div class="f_sont wapper">
+			<h4 class="f14">1.地址</h4>
+			<div class="address">
+				<ul>
+					<li id="address1">
+						<p>{$cache.vipname}</p>
+						<p>{$cache.vipmobile}</p>
+						<p>{$cache.vipaddress}</p>
+					</li>
+				</ul>
+				<br class="clear" />
+			</div>
+			<h4 class="f14">2.产品清单</h4>
+			<div class="productlist f14 fl">
+				<ul style="width: 265px;">
+					<li>产品名称</li>
+					<volist name='cache["items"]' id='vo'>
+						<li style="height: 68px;">
+							<img src="{$vo.pic}" width="58" height="58" />
+							<p>{$vo.name}</p>
+						</li>
+					</volist>
+				</ul>
+				<ul style="width: 154px;text-align: center;">
+					<li>价格</li>
+					<volist name='cache["items"]' id='vo'>
+						<li style="height: 68px;">
+							<p>平台价：{$vo.price}元</p>
+							<p class="f12 cor01" style="">{$vo.skuattr}&nbsp;</p>
+						</li>
+					</volist>
+				</ul>
+				<ul style="width: 179px;text-align: center;">
+					<li>数量</li>
+					<volist name='cache["items"]' id='vo'>
+						<li style="height: 68px;border-right: 1px solid #dcdcdc;">
+							<p>×{$vo.num}份</p>
+						</li>
+					</volist>
+				</ul>
+				<ul style="width: 122px;text-align: center;">
+					<li>合计（元）</li>
+					<li style="border-right: 1px solid #dcdcdc;" class="sum-box">
+						<p class="cor03">{$cache.payprice}</p>
+					</li>
+				</ul>
+				<ul style="width: 245px;text-align: center;">
+					<li>备注</li>
+					<li style="" class="sum-box">
+						<textarea placeholder="请输入你的备注内容..." name="msg">{$cache.msg}</textarea>
+					</li>
+				</ul>
+			</div>
+			<h4 class="f14">3.详细信息</h4>
+			<div class="productlist f14 fl">
+				<p style=""><span>邮费：{$cache.yf}元</span></p>
+				<p style=""><span>下单时间：{$cache.ctime|date='Y-m-d H:i:s',###}</span></p>
+				<p style=""><span>备注：{$cache.msg}</span></p>
+			</div>
+			<h4 class="f14 fl">4.支付方式</h4>
+			<span class="fr f14" style="margin-right: 32px;">共 <span class="f20 f_wei cor03">{$cache.totalnum}</span> 件商品&nbsp;商品合计：<span class="f20 f_wei cor03">¥{$cache.payprice}</span></span>
+			<div class="payway fl">
+				<form id="paywayform" method="post">
+					<input value="{$cache['id']}" name="orderid" type="hidden" />
+					<ul class="fl" style="width: 100%;">
+						<if condition="$cache.ispay eq 1">
+							<switch name="cache['paytype']">
+								<case value="money">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_03.png" class="way" />
+									</li>
+								</case>
+								<case value="alipay">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_05.png" class="way" />
+									</li>
+								</case>
+								<case value="wxpay">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_06.png" class="way" />
+									</li>
+								</case>
+								<case value="paypalpay">
+									<li>
+										<img src="__PUBLIC__/home/img/payway_07.png" class="way" />
+									</li>
+								</case>
+								<default />
+							</switch>
+							<else/>
+						</if>
+					</ul>
+				</form>
+			</div>
+		</div>
+		<div class="tuihuoform">
+				<form id="thform">
+					<input name="orderid" type="hidden" value="{$cache.id}"/>
+					<p class="row">
+						<label>退货金额:</label>
+						<input name="tuihuoprice" type="text" value="{$cache.tuihuoprice}"/>
+						元
+					</p>
+					<p class="row">
+						<label>快递公司:</label>
+						<input name="tuihuokd" type="text" value="{$cache.tuihuokd}"/>
+					</p>
+					<p class="row">
+						<label>快递单号:</label>
+						<input name="tuihuokdnum" type="text" value="{$cache.tuihuokdnum}"/>
+					</p>
+					<p class="row">
+						<label>退货说明:</label>
+						<input name="tuihuomsg" type="text" value="{$cache.tuihuomsg}"/>
+					</p>
+				</form>
+			<a class="order-btn" href="javascript:history.back()">返回订单列表</a>
+			<if condition="$cache[status] eq 3">
+			<a class="order-btn btn-tuihuo" style="background-color: #F5836F;color: #fff;" href="javascript:void(0)">申请退货</a>
+			</if>
+			<br class="clear"/>
+		</div>
+		<include file="./Tpl/home/index_footer.html" />
+		<include file="./Tpl/home/index_rightnav.html" />
+		<script>
+			$('.sum-box').height(79 * parseInt('{:count($cache["items"])}') - 11);
+		</script>
+	</body>
+	<script>
+	$('.btn-tuihuo').click(function(){
+		var form=$('#thform').serializeObject()
+		if(!form.tuihuoprice||parseFloat(form.tuihuoprice)>parseFloat('{$cache.payprice}')){
+			alert_msg("退货价格不能为空,退货价格不能大于订单价格!",function(){
+				$('input[name=tuihuoprice]').focus();
+			})
+			return;
+		}
+		if(!form.tuihuokd){
+			alert_msg("请填写快递公司!",function(){
+				$('input[name=tuihuokd]').focus();
+			})
+			return;
+		}
+		if(!form.tuihuokdnum){
+			alert_msg("请填写快递单号!",function(){
+				$('input[name=tuihuokdnum]').focus();
+			})
+			return;
+		}
+		if(form.tuihuomsg<10){
+			alert_msg("退货说明不能小于10个字!",function(){
+				$('input[name=tuihuomsg]').focus();
+			})
+			return;
+		}
+		$.ajax({
+			type:"post",
+			url:"{:u('home/vip/orderTuihuoSave')}",
+			data:form,
+			async:true,
+			success:function(e){
+				if(e.status==1){
+					alert_msg(e.msg,function(){
+						location.href=location.href;
+					})
+				}else{
+					alert_msg(e.msg);
+				}
+			}
+		});
+	})
+	</script>
+</html>

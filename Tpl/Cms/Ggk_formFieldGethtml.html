@@ -1,0 +1,21 @@
+<tr class="Joel-checktr" id="item{$cache.id}" data-id = "{$cache.id}" data-ftype="normal" data-name="{$cache.name}" data-field="{$cache.field}" data-type = "{$cache.type}" data-place="{$cache.place}"  data-value = "{$cache.value}">
+	<td>{$cache.id}</td>
+	<td>{$cache.ftype}</td>
+	<td>{$cache.name}</td>
+	<td>{$cache.field}</td>
+	<td><switch name="cache.type">
+		<case value="1">单行文本</case>
+		<case value="2">多行文本</case>
+		<case value="3">单选</case>
+		<case value="4">多选</case>
+		<case value="5">下拉框</case>
+		<case value="6">时间</case>
+	</switch></td>
+	<td>{$cache.place}</td>
+	<td>{$cache.value}</td>
+	<td class="center ">
+		<a  class="btn btn-success btn-xs field-up" data-item = "item{$cache.id}" ><i class="fa fa-arrow-up"></i> 上移</a>
+		<a  class="btn btn-primary btn-xs field-down" data-item = "item{$cache.id}" ><i class="fa fa-arrow-down"></i> 下移</a>
+		<a  class="btn btn-danger btn-xs field-del" data-item = "item{$cache.id}"><i class="fa fa-trash-o"></i> 移除</a>
+	</td>
+</tr>

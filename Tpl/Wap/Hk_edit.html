@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>编辑贺卡</title>
+	    <meta charset="utf-8" />
+		<!--页面优化-->
+		<meta name="MobileOptimized" content="320">
+		<!--默认宽度320-->
+		<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+		<!--viewport 等比 不缩放-->
+		<meta http-equiv="cleartype" content="on">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--删除苹果菜单-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<!--默认颜色-->
+		<meta name="apple-mobile-web-app-title" content="yes">
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--加载全部后 显示-->
+		<meta content="telephone=no" name="format-detection" />
+		<!--不识别电话-->
+		<meta content="email=no" name="format-detection" />
+		<script type="text/javascript" src="__PUBLIC__/wap/js/zepto.min.js"></script>
+		<style type="text/css">
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*
+ * Copyright (c) 2013 Thibaut Courouble
+ * http://www.webinterfacelab.com
+ *
+ * Licensed under the MIT License:
+ * http://www.opensource.org/licenses/mit-license.php
+ */
+::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+:-moz-placeholder {
+  color: #879fa6 !important;
+}
+
+::-webkit-input-placeholder {
+  color: #879fa6;
+}
+
+:-ms-input-placeholder {
+  color: #879fa6 !important;
+}
+
+body {
+	font-family:microsoft yahei,Arial, Helvetica, sans-serif;
+	font-size:16px;
+	color: #404040;
+	background: #e4ecef;
+}
+
+input, textarea, select, label {
+  font-family: inherit;
+  font-size: 16px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.contact {
+  position: relative;
+  width:92%;
+  margin: 20px auto;
+  padding: 5px;
+  background: #eef5f7;
+  border: 1px solid #cfd5da;
+  border-bottom-color: #ccd1d6;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.contact-inner {
+  padding: 8px;
+  background: white;
+  border-radius: 2px;
+}
+
+.contact:before, .contact:after, .contact-inner:before, .contact-inner:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  width: 1px;
+  height: 1px;
+  border: outset transparent;
+  border-width: 12px 14px 0;
+  border-top-style: solid;
+  -webkit-transform: rotate(360deg);
+}
+
+.contact:before {
+  margin-top: 1px;
+  border-top-color: #d8e1e6;
+}
+
+.contact-inner:before {
+  border-top-color: #ccd1d6;
+}
+
+.contact-inner:after {
+  margin-top: -1px;
+  border-top-color: #eef5f7;
+}
+
+.contact:after {
+  margin-top: -8px;
+  border-top-color: white;
+}
+
+.contact-input {
+  margin-bottom: 20px;
+  padding: 5px;
+  background: #eef7f9;
+  border-radius: 2px;
+}
+.contact-input > input, .contact-input > textarea {
+  display: block;
+  width: 100%;
+  height: 60px;
+  padding: 0 9px;
+  color: #4d5a5e;
+  background: white;
+  border: 1px solid #cfdfe3;
+  border-bottom-color: #d2e2e7;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px rgba(255, 255, 255, 0.2);
+}
+.contact-input > input:focus, .contact-input > textarea:focus {
+  border-color: #93c2ec;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 8px #e1ecf5;
+  box-shadow: 0 0 0 8px #e1ecf5;
+}
+.lt-ie9 .contact-input > input, .lt-ie9 .contact-input > textarea {
+  line-height: 27px;
+}
+.contact-input > textarea {
+  padding: 4px 8px;
+  height: 150px;
+  line-height: 20px;
+  resize: none;
+}
+
+.select {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #d2e2e7;
+  border-bottom-color: #c5d4d9;
+  border-radius: 2px;
+  background-image: -webkit-linear-gradient(top, #fcfdff, #f2f7f7);
+  background-image: -moz-linear-gradient(top, #fcfdff, #f2f7f7);
+  background-image: -o-linear-gradient(top, #fcfdff, #f2f7f7);
+  background-image: linear-gradient(to bottom, #fcfdff, #f2f7f7);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.select:before, .select:after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border-left: 3px outset transparent;
+  border-right: 3px outset transparent;
+}
+.select:before {
+  top: 16px;
+  border-bottom: 10px solid #7f9298;
+}
+.select:after {
+  top: 10px;
+  border-top: 10px solid #7f9298;
+}
+.select > select {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 40px;
+  line-height: 20px;
+  padding: 5px 9px;
+  padding-right: 0;
+  color: #80989f;
+  background: transparent;
+  background: rgba(0, 0, 0, 0);
+  border: 0;
+  -webkit-appearance: none;
+}
+.select > select:focus {
+  color: #4d5a5e;
+  outline: 0;
+}
+
+.contact-submit {
+  text-align: center;
+}
+.contact-submit > input {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 14px;
+  width: 90%;
+  height: 40px;
+  font-weight: bold;
+  color: #729fb2;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+  background: #deeef4;
+  border: 1px solid #bed6e3;
+  border-bottom-color: #accbd9;
+  border-radius: 15px;
+  cursor: pointer;
+  background-image: -webkit-linear-gradient(top, #e6f2f7, #d0e6ee);
+  background-image: -moz-linear-gradient(top, #e6f2f7, #d0e6ee);
+  background-image: -o-linear-gradient(top, #e6f2f7, #d0e6ee);
+  background-image: linear-gradient(to bottom, #e6f2f7, #d0e6ee);
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 4px #eef7f9;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px 1px rgba(0, 0, 0, 0.06), 0 0 0 4px #eef7f9;
+}
+.contact-submit > input:active {
+  color: #6a95a9;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.3);
+  background: #c9dfe9;
+  border-color: #a3bed0 #b5ccda #b5ccda;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px rgba(255, 255, 255, 0.2), 0 0 0 4px #eef7f9;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px rgba(255, 255, 255, 0.2), 0 0 0 4px #eef7f9;
+}
+</style>
+<style>
+[touch-action="none"] {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+
+[touch-action="pan-x"] {
+	-ms-touch-action: pan-x;
+	touch-action: pan-x;
+}
+
+[touch-action="pan-y"] {
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+}
+
+[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]
+	{
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+}
+</style>
+<style id="style-1-cropbar-clipper">
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -90px !important;
+    width: 180px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style>
+<script type="text/javascript">
+	function onwordselect(obj) {
+		wording = document.getElementById("wording")
+		if (obj.value == "点这里选择祝福语") {
+			wording.value = "";
+		} else {
+			wording.value = obj.value;
+		}
+	}
+</script>
+	</head>
+	<body>
+	<form action="/Wap/Hk/save/" class="contact" method="post" id="JoelForm">
+	<p>写在卡片上的话(不超过200字)：</p><br>
+	<input type="hidden" name="type" value="y2111">
+	<input type="hidden" name="openid" value="{$Think.session.sqopenid}">
+    <fieldset class="contact-inner">
+      <!--<p class="contact-input">
+        <label for="select" class="select">
+          <select name="music" id="music" onchange="onmusicselect(this)">
+            <option selected="">使用默认背景音乐</option>
+            <option value="0">今生爱上你</option>
+            <option value="1">Only love</option>
+            <option value="2">你是我的玫瑰花</option>
+         </select>
+        </label>
+      </p>-->
+      <p class="contact-input">
+        <label for="select" class="select">
+          <select id="select" onchange="onwordselect(this)">
+            <option selected="">点这里选择祝福语</option>
+            <option>时光流去，生活辗转，斑驳树影，点滴爱情。希望等到我们老去时，依然能够十指相扣，走过人生的十字路口。因为牵着的手，不会轻易地放开，亲爱的，我爱你！</option><option>爱是缘分，爱是感动，爱是习惯，爱是忍让，爱是宽容，爱是牺牲，爱是体谅，爱是一种幸福的感觉，爱是一辈子的相依相守，爱是一辈子的心灵承诺。我爱上了你，请允许我把你捧在手心，好吗？</option><option>两片树叶，偶尔会吹到一起。两双眼睛，偶尔会碰到一起。然后，两种情绪纠缠在一起，两张笑容，凝固在一起。遇见你，是我一生的幸运！</option><option>爱像是脚印，我们踩着，印着，走到今天。回头，即使脚印早已消失，不复可求，心仍然知道，那是我们走过来的爱。</option><option>执子之手，与子共着。执子之手，与子同眠。执子之手，与子偕老。执子之手，夫复何求？</option><option>我以为我忍住泪水不再想你，我以为我可以忘记一切不再怀念，当黑夜来临，星星却不再点亮我心。当发现再也走不进你心，我终于明白你已成为我一辈子的印记。</option><option>我没有惊天动地的爱情宣言，也没有海枯石烂的爱情承诺。但是我想告诉你：我比上一秒更爱你。 </option><option>气你+逗你=喜欢你，学你+跟你=恋上你，疼你+顺你=不忘你，迷你+念你=依恋你，笑你+乐你=幸福你，短信+真诚=永爱你，你感受到我的爱。</option><option>一年365个日子，今天你最伟大，我们要为你点上蜡烛，一起为你祝福，事事都如你意，祝你永远年轻，爱情也甜蜜，让你今天许下的心愿全部都实现！让我们手牵手，快乐地一起唱,祝你生日快乐，happy birthday for you！</option><option>今天是你的生日：浓浓亲情包围着你，厚厚天地保佑着你，连连好运跟随着你，个个朋友关心着你，甜甜问候祝福着你：生日快乐哦！</option><option>愿你时时刻刻有快乐相伴，分分秒秒与好运缠绵，日日夜夜与安康为伴，年年岁岁有幸福开颜，朝朝暮暮有如意携腕。生日快乐，愿你常与开心做伴。</option><option>有限的空间，有限的文字，给你无限的祝福，大声的对你说：生日快乐！你会是天天快乐的，时时开心的!</option>			
+          </select>
+        </label>
+      </p>
+		
+      <p class="contact-input">	 
+        <textarea name="message" id="wording" value="ddd">{$cache.message}</textarea>
+      </p>
+      <empty name="cache.imgurl">
+      <p class="contact-input" id="upimgwp" style="display: none; text-align: center;">	 
+         <input type="hidden" name="upimg" value="{$cache.upimg}" id="upimginput">
+         <img src="{$cache.imgurl}" id="upimg" style="width: 90%;"></img>
+      </p>
+      <else/>
+      <p class="contact-input" id="upimgwp" style="text-align: center;">	 
+         <input type="hidden" name="upimg" value="{$cache.upimg}" id="upimginput">
+         <img src="{$cache.imgurl}" id="upimg" style="width: 90%;"></img>
+      </p>
+	  </empty>
+    </fieldset>	
+  </form>
+      <!--<p class="contact-submit">
+        <input type="submit" value="修改背景音乐" onclick="gocardmusic()">
+      </p>
+	  <br>-->
+	  <p class="contact-submit">
+        <input type="submit" value="修改背景图片" id="chooseImage">
+      </p>
+	  <br>
+      <p class="contact-submit">
+        <input type="submit" value="生成贺卡" id="gocard">
+      </p>
+      <br>
+      <br>
+      <br>
+      <script>
+      	$('#gocard').on('click',function(){
+      		$('#JoelForm').submit();
+      	});
+      </script>
+     <!--新版分享特效-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+ wx.config({
+      debug: false,
+      appId: "{$jsapi['appId']}",
+	  timestamp: "{$jsapi['timestamp']}",
+	  nonceStr: "{$jsapi['nonceStr']}",
+	  signature: "{$jsapi['signature']}",
+      jsApiList: [
+        'checkJsApi',
+//      'onMenuShareTimeline',
+//      'onMenuShareAppMessage',
+//      'onMenuShareQQ',
+//      'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+//      'translateVoice',
+//      'startRecord',
+//      'stopRecord',
+//      'onRecordEnd',
+//      'playVoice',
+//      'pauseVoice',
+//      'stopVoice',
+//      'uploadVoice',
+//      'downloadVoice',
+	    'chooseImage',
+//      'previewImage',
+	    'uploadImage',
+//      'downloadImage',
+//      'getNetworkType',
+//      'openLocation',
+//      'getLocation',
+//      'hideOptionMenu',
+//      'showOptionMenu',
+//      'closeWindow',
+//      'scanQRCode',
+//      'chooseWXPay',
+//      'openProductSpecificView',
+//      'addCard',
+//      'chooseCard',
+//      'openCard'
+      ]
+  });
+  
+  wx.ready(function () {
+	  	//开启菜单
+	  	//wx.showOptionMenu();
+	  	//隐藏菜单
+	  	wx.hideOptionMenu();
+	  	//选择图片
+	  	var images = {
+		    localId: [],
+		    serverId: []
+		 };
+		 document.querySelector('#chooseImage').onclick = function () {
+		    wx.chooseImage({
+		      success: function (res) {
+		        images.localId = res.localIds;
+		        //alert(images.localId[0]);
+		        //return false;
+		        if(res.localIds){
+		        	images.serverId = [];
+		        	wx.uploadImage({
+			        localId: images.localId[0],
+			        success: function (res) {
+			           images.serverId.push(res.serverId);
+			           $('#upimg').attr('src',images.localId[0]);
+			           $('#upimgwp').show();
+			           //alert(images.serverId[0]);
+			           $('#upimginput').val(images.serverId[0]);
+			        },
+			        fail: function (res) {
+			          alert(JSON.stringify(res));
+			        }
+			      });
+		        }else{
+		        	alert('您没有选择任何图片，将使用默认背景图！');
+		        }
+		      }
+		    });
+		 };
+	   
+  });
+</script>
+	</body>
+</html>
